@@ -1,0 +1,1307 @@
+#inpostpayadmin input {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	border: 1px solid #ddd;
+	background: #fff;
+	box-shadow: 0px 1px 0px 0px #ccc;
+	width: 100%;
+}
+
+#inpostpayadmin input[type="checkbox"] {
+	width: 17px;
+	height: 16px;
+}
+
+#inpostpayadmin input[type="checkbox"]:checked::before {
+	margin: -0.1875rem 0 0 -0.25rem !important;
+	height: 1.3125rem !important;
+	width: 1.3125rem !important;
+}
+
+#inpostpayadmin input::placeholder {
+	color: #72777c;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+#inpostpayadmin .video-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#inpostpayadmin .video-container iframe {
+	height: 100%;
+	width: 260px;
+	height: 157px;
+}
+
+@media screen and (min-width: 360px) {
+	#inpostpayadmin .video-container iframe {
+		width: 290px;
+		height: 180px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .video-container iframe {
+		width: 421px;
+		height: 237px;
+	}
+}
+
+#inpostpayadmin select {
+	border: 1px solid #ddd;
+	background: #fff;
+	box-shadow: 0px 1px 0px 0px #ccc;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url(../img/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position-x: calc(100% - 11px);
+	background-position-y: 12px;
+	border: 1px solid #dfdfdf;
+	border-radius: 2px;
+	padding-right: 2rem;
+	color: #72777c;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	width: 100%;
+	max-width: 230px;
+}
+
+#inpostpayadmin hr {
+	margin-block: 20px;
+	width: 100%;
+}
+
+#inpostpayadmin label {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	width: max-content;
+}
+
+#inpostpayadmin h2 {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+#inpostpayadmin h3 {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+#inpostpayadmin .banner {
+	margin-top: 20px;
+	width: 100%;
+}
+
+#inpostpayadmin .banner img {
+	display: block;
+	max-width: 100%;
+}
+
+#inpostpayadmin .banner .banner-link {
+	display: inline-block;
+  	line-height: 0;
+}
+
+#inpostpayadmin label.label-gray {
+	color: #72777c;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+#inpostpayadmin input[type="submit"] {
+	width: 100%;
+	background-color: #0085ba;
+	border-radius: 3px;
+	border: 1px solid #006799;
+	box-shadow: 0px 2px 0px 0px #006799;
+	height: 26px;
+	min-height: unset;
+	line-height: unset;
+	padding: unset;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0px -1px 1px #006799, 1px 0px 1px #006799, 0px 1px 1px #006799,
+		-1px 0px 1px #006799;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+#inpostpayadmin input[type="submit"]:hover {
+	background-color: #0073aa;
+	border: 1px solid #005f8c;
+	box-shadow: 0px 2px 0px 0px #005f8c;
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin input[type="submit"] {
+		max-width: 334px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .submit {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	#inpostpayadmin input[disabled] {
+		cursor: not-allowed;
+		background-color: #e5e5e5;
+	}
+}
+
+#inpostpayadmin .nav-tab-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#inpostpayadmin .nav-tab {
+	border: none;
+	background: #f0f0f1;
+	color: #555555;
+	padding-bottom: 10px;
+	margin: 0;
+	cursor: pointer;
+}
+
+#inpostpayadmin .nav-tab:focus {
+	box-shadow: none;
+}
+
+#inpostpayadmin .nav-tab:hover {
+	color: #0073aa;
+}
+
+#inpostpayadmin .nav-tab-active {
+	color: #0073aa;
+	border-bottom: 2px solid #0073aa;
+}
+
+#inpostpayadmin .tab-content {
+	border: 1px solid #e5e5e5;
+	background: #fff;
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.07);
+	margin-top: 20px;
+	padding: 20px 25px 20px 25px;
+}
+
+#inpostpayadmin .tab-content-no-background {
+	border: none;
+	background: none;
+	box-shadow: none;
+}
+
+#inpostpayadmin .tab-content-without-padding {
+	padding: 0;
+}
+
+#inpostpayadmin .tab-content-hidden {
+	display: none;
+}
+
+#inpostpayadmin .tab-content-bg-gray {
+	background: #f1f1f1;
+	border: none;
+	box-shadow: unset;
+	padding: 0;
+}
+
+#inpostpayadmin .input-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: space-between;
+	gap: 20px;
+	max-width: 1080px;
+	width: 100%;
+	margin-block: 15px;
+}
+
+#inpostpayadmin .input-wrapper--center {
+	align-items: center;
+}
+
+#inpostpayadmin .form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#inpostpayadmin .form-group--row {
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+	#inpostpayadmin .form-group--row {
+		flex-direction: column-reverse;
+		align-items: flex-start;
+	}
+}
+
+/* Tooltip */
+
+#inpostpayadmin .input-tooltip {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+#inpostpayadmin .input-tooltip-wrapper {
+	position: relative;
+	height: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+	#inpostpayadmin .input-tooltip-wrapper-active .input-tooltip-box {
+		display: flex;
+		position: fixed;
+		background-color: #ffffff;
+		top: 50%;
+		left: 50%;
+		padding: 10px;
+		border: 1px solid #e5e5e5;
+		border-radius: 3px;
+		margin: 0;
+		max-width: 80%;
+		width: 100%;
+		z-index: 9999;
+		transform: translate(-50%, -50%);
+	}
+
+	#inpostpayadmin .input-tooltip-wrapper-active .input-tooltip-box::after {
+		content: "";
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: -20px;
+		right: 0;
+		background: url(../img/close.svg) no-repeat;
+		background-size: 100% 100%;
+	}
+
+	#inpostpayadmin .input-tooltip-wrapper-active .input-tooltip-box p {
+		margin: 0;
+		width: max-content;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#inpostpayadmin .input-tooltip-wrapper:hover .input-tooltip-box {
+		display: flex;
+		position: absolute;
+		background-color: #ffffff;
+		bottom: 25px;
+		left: 0;
+		padding: 10px;
+		border: 1px solid #e5e5e5;
+		border-radius: 3px;
+		margin: 0;
+		max-width: 400px;
+	}
+
+	#inpostpayadmin .input-tooltip-wrapper:hover .input-tooltip-box p {
+		margin: 0;
+		width: max-content;
+	}
+}
+
+#inpostpayadmin .input-tooltip-box {
+	display: none;
+}
+
+#inpostpayadmin .input-tooltip-wrapper img {
+	cursor: pointer;
+}
+
+/* API settings table */
+
+#inpostpayadmin .api-settings-table tbody,
+#inpostpayadmin .net-transport-price-table tbody,
+.agreements-table tbody,
+.gui-settings-table tbody {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	max-width: 1000px;
+}
+
+.agreements-table tbody {
+	max-width: 700px;
+}
+
+#inpostpayadmin .api-settings-table tr,
+#inpostpayadmin .net-transport-price-table tr,
+.agreements-table tr,
+.gui-settings-table tr {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#inpostpayadmin .api-settings-table td:first-child,
+#inpostpayadmin .net-transport-price-table td:first-child,
+.agreements-table td:first-child,
+.gui-settings-table td:first-child {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+/* Support tab */
+
+#inpostpayadmin .support-tab {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-column-gap: 16px;
+	grid-row-gap: 16px;
+	background: #f1f1f1;
+}
+
+@media screen and (min-width: 1200px) {
+	#inpostpayadmin .support-tab {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+#inpostpayadmin .support-tab-title {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin: 0 !important;
+}
+
+#inpostpayadmin .support-tab-info-text {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin: 0 !important;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+#inpostpayadmin .div1 {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	padding: 20px;
+}
+
+@media screen and (min-width: 1200px) {
+	#inpostpayadmin .div1 {
+		grid-area: 1 / 1 / 2 / 4;
+		padding: 22px 40px;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	#inpostpayadmin .div1 {
+		grid-area: 1 / 1 / 2 / 4;
+		padding: 22px 63px;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+}
+
+@media screen and (min-width: 1900px) {
+	#inpostpayadmin .div1 {
+		grid-area: 1 / 1 / 2 / 4;
+		padding: 22px 143px;
+		justify-content: space-between;
+		flex-direction: row;
+	}
+}
+
+#inpostpayadmin .div2 {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+#inpostpayadmin .support-tab-box {
+	border: 1px solid #e5e5e5;
+	background: #fff;
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.07);
+}
+
+#inpostpayadmin .support-tab-box-full-size {
+	height: 100%;
+}
+
+#inpostpayadmin .support-tab-left-side {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 697px;
+}
+
+#inpostpayadmin .support-tab-left-side ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+#inpostpayadmin .support-tab-top-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
+	padding: 22px 28px 17px 28px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 500px) {
+	#inpostpayadmin .support-tab-top-bar {
+		flex-direction: row;
+	}
+}
+
+#inpostpayadmin .support-tab-top-bar-flex-start {
+	display: flex;
+	justify-content: flex-start;
+}
+
+#inpostpayadmin .support-tab-bottom {
+	padding: 22px 28px 17px 28px;
+}
+
+#inpostpayadmin .support-tab-bottom-two-columns {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .support-tab-bottom-two-columns {
+		flex-direction: row;
+	}
+}
+
+#inpostpayadmin .support-tab-bottom-left-side {
+	display: flex;
+	gap: 13px;
+	flex: 1;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	justify-content: center;
+	width: 100%;
+	padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .support-tab-bottom-left-side {
+		border-right: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: unset;
+		padding: 0;
+		height: 46px;
+	}
+}
+
+#inpostpayadmin .support-tab-bottom-left-side a {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: #0073aa;
+	font-family: Arial;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	text-decoration: none;
+}
+
+@media screen and (min-width: 1920px) {
+	#inpostpayadmin .support-tab-bottom-left-side a {
+		font-size: 16px;
+	}
+}
+
+#inpostpayadmin .support-tab-bottom-right-side {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	gap: 13px;
+}
+
+#inpostpayadmin .support-tab-top-bar-left-side {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#inpostpayadmin .support-tab-button {
+	color: #555;
+	text-align: center;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	background: #f7f7f7;
+	box-shadow: 0px 1px 0px 0px rgba(204, 204, 204, 0.5);
+	padding: 7px 15px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#inpostpayadmin .support-tab-secondary-title {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 16px !important;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .support-tab-secondary-title {
+		font-size: 18px !important;
+		text-align: left;
+	}
+}
+
+#inpostpayadmin .text-green {
+	color: #08b708;
+	font-family: Arial;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+#inpostpayadmin .support-tab-bottom-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-left: 15px;
+	margin: 0;
+}
+
+#inpostpayadmin .support-tab-bottom-item {
+	color: #0073aa;
+	font-family: Arial;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	text-decoration-line: underline;
+	line-height: 24px;
+}
+
+#inpostpayadmin .support-tab-bottom-item::before {
+	content: "";
+	border-color: transparent #0073aa;
+	border-style: solid;
+	border-width: 0.25em 0 0.25em 0.35em;
+	display: block;
+	height: 0;
+	width: 0;
+	left: -0.8em;
+	top: 0.9em;
+	position: relative;
+}
+
+#inpostpayadmin .support-tab-icon-wrapper {
+	padding: 11px;
+	border-radius: 5px;
+	background: #ffcc0010;
+	margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+	#inpostpayadmin .support-tab-icon-wrapper {
+		margin-right: 20px;
+	}
+}
+
+#inpostpayadmin .button-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+#inpostpayadmin .button-wrapper-right-side {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 414px;
+	background-color: #f8f8f8;
+	border: 1px solid #dcdcdc;
+	padding: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+	#inpostpayadmin .button-wrapper-right-side {
+		padding: 40px 30px;
+	}
+}
+
+/* Checkbox toggle */
+
+#inpostpayadmin .inactiveMixin {
+	content: "";
+	position: absolute;
+	display: block;
+}
+
+#inpostpayadmin .beforeAnimation {
+	transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+}
+
+#inpostpayadmin .afterAnimation {
+	box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1),
+		0 4px 0px 0 hsla(0, 0%, 0%, 0.04), 0 4px 9px hsla(0, 0%, 0%, 0.13),
+		0 3px 3px hsla(0, 0%, 0%, 0.05);
+	transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+}
+
+#inpostpayadmin.toggleWrapper {
+	margin: auto;
+	padding: 20px;
+	width: 55px;
+	border: 1px solid lightgray;
+	margin-top: 20px;
+	border-radius: 5px;
+	background: white;
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle {
+	opacity: 0;
+	position: absolute;
+	width: max-content;
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle + label {
+	position: relative;
+	display: inline-block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: 0.4s ease;
+	height: 30px;
+	width: 50px;
+	border: 1px solid #e4e4e4;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle + label:before {
+	content: "";
+	position: absolute;
+	display: block;
+	transition: 0.2s cubic-bezier(0.24, 0, 0.5, 1);
+	height: 30px;
+	width: 51px;
+	top: 0;
+	left: 0;
+	border-radius: 30px;
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle + label:after {
+	content: "";
+	position: absolute;
+	display: block;
+	box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1),
+		0 4px 0px 0 hsla(0, 0%, 0%, 0.04), 0 4px 9px hsla(0, 0%, 0%, 0.13),
+		0 3px 3px hsla(0, 0%, 0%, 0.05);
+	transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
+	background: whitesmoke;
+	height: 28px;
+	width: 28px;
+	top: 1px;
+	left: 0px;
+	border-radius: 60px;
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle:checked + label:before {
+	background: #0073aa;
+	transition: width 0.2s cubic-bezier(0, 0, 0, 0.1);
+}
+
+#inpostpayadmin .toggleWrapper input.mobileToggle:checked + label:after {
+	left: 24px;
+}
+
+/* Utils */
+
+#inpostpayadmin .text-bold {
+	color: #23282d;
+	font-family: Arial;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin: 0;
+}
+
+#inpostpayadmin .my-2 {
+	margin-block: 20px;
+}
+
+#inpostpayadmin .mb-05 {
+	margin-bottom: 5px;
+}
+
+#inpostpayadmin .mb-1 {
+	margin-bottom: 10px;
+}
+
+#inpostpayadmin .mb-2 {
+	margin-bottom: 20px;
+}
+
+#inpostpayadmin .mt-2 {
+	margin-top: 20px;
+}
+
+#inpostpayadmin .mt-3 {
+	margin-top: 30px;
+}
+
+#inpostpayadmin .mr-0 {
+	margin-right: 0;
+}
+
+#inpostpayadmin .pr-0 {
+	padding-right: 0;
+}
+
+#inpostpayadmin .d-flex-align-center {
+	display: flex;
+	gap: 20px;
+}
+
+#general_product_data .inpost_pay_omnibus_price_field {
+	padding: 5px 20px !important;
+}
+
+@media screen and (min-width: 501px) {
+	#general_product_data .inpost_pay_omnibus_price_field {
+		padding: 5px 20px 5px 162px !important;
+	}
+}
+
+#general_product_data #inpost_pay_omnibus_price {
+	width: 80%;
+}
+
+@media screen and (min-width: 1281px) {
+	#general_product_data #inpost_pay_omnibus_price {
+		width: 50%;
+	}
+}
+
+#general_product_data .inpost_pay_omnibus_price_field .description {
+	width: 80%;
+	padding-top: 5px;
+}
+
+@media screen and (min-width: 1281px) {
+	#general_product_data .inpost_pay_omnibus_price_field .description {
+		width: 50%;
+	}
+}
+
+.variable_pricing .inpost_pay_omnibus_price_field {
+	width: 100%;
+	float: right;
+	display: flex;
+	flex-direction: column;
+}
+
+.variable_pricing .inpost_pay_omnibus_price_field .wc_input_price {
+	margin: 2px 0 0;
+	padding: 5px;
+	width: 100%;
+}
+
+.variable_pricing .inpost_pay_omnibus_price_field .description {
+	padding-top: 5px;
+}
+
+#inpostpayadmin .justify-content-between {
+	justify-content: space-between;
+}
+
+#inpostpayadmin body {
+	font-family: Arial, sans-serif;
+}
+
+/* Flex container for each consent item */
+#inpostpayadmin .consent-item {
+	display: flex;
+	flex-direction: column;
+	margin: 15px 0;
+
+	border: 1px solid #e5e5e5;
+	background-color: #fff;
+	box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.07);
+	padding: 20px 25px 20px 25px;
+}
+
+/* Flex row for each label + input/select combo */
+#inpostpayadmin .form-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+#inpostpayadmin .form-row label {
+	min-width: 150px;
+	margin-right: 10px;
+	flex: 1;
+}
+
+#inpostpayadmin .form-row select,
+#inpostpayadmin .form-row textarea {
+	flex: 2;
+	min-width: 200px;
+	padding: 5px;
+}
+
+#inpostpayadmin textarea {
+	width: 100%;
+	border: 1px solid #dfdfdf;
+}
+
+#inpostpayadmin .form-row .flex-50 {
+	flex: 50%;
+}
+
+/* For additional links section */
+#inpostpayadmin .additional-consent-links {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
+
+#inpostpayadmin .additional-link-container {
+	width: 100%;
+}
+
+#inpostpayadmin .additional-links-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 5px;
+	width: 100%;
+}
+
+#inpostpayadmin .additional-links-container select {
+	margin-right: 10px;
+	flex: 1;
+}
+
+/* Styling for the buttons */
+#inpostpayadmin .agreements-container button {
+	background-color: #fdcb00;
+	color: #000;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 10px 0;
+	border-style: solid;
+	border-width: 1px 1px 3px 1px;
+	border-color: #e8b802;
+	width: 200px;
+	height: 45px;
+}
+
+#inpostpayadmin .agreements-container .remove-btn,
+#inpostpayadmin .agreements-container .remove-additional-link-btn {
+	color: #0073aa;
+	background-color: transparent;
+	border: none;
+	margin-left: auto;
+	cursor: pointer;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+}
+
+#inpostpayadmin button:hover,
+#inpostpayadmin .remove-btn:hover {
+	opacity: 0.9;
+}
+
+#inpostpayadmin #consentTemplate,
+#inpostpayadmin #additionalLinkTemplate {
+	display: none;
+}
+
+#inpostpayadmin label.consent-label {
+	min-width: unset;
+	margin-right: unset;
+}
+
+#inpostpayadmin .add-additional-link-btn {
+	height: 25px !important;
+	padding: 0 !important;
+}
+
+#inpostpayadmin .izi-no-delivery-method-selected {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 10px;
+}
+
+#inpostpayadmin .izi-no-delivery-method-selected p {
+	color: #f5143a;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+#inpostpayadmin .izi-section-inactive {
+	display: none;
+}
+
+#inpostpayadmin .izi-transport-price-heading {
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+
+#inpostpayadmin .izi-transport-price-heading-secondary {
+	margin: 0 0 8px 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+#inpostpayadmin .izi-transport-price-desc p {
+	margin-block: unset;
+}
+
+#inpostpayadmin .izi-transport-switchers {
+	display: flex;
+	gap: 50px;
+}
+
+#inpostpayadmin .izi-transport-group {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+@media screen and (max-width: 767px) {
+	#inpostpayadmin .izi-transport-group {
+		padding: 10px;
+	}
+}
+
+#inpostpayadmin .izi-group-checkbox-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+#inpostpayadmin .izi-group-subgroup {
+	padding-left: 34px;
+}
+
+@media screen and (max-width: 767px) {
+	#inpostpayadmin .izi-group-subgroup {
+		padding-left: 10px;
+	}
+}
+
+#inpostpayadmin .izi-group-subgroup-radio {
+	position: relative;
+	top: 3px;
+	width: 16px;
+	height: 16px;
+}
+
+#inpostpayadmin .izi-group-subgroup-radio:checked::before {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: unset !important;
+}
+
+#inpostpayadmin .izi-transport-form-group {
+	display: flex;
+	gap: 10px;
+}
+
+#inpostpayadmin .izi-transport-form-subgroup {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#inpostpayadmin .izi-low-opacity {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+#inpostpayadmin .izi-courier-section select,
+#inpostpayadmin .izi-courier-section input[type="text"],
+#inpostpayadmin .izi-courier-section input[type="number"],
+#inpostpayadmin .izi-apm-section select,
+#inpostpayadmin .izi-apm-section input[type="text"],
+#inpostpayadmin .izi-apm-section input[type="number"] {
+	width: 200px;
+}
+
+@media screen and (max-width: 767px) {
+	#inpostpayadmin .izi-date-time-group {
+		flex-direction: column;
+	}
+}
+
+#inpostpayadmin .sticked-notice {
+	background: #fff;
+	padding: 1px 12px;
+	margin: 5px 0 15px;
+	border: 1px solid #c3c4c7;
+	border-left-width: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+	outline: 0;
+	unicode-bidi: isolate;
+}
+
+#inpostpayadmin .sticked-notice.notice-error {
+	border-left-color: #d63638; !important
+}
+
+.inpost-pay-button-editor {
+	border: 1px dashed #ccc;
+	padding: 20px;
+	text-align: center;
+	background-color: #f9f9f9;
+  }
+
+  .inpost-pay-preview-placeholder {
+	padding: 20px;
+	background-color: #f0f0f0;
+	border: 1px solid #ddd;
+	color: #666;
+	font-style: italic;
+	text-align: center;
+  }
+
+  .inpost-pay-preview-placeholder--error {
+	background-color: #ffebee;
+	border-color: #f44336;
+	color: #c62828;
+  }
+
+  .inpost-pay-button-preview-wrapper {
+	text-align: center;
+  }
+
+  .inpost-pay-button-preview {
+	margin-bottom: 10px;
+  }
+
+  .inpost-pay-preview-info {
+	margin-top: 10px;
+	padding: 8px;
+	background-color: #e3f2fd;
+	border: 1px solid #2196f3;
+	color: #1976d2;
+	font-size: 12px;
+	border-radius: 4px;
+  }
+
+  .inpost-pay-button-preview inpost-izi-button {
+	pointer-events: none;
+  }
+
+#inpostpayadmin .izi-zone-container {
+	margin: 20px 0;
+}
+
+#inpostpayadmin .izi-zone-section {
+	margin-bottom: 15px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	transition: box-shadow 0.3s ease;
+}
+
+#inpostpayadmin .izi-zone-section:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#inpostpayadmin .izi-zone-heading {
+	background-color: #f0f5fa;
+	padding: 15px 20px;
+	width: 100%;
+	text-align: left;
+	border: none;
+	cursor: pointer;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 16px;
+	font-weight: 600;
+	color: #2c3338;
+	transition: background-color 0.2s ease;
+	border-left: 5px solid #007cba;
+}
+
+#inpostpayadmin .izi-zone-heading:hover {
+	background-color: #e5edf5;
+}
+
+#inpostpayadmin .izi-zone-heading.active {
+	background-color: #e5edf5;
+	border-bottom: 1px solid #ddd;
+}
+
+#inpostpayadmin .izi-zone-title {
+	font-size: 16px;
+	flex-grow: 0;
+}
+
+#inpostpayadmin .izi-zone-default {
+	color: #666;
+	font-size: 14px;
+	font-style: italic;
+	margin-left: 10px;
+	font-weight: normal;
+	flex-grow: 1;
+}
+
+#inpostpayadmin .izi-zone-toggle-icon {
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	position: relative;
+	margin-left: 10px;
+}
+
+#inpostpayadmin .izi-zone-toggle-icon:before,
+#inpostpayadmin .izi-zone-toggle-icon:after {
+	content: '';
+	position: absolute;
+	background-color: #555;
+	transition: transform 0.25s ease-out;
+}
+
+#inpostpayadmin .izi-zone-toggle-icon:before {
+	top: 6px;
+	left: 0;
+	width: 14px;
+	height: 2px;
+}
+
+#inpostpayadmin .izi-zone-toggle-icon:after {
+	top: 0;
+	left: 6px;
+	width: 2px;
+	height: 14px;
+}
+
+#inpostpayadmin .izi-zone-heading.active .izi-zone-toggle-icon:after {
+	transform: rotate(90deg);
+}
+
+#inpostpayadmin .izi-zone-content {
+	padding: 20px;
+	border-top: none;
+	background-color: #fff;
+}
+
+@media (max-width: 782px) {
+	#inpostpayadmin .izi-zone-heading {
+		padding: 12px 15px;
+	}
+
+	#inpostpayadmin .izi-zone-title {
+		font-size: 15px;
+	}
+
+	#inpostpayadmin .izi-zone-default {
+		font-size: 13px;
+	}
+}
+
+@keyframes iziHighlightFade {
+	0%   { opacity: 1; transform: scale(1); }
+	70%  { opacity: 1; transform: scale(1); }
+	100% { opacity: 0; transform: scale(1); }
+}
+
+.izi-highlight {
+	position: relative;
+}
+
+.izi-highlight::after {
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: -6px;
+	right: -6px;
+	bottom: -6px;
+	border-radius: 8px;
+	box-shadow: 0 0 12px rgba(34, 113, 177, 0.6);
+	pointer-events: none;
+	animation: iziHighlightFade 4s ease-out forwards;
+}
+
+.input-tooltip-box--error, .input-tooltip-box--error p {
+	color: red;
+}

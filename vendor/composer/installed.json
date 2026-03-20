@@ -1,0 +1,54 @@
+{
+    "packages": [
+        {
+            "name": "isolated-guzzlehttp-guzzle/isolated-guzzle",
+            "version": "7.5.1",
+            "version_normalized": "7.5.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "ilabs/setup/isolated_dependencies/isolated-guzzle-7.5.1.zip"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "install-path": "../isolated-guzzlehttp-guzzle/isolated-guzzle"
+        },
+        {
+            "name": "isolated-ilabs-plugin/ilabs-plugin",
+            "version": "1.3.1",
+            "version_normalized": "1.3.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "ilabs/setup/isolated_dependencies/isolated-ilabs-plugin-1.3.1.zip"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "install-path": "../isolated-ilabs-plugin/ilabs-plugin"
+        },
+        {
+            "name": "isolated-maennchen-zipstream/isolated-zipstream",
+            "version": "2.1.0",
+            "version_normalized": "2.1.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "ilabs/setup/isolated_dependencies/isolated-zipstream-2.1.0.zip"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "install-path": "../isolated-maennchen-zipstream/isolated-zipstream"
+        },
+        {
+            "name": "isolated-pimple-pimple/isolated-pimple",
+            "version": "3.4.0",
+            "version_normalized": "3.4.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "ilabs/setup/isolated_dependencies/isolated-pimple-3.4.0.zip"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "install-path": "../isolated-pimple-pimple/isolated-pimple"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

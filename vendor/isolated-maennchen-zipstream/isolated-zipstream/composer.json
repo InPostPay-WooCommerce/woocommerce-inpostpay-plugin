@@ -1,0 +1,8 @@
+{
+    "config": {
+        "autoloader-suffix": "0aedc695c085db1382396011c26b900d"
+    },
+    "require": {
+        "maennchen\/zipstream-php": "2.1.0"
+    }
+}

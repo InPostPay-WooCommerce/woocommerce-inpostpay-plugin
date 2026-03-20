@@ -1,0 +1,5 @@
+<?php
+
+namespace {
+    return array('root' => array('name' => '__root__', 'pretty_version' => 'dev-main', 'version' => 'dev-main', 'reference' => '1f529f12e77d19195e5a8cdda166ef50e94d8409', 'type' => 'library', 'install_path' => __DIR__ . '/../../', 'aliases' => array(), 'dev' => \true), 'versions' => array('__root__' => array('pretty_version' => 'dev-main', 'version' => 'dev-main', 'reference' => '1f529f12e77d19195e5a8cdda166ef50e94d8409', 'type' => 'library', 'install_path' => __DIR__ . '/../../', 'aliases' => array(), 'dev_requirement' => \false), 'pimple/pimple' => array('pretty_version' => 'v3.4.0', 'version' => '3.4.0.0', 'reference' => '86406047271859ffc13424a048541f4531f53601', 'type' => 'library', 'install_path' => __DIR__ . '/../pimple/pimple', 'aliases' => array(), 'dev_requirement' => \false), 'psr/container' => array('pretty_version' => '1.1.2', 'version' => '1.1.2.0', 'reference' => '513e0666f7216c7459170d56df27dfcefe1689ea', 'type' => 'library', 'install_path' => __DIR__ . '/../psr/container', 'aliases' => array(), 'dev_requirement' => \false)));
+}

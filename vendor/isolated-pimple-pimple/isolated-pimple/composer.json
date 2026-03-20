@@ -1,0 +1,8 @@
+{
+    "config": {
+        "autoloader-suffix": "ec9cc507f262c0625c06396a5cb6f6d0"
+    },
+    "require": {
+        "pimple\/pimple": "3.4.0"
+    }
+}

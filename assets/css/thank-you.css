@@ -1,0 +1,13 @@
+body.inpost-thank-you-page .grid-container > .site-content {
+	display: grid !important;
+}
+
+body.inpost-thank-you-page .site-content:has(> .ast-container) {
+	display: initial !important;
+}
+
+body.inpost-thank-you-page
+	.site-content:has(> .ast-container)
+	> .ast-container {
+	display: grid !important;
+}

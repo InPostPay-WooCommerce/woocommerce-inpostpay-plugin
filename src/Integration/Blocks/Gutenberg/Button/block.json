@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "inpost-pay/gutenberg-button",
+  "version": "1.0.0",
+  "title": "InPost Pay Button",
+  "category": "woocommerce",
+  "icon": "money-alt",
+  "description": "Add InPost Pay button to your content",
+  "keywords": ["inpost", "payment", "checkout"],
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "align": ["left", "center", "right"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "interactivity": true,
+    "multiple": false
+  },
+  "attributes": {
+    "variant": {
+      "type": "string",
+      "default": "primary"
+    },
+    "background": {
+      "type": "string",
+      "default": "bright"
+    },
+    "bindingPlace": {
+      "type": "string",
+      "default": "PRODUCT_CARD"
+    },
+    "frameStyle": {
+      "type": "string",
+      "default": "none"
+    },
+    "size": {
+      "type": "string",
+      "default": "size-sm"
+    }
+  },
+  "textdomain": "inpost-pay",
+  "editorScript": "file:./index.js"
+}

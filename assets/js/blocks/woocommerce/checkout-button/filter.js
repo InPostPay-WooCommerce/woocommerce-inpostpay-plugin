@@ -1,0 +1,2 @@
+document.addEventListener("DOMContentLoaded",function(){(0,window.wc.blocksCheckout.registerCheckoutFilters)("inpost-pay-gutenberg-block",{additionalCartCheckoutInnerBlockTypes:function(t,e,n,o){return t.push("inpost-pay/gutenberg-button"),t}})});
+//# sourceMappingURL=filter.js.map
