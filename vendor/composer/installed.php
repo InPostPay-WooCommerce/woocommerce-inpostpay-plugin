@@ -3,7 +3,7 @@
         'name' => 'inspirelabs/rehabilito-integration',
         'pretty_version' => 'v2.0.7',
         'version' => '2.0.7.0',
-        'reference' => '996a1481e7c4e9732ab950d1ae4dfd4e00ae2eda',
+        'reference' => '8941e8a9b55486bf6a81ed4618ab1e1c34da0861',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'inspirelabs/rehabilito-integration' => array(
             'pretty_version' => 'v2.0.7',
             'version' => '2.0.7.0',
-            'reference' => '996a1481e7c4e9732ab950d1ae4dfd4e00ae2eda',
+            'reference' => '8941e8a9b55486bf6a81ed4618ab1e1c34da0861',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

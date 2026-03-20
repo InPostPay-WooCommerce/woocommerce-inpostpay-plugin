@@ -18,7 +18,7 @@
                     <select id="izi-background-select" name="izi_background">
                         <?php
                         $selectedOption = esc_attr(
-                            get_option("izi_background", 'dark')
+                            get_option("izi_background", 'bright')
                         );
                         foreach (
                             $availableBackgrounds

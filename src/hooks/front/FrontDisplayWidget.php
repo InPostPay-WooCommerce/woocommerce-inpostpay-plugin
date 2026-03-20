@@ -80,7 +80,7 @@ class FrontDisplayWidget extends FrontBase {
 					$this->display(
 						$post->ID,
 						'',
-						esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+						esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 						esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 						false,
 						esc_attr( get_option( 'izi_align_list' ) ),
@@ -306,7 +306,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			$id,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			true,
 			esc_attr( get_option( 'izi_align_details' ) ),
@@ -349,7 +349,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			null,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			true,
 			esc_attr( get_option( 'izi_align_basket' ) ),
@@ -424,7 +424,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			null,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			false,
 			esc_attr( get_option( 'izi_align_order' ) ),
@@ -446,7 +446,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			null,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			false,
 			esc_attr( get_option( 'izi_align_checkout' ) ),
@@ -468,7 +468,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			null,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			false,
 			esc_attr( get_option( 'izi_align_login_page' ) ),
@@ -490,7 +490,7 @@ class FrontDisplayWidget extends FrontBase {
 		$this->display(
 			null,
 			$styles,
-			esc_attr( get_option( 'izi_background', 'dark' ) ) === 'dark',
+			esc_attr( get_option( 'izi_background', 'bright' ) ) === 'dark',
 			esc_attr( get_option( 'izi_variant', 'primary' ) ) === 'primary',
 			false,
 			esc_attr( get_option( 'izi_align_minicart' ) ),
