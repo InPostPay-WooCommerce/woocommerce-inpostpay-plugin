@@ -11,10 +11,12 @@ class BundledItemFactory {
 			$parentBundleProductId = $cartItemFilterInterface->resolveParentBundleProductId( $rawCartItemData );
 			if ( $parentBundleProductId ) {
 
-				return new BundledItem( $rawCartItemData,
+				return new BundledItem(
+					$rawCartItemData,
 					$parentBundleProductId,
 					$cartItemFilterInterface,
-					$cart );
+					$cart
+				);
 			}
 		}
 

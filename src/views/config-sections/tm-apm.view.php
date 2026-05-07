@@ -1,185 +1,170 @@
 <?php
-
 /**
- * @var $zone_id int|null
+ * Transport method APM config section view.
+ *
+ * @package InPost_Pay
  */
 
-$pwwApmSettingsGroup = inpost_pay()
+use function Ilabs\Inpost_Pay\inpost_pay;
+
+/**
+ * Zone ID.
+ *
+ * @var int|null $zone_id
+ */
+
+$pww_apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
 	->getPwwApmSettingsGroup();
 
-$codApmSettingsGroup = inpost_pay()
+$cod_apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
 	->getCodApmSettingsGroup();
 
-$apmSettingsGroup = inpost_pay()
+$apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
 	->getApmSettingsGroup();
 
-$apmCodGroupIsActiveField = inpost_pay()
+$apm_cod_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodApmSettingsGroup()->getIsActiveField();
+	->getCodApmSettingsGroup()
+	->getIsActiveField();
 
-$apmPwwGroupIsActiveField = inpost_pay()
+$apm_pww_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getPwwApmSettingsGroup()->getIsActiveField();
+	->getPwwApmSettingsGroup()
+	->getIsActiveField();
 
-
-$apmCodOptionCostMappingApproachObj = inpost_pay()
+$apm_cod_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodApmSettingsGroup()->getOptionCostMappingApproachObj();
+	->getCodApmSettingsGroup()
+	->getOptionCostMappingApproachObj();
 
-$apmCodOptionCostMappingApproachCheckedValFee    = $apmCodOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_FEE;
-$apmCodOptionCostMappingApproachCheckedValMethod = $apmCodOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
-$apmCodOptionCostMappingApproachVal              = $apmCodOptionCostMappingApproachObj->get();
+$apm_cod_option_cost_mapping_approach_checked_val_fee    =
+	$apm_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
+$apm_cod_option_cost_mapping_approach_checked_val_method =
+	$apm_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
+$apm_cod_option_cost_mapping_approach_val                = $apm_cod_option_cost_mapping_approach_obj->get();
 
-
-$apmPwwOptionCostMappingApproachObj = inpost_pay()
+$apm_pww_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getPwwApmSettingsGroup()->getOptionCostMappingApproachObj();
+	->getPwwApmSettingsGroup()
+	->getOptionCostMappingApproachObj();
 
-$apmPwwOptionCostMappingApproachCheckedValFee    = $apmPwwOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_FEE;
-$apmPwwOptionCostMappingApproachCheckedValMethod = $apmPwwOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
-$apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingApproachObj->get();
-
+$apm_pww_option_cost_mapping_approach_checked_val_fee    =
+	$apm_pww_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
+$apm_pww_option_cost_mapping_approach_checked_val_method =
+	$apm_pww_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
+$apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_mapping_approach_obj->get();
 ?>
-
 
 <div class="consent-item">
 	<h2 class="izi-transport-price-heading-secondary">
-		<?php
-		_e(
-			"Parcel Locker:",
-			"inpost-pay"
-		); ?>
+		<?php esc_html_e( 'Parcel Locker:', 'inpost-pay' ); ?>
 	</h2>
 
 	<div class="input-wrapper">
 		<div class="form-group">
 			<label class="mb-05">
-				<?php _e(
-					"Carrier mapping",
-					"inpost-pay"
-				); ?>
+				<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 			</label>
 			<div class="input-tooltip">
 				<div>
-					<select
-						name="<?php echo esc_attr( $apmSettingsGroup->getShippingMethodField()
-																	->get_field_name() ) ?>">
+					<select name="<?php echo esc_attr( $apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
 						<option value="0">
-							<?php _e( "Select", "inpost-pay" ); ?>
+							<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 						</option>
 						<?php
-						$selectedOption = esc_attr(
-							$apmSettingsGroup->getShippingMethodField()
-											 ->get()
-						);
-						foreach (
-							$availableShippingMethods
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}</option>";
+						$selected_option = (string) $apm_settings_group->getShippingMethodField()->get();
+
+						foreach ( $available_shipping_methods as $value => $label ) {
+							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 						}
 						?>
 					</select>
 				</div>
 				<div class="input-tooltip-wrapper">
-					<img src="<?php echo plugin_dir_url(
-											 __FILE__
-										 ) .
-										 "../../../assets/img/tooltip.svg"; ?>"
-						 alt="">
+					<img
+						src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+						alt=""
+					>
 					<div class="input-tooltip-box">
-						<p><?php _e(
-								"Determines which shipping method is to be associated",
-								"inpost-pay"
-							); ?></p>
+						<p>
+							<?php esc_html_e( 'Determines which shipping method is to be associated', 'inpost-pay' ); ?>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	</table>
-
 	<div class="izi-group-apm-cod izi-transport-group mb-2">
 		<div class="izi-group-checkbox-wrapper izi-transport-group-opacity">
-			<input class="mobileToggle" type="checkbox"
-				   id="<?php esc_attr_e( $apmCodGroupIsActiveField->get_field_name() ); ?>"
-				   name="<?php esc_attr_e( $apmCodGroupIsActiveField->get_field_name() ); ?>"
-				   value="1" <?= $apmCodGroupIsActiveField->get_bool( true )
-				? "checked"
-				: "" ?>>
+			<input
+				class="mobileToggle"
+				type="checkbox"
+				id="<?php echo esc_attr( $apm_cod_group_is_active_field->get_field_name() ); ?>"
+				name="<?php echo esc_attr( $apm_cod_group_is_active_field->get_field_name() ); ?>"
+				value="1"
+				<?php checked( $apm_cod_group_is_active_field->get_bool( true ) ); ?>
+			>
 
 			<label
 				class="mr-0 pr-0 text-bold"
-				for="<?php esc_attr_e( $apmCodGroupIsActiveField->get_field_name() ); ?>"><?php esc_attr_e( $apmCodGroupIsActiveField->get_label() ); ?></label>
+				for="<?php echo esc_attr( $apm_cod_group_is_active_field->get_field_name() ); ?>"
+			>
+				<?php echo esc_html( $apm_cod_group_is_active_field->get_label() ); ?>
+			</label>
 
 			<div class="input-tooltip-wrapper">
-				<img src="<?php echo plugin_dir_url(
-										 __FILE__
-									 ) .
-									 "../../../assets/img/tooltip.svg"; ?>"
-					 alt="">
+				<img
+					src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+					alt=""
+				>
 				<div class="input-tooltip-box">
-					<p><?php esc_attr_e( $apmCodGroupIsActiveField->get_tooltip() ) ?></p>
+					<p><?php echo esc_html( $apm_cod_group_is_active_field->get_tooltip() ); ?></p>
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-group-subgroup">
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $apmCodOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $apmCodOptionCostMappingApproachCheckedValMethod ?>"<?php if ( $apmCodOptionCostMappingApproachCheckedValMethod === $apmCodOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $apm_cod_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $apm_cod_option_cost_mapping_approach_checked_val_method ); ?>"
+						<?php checked( $apm_cod_option_cost_mapping_approach_checked_val_method, $apm_cod_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
 						<label>
-							<?php _e(
-								"Carrier mapping",
-								"inpost-pay"
-							); ?>
+							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select
-								name="<?php echo esc_attr( $codApmSettingsGroup->getShippingMethodField()
-																			   ->get_field_name() ) ?>">
+							<select name="<?php echo esc_attr( $cod_apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
 								<option value="0">
-									<?php _e( "Select", "inpost-pay" ); ?>
+									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selectedOption = esc_attr(
-									$codApmSettingsGroup->getShippingMethodField()
-														->get()
-								);
-								foreach (
-									$availableShippingMethods
-									as $value => $label
-								) {
-									$selected =
-										$value == $selectedOption
-											? "selected"
-											: "";
-									echo "<option {$selected} value='{$value}'>{$label}</option>";
+								$selected_option = (string) $cod_apm_settings_group->getShippingMethodField()->get();
+
+								foreach ( $available_shipping_methods as $value => $label ) {
+									$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+									echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 								}
 								?>
 							</select>
 							<div class="input-tooltip-wrapper">
-								<img src="<?php echo plugin_dir_url(
-														 __FILE__
-													 ) .
-													 "../../../assets/img/tooltip.svg"; ?>"
-									 alt="">
+								<img
+									src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+									alt=""
+								>
 								<div class="input-tooltip-box">
-									<p><?php _e(
-											"Determines which shipping method is to be associated",
-											"inpost-pay"
-										); ?></p>
+									<p>
+										<?php esc_html_e( 'Determines which shipping method is to be associated', 'inpost-pay' ); ?>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -187,34 +172,41 @@ $apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingAppro
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-group-subgroup">
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $apmCodOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $apmCodOptionCostMappingApproachCheckedValFee ?>"<?php if ( $apmCodOptionCostMappingApproachCheckedValFee === $apmCodOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $apm_cod_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $apm_cod_option_cost_mapping_approach_checked_val_fee ); ?>"
+						<?php checked( $apm_cod_option_cost_mapping_approach_checked_val_fee, $apm_cod_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
-						<label><?php _e( "Added fee", "inpost-pay" ); ?></label>
+						<label><?php esc_html_e( 'Added fee', 'inpost-pay' ); ?></label>
 						<div class="input-tooltip izi-transport-form-group">
-							<input type="number"
-								   name="<?php echo esc_attr( $codApmSettingsGroup->getPriceField()
-																				  ->get_field_name() ) ?>"
-								   step='any'
-								   inputmode='decimal'
-								   value="<?= esc_attr( str_replace( ',', '.', (string) $codApmSettingsGroup->getPriceField()
-																											->get() ) ) ?>">
+							<input
+								type="number"
+								name="<?php echo esc_attr( $cod_apm_settings_group->getPriceField()->get_field_name() ); ?>"
+								step="any"
+								inputmode="decimal"
+								value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_apm_settings_group->getPriceField()->get() ) ); ?>"
+							>
 							<div class="input-tooltip-wrapper">
-								<img src="<?php echo plugin_dir_url(
-														 __FILE__
-													 ) .
-													 "../../../assets/img/tooltip.svg"; ?>"
-									 alt="">
+								<img
+									src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+									alt=""
+								>
 								<div class="input-tooltip-box">
-									<p><?php _e(
-											"Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.",
-											"inpost-pay"
-										); ?></p>
+									<p>
+										<?php
+										esc_html_e(
+											'Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.',
+											'inpost-pay'
+										);
+										?>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -226,76 +218,70 @@ $apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingAppro
 
 	<div class="izi-group-apm-pww izi-transport-group">
 		<div class="izi-group-checkbox-wrapper izi-transport-group-opacity">
-			<input class="mobileToggle" type="checkbox"
-				   id="<?php esc_attr_e( $apmPwwGroupIsActiveField->get_field_name() ); ?>"
-				   name="<?php esc_attr_e( $apmPwwGroupIsActiveField->get_field_name() ); ?>"
-				   value="1" <?= $apmPwwGroupIsActiveField->get_bool( true )
-				? "checked"
-				: "" ?>>
+			<input
+				class="mobileToggle"
+				type="checkbox"
+				id="<?php echo esc_attr( $apm_pww_group_is_active_field->get_field_name() ); ?>"
+				name="<?php echo esc_attr( $apm_pww_group_is_active_field->get_field_name() ); ?>"
+				value="1"
+				<?php checked( $apm_pww_group_is_active_field->get_bool( true ) ); ?>
+			>
 
 			<label
 				class="mr-0 pr-0 text-bold"
-				for="<?php esc_attr_e( $apmPwwGroupIsActiveField->get_field_name() ); ?>"><?php esc_attr_e( $apmPwwGroupIsActiveField->get_label() ); ?></label>
+				for="<?php echo esc_attr( $apm_pww_group_is_active_field->get_field_name() ); ?>"
+			>
+				<?php echo esc_html( $apm_pww_group_is_active_field->get_label() ); ?>
+			</label>
+
 			<div class="input-tooltip-wrapper">
-				<img src="<?php echo plugin_dir_url(
-										 __FILE__
-									 ) .
-									 "../../../assets/img/tooltip.svg"; ?>"
-					 alt="">
+				<img
+					src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+					alt=""
+				>
 				<div class="input-tooltip-box">
-					<p><?php esc_attr_e( $apmPwwGroupIsActiveField->get_tooltip() ) ?></p>
+					<p><?php echo esc_html( $apm_pww_group_is_active_field->get_tooltip() ); ?></p>
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-group-subgroup">
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $apmPwwOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $apmPwwOptionCostMappingApproachCheckedValMethod ?>"<?php if ( $apmPwwOptionCostMappingApproachCheckedValMethod === $apmPwwOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $apm_pww_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $apm_pww_option_cost_mapping_approach_checked_val_method ); ?>"
+						<?php checked( $apm_pww_option_cost_mapping_approach_checked_val_method, $apm_pww_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
 						<label>
-							<?php _e(
-								"Carrier mapping",
-								"inpost-pay"
-							); ?>
+							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select
-								name="<?php echo esc_attr( $pwwApmSettingsGroup->getShippingMethodField()
-																			   ->get_field_name() ) ?>">
+							<select name="<?php echo esc_attr( $pww_apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
 								<option value="0">
-									<?php _e( "Select", "inpost-pay" ); ?>
+									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selectedOption = esc_attr(
-									$pwwApmSettingsGroup->getShippingMethodField()
-														->get()
-								);
-								foreach (
-									$availableShippingMethods
-									as $value => $label
-								) {
-									$selected =
-										$value == $selectedOption
-											? "selected"
-											: "";
-									echo "<option {$selected} value='{$value}'>{$label}</option>";
+								$selected_option = (string) $pww_apm_settings_group->getShippingMethodField()->get();
+
+								foreach ( $available_shipping_methods as $value => $label ) {
+									$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+									echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 								}
 								?>
 							</select>
 							<div class="input-tooltip-wrapper">
-								<img src="<?php echo plugin_dir_url(
-														 __FILE__
-													 ) .
-													 "../../../assets/img/tooltip.svg"; ?>"
-									 alt="">
+								<img
+									src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+									alt=""
+								>
 								<div class="input-tooltip-box">
-									<p><?php _e(
-											"Determines which shipping method is to be associated",
-											"inpost-pay"
-										); ?></p>
+									<p>
+										<?php esc_html_e( 'Determines which shipping method is to be associated', 'inpost-pay' ); ?>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -303,36 +289,41 @@ $apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingAppro
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-group-subgroup">
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $apmPwwOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $apmPwwOptionCostMappingApproachCheckedValFee ?>"<?php if ( $apmPwwOptionCostMappingApproachCheckedValFee === $apmPwwOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $apm_pww_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $apm_pww_option_cost_mapping_approach_checked_val_fee ); ?>"
+						<?php checked( $apm_pww_option_cost_mapping_approach_checked_val_fee, $apm_pww_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
-						<label>
-							<?php _e( "Added fee", "inpost-pay" ); ?>
-						</label>
+						<label><?php esc_html_e( 'Added fee', 'inpost-pay' ); ?></label>
 						<div class="input-tooltip izi-transport-form-group">
-							<input type="number"
-								   name="<?php echo esc_attr( $pwwApmSettingsGroup->getPriceField()
-																				  ->get_field_name() ) ?>"
-								   step='any'
-								   inputmode='decimal'
-								   value="<?= esc_attr( str_replace( ',', '.', (string) $pwwApmSettingsGroup->getPriceField()
-																											->get() ) ) ?>">
+							<input
+								type="number"
+								name="<?php echo esc_attr( $pww_apm_settings_group->getPriceField()->get_field_name() ); ?>"
+								step="any"
+								inputmode="decimal"
+								value="<?php echo esc_attr( str_replace( ',', '.', (string) $pww_apm_settings_group->getPriceField()->get() ) ); ?>"
+							>
 							<div class="input-tooltip-wrapper">
-								<img src="<?php echo plugin_dir_url(
-														 __FILE__
-													 ) .
-													 "../../../assets/img/tooltip.svg"; ?>"
-									 alt="">
+								<img
+									src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+									alt=""
+								>
 								<div class="input-tooltip-box">
-									<p><?php _e(
-											"Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.",
-											"inpost-pay"
-										); ?></p>
+									<p>
+										<?php
+										esc_html_e(
+											'Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.',
+											'inpost-pay'
+										);
+										?>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -340,96 +331,60 @@ $apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingAppro
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-transport-form-group izi-date-time-group">
 			<div class="izi-transport-form-subgroup">
 				<label>
-					<?php _e( "Available from", "inpost-pay" ); ?>
+					<?php esc_html_e( 'Available from', 'inpost-pay' ); ?>
 				</label>
 				<div class="input-tooltip d-flex-align-center">
-					<select
-						name="<?php echo esc_attr( $pwwApmSettingsGroup->getAvailableFromDayField()
-																	   ->get_field_name() ) ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableFromDayField()->get_field_name() ); ?>">
 						<?php
-						$selectedOption = esc_attr(
-							$pwwApmSettingsGroup->getAvailableFromDayField()
-												->get()
-						);
-						foreach (
-							$daysOfWeek
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}</option>";
+						$selected_option = (string) $pww_apm_settings_group->getAvailableFromDayField()->get();
+
+						foreach ( $days_of_week as $value => $label ) {
+							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 						}
 						?>
 					</select>
-					<select
-						name="<?php echo esc_attr( $pwwApmSettingsGroup->getAvailableFromHourField()
-																	   ->get_field_name() ) ?>">
+
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableFromHourField()->get_field_name() ); ?>">
 						<?php
-						$selectedOption = esc_attr(
-							$pwwApmSettingsGroup->getAvailableFromHourField()
-												->get()
-						);
-						foreach (
-							$hoursOfDay
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}:00</option>";
+						$selected_option = (string) $pww_apm_settings_group->getAvailableFromHourField()->get();
+
+						foreach ( $hours_of_day as $value => $label ) {
+							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . ':00</option>';
 						}
 						?>
 					</select>
 				</div>
 			</div>
+
 			<div class="izi-transport-form-subgroup">
 				<label>
-					<?php _e( "Available to", "inpost-pay" ); ?>
+					<?php esc_html_e( 'Available to', 'inpost-pay' ); ?>
 				</label>
 				<div class="input-tooltip d-flex-align-center">
-					<select
-						name="<?php echo esc_attr( $pwwApmSettingsGroup->getAvailableToDayField()
-																	   ->get_field_name() ) ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableToDayField()->get_field_name() ); ?>">
 						<?php
-						$selectedOption = esc_attr(
-							$pwwApmSettingsGroup->getAvailableToDayField()
-												->get()
-						);
-						foreach (
-							$daysOfWeek
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}</option>";
+						$selected_option = (string) $pww_apm_settings_group->getAvailableToDayField()->get();
+
+						foreach ( $days_of_week as $value => $label ) {
+							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 						}
 						?>
 					</select>
-					<select
-						name="<?php echo esc_attr( $pwwApmSettingsGroup->getAvailableToHourField()
-																	   ->get_field_name() ) ?>">
+
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableToHourField()->get_field_name() ); ?>">
 						<?php
-						$selectedOption = esc_attr(
-							$pwwApmSettingsGroup->getAvailableToHourField()
-												->get()
-						);
-						foreach (
-							$hoursOfDay
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}:00</option>";
+						$selected_option = (string) $pww_apm_settings_group->getAvailableToHourField()->get();
+
+						foreach ( $hours_of_day as $value => $label ) {
+							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . ':00</option>';
 						}
 						?>
 					</select>
@@ -437,5 +392,5 @@ $apmPwwOptionCostMappingApproachVal              = $apmPwwOptionCostMappingAppro
 			</div>
 		</div>
 	</div>
-
 </div>
+

@@ -2,8 +2,6 @@
 
 namespace Ilabs\Inpost_Pay\Lib\Product\CustomMeta;
 
-
-
 use Ilabs\Inpost_Pay\Lib\config\product\HotProductsConfig;
 use Ilabs\Inpost_Pay\Lib\form\Checkbox;
 use Ilabs\Inpost_Pay\Lib\form\error\ValidationError;
@@ -16,7 +14,7 @@ class HotProductPublishedMeta extends AbstractProductMeta implements ProductMeta
 
 	public const INPOST_PAY_HOT_PRODUCT_PUBLISHED = '_hidden_izi_hot_product_published';
 
-	private const CONFIG = [
+	private const CONFIG = array(
 		'slug'    => self::INPOST_PAY_HOT_PRODUCT_PUBLISHED,
 		'type'    => 'boolean',
 		'single'  => true,
@@ -24,7 +22,7 @@ class HotProductPublishedMeta extends AbstractProductMeta implements ProductMeta
 		'default' => false,
 		'label'   => 'Hot Product Published',
 		'help'    => '',
-	];
+	);
 
 	private static ?ValidationError $validation_error = null;
 
@@ -57,12 +55,15 @@ class HotProductPublishedMeta extends AbstractProductMeta implements ProductMeta
 	 * @throws NotAllowedConfigOptionException
 	 */
 	public static function get_form_field( $post_ID ): FormFieldInterface {
-		return new Checkbox( self::get( $post_ID ), [
-			'label'       => self::get_label(),
-			'name'        => self::get_slug(),
-			'label_class' => 'label-gray',
-			'class'       => 'mobileToggle'
-		] );
+		return new Checkbox(
+			self::get( $post_ID ),
+			array(
+				'label'       => self::get_label(),
+				'name'        => self::get_slug(),
+				'label_class' => 'label-gray',
+				'class'       => 'mobileToggle',
+			)
+		);
 	}
 
 	public static function get( $post_ID ): bool {

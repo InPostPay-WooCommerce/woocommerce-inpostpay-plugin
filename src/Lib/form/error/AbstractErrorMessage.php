@@ -22,10 +22,10 @@ abstract class AbstractErrorMessage {
 	}
 
 	public function print(): ?string {
-		if ( empty($this->values) ) {
-			return __($this->messages, InPostIzi::TRANSLATION_DOMAIN);
+		if ( empty( $this->values ) ) {
+			return __( $this->messages, InPostIzi::TRANSLATION_DOMAIN );
 		}
 
-		return sprintf(__($this->messages, InPostIzi::TRANSLATION_DOMAIN), $this->values);
+		return sprintf( __( $this->messages, InPostIzi::TRANSLATION_DOMAIN ), $this->values );
 	}
 }

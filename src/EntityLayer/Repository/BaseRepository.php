@@ -107,7 +107,7 @@ abstract class BaseRepository {
 		if ( $this->cache && $this->cache->has( $cache_key ) ) {
 			return $this->cache->get( $cache_key );
 		}
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 
 		$table       = esc_sql( $this->get_table_name() );
 		$primary_key = esc_sql( $this->get_primary_key() );
@@ -192,7 +192,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException When a database error occurs.
 	 */
 	public function find_by( array $criteria, ?int $limit = null, int $offset = 0 ): array {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$table = $this->get_table_name();
 		$where = $this->build_where_clause( $criteria );
 
@@ -220,7 +220,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function find_all( ?int $limit = null, int $offset = 0 ): array {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$table = $this->get_table_name();
 		$sql   = "SELECT * FROM {$table}";
 
@@ -358,7 +358,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function count( array $criteria = array() ): int {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$table = $this->get_table_name();
 		$sql   = "SELECT COUNT(*) as count FROM {$table}";
 
@@ -486,7 +486,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function find_by_sql( string $sql ): array {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$sql     = $this->replace_sql_placeholders( $sql );
 		$results = $this->connection->select( $sql );
 		return $this->hydrate_collection( $results );
@@ -500,7 +500,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function find_one_by_sql( string $sql ): ?BaseEntity {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$results = $this->find_by_sql( $sql );
 		return $results[0] ?? null;
 	}
@@ -513,7 +513,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function execute_sql( string $sql ) {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$sql = $this->replace_sql_placeholders( $sql );
 		return $this->connection->query( $sql );
 	}
@@ -565,7 +565,7 @@ abstract class BaseRepository {
 	 * @throws RepositoryException On database error.
 	 */
 	public function select_columns( array $criteria, array $columns, ?int $limit = null ): array {
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 		$table       = $this->get_table_name();
 		$columns_str = implode(
 			', ',

@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\Shipping;
 
+use Ilabs\Inpost_Pay\Logger;
 use Ilabs\Inpost_Pay\models\Destination;
 
 /**
@@ -48,8 +49,14 @@ class ShippingZoneResolver {
 			return self::$user_zone;
 		}
 
-		$dest            = Destination::get();
-		$manual_package  = self::prepare_manual_package( $dest );
+		$dest           = Destination::get();
+		$manual_package = self::prepare_manual_package( $dest );
+
+//		Logger::log( '[ZONE_DIAG] cart=' . ( WC()->cart ? 'available' : 'null' )
+//			. ' dest_country=' . ( $dest['country'] ?? 'MISSING' )
+//			. ' package_empty=' . ( empty( $manual_package ) ? 'yes' : 'no' )
+//			. ' package_has_dest=' . ( isset( $manual_package['destination']['country'] ) ? $manual_package['destination']['country'] : 'NO' ) );
+
 		self::$user_zone = \WC_Shipping_Zones::get_zone_matching_package( $manual_package );
 
 		return self::$user_zone;

@@ -8,22 +8,22 @@ use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 
 class Checkbox extends AbstractFormField {
 
-	private array $configOptions = [
-		'label'       => [
-			'required' => true
-		],
-		'label_class' => [
+	private array $configOptions = array(
+		'label'       => array(
+			'required' => true,
+		),
+		'label_class' => array(
 			'default'  => 'label',
-			'required' => false
-		],
-		'name'        => [
-			'required' => true
-		],
-		'class'       => [
 			'required' => false,
-			'default'  => 'checkbox'
-		],
-	];
+		),
+		'name'        => array(
+			'required' => true,
+		),
+		'class'       => array(
+			'required' => false,
+			'default'  => 'checkbox',
+		),
+	);
 
 	private bool $checked;
 
@@ -31,8 +31,8 @@ class Checkbox extends AbstractFormField {
 
 	/**
 	 * @param string $value
-	 * @param array $config
-	 * @param bool $checked
+	 * @param array  $config
+	 * @param bool   $checked
 	 *
 	 * @throws NotAllowedConfigOptionException
 	 * @throws RequiredConfigOptionException
@@ -44,7 +44,7 @@ class Checkbox extends AbstractFormField {
 	) {
 		parent::__construct( $this->configOptions, $config );
 
-		$this->value = $value;
+		$this->value   = $value;
 		$this->checked = $checked;
 	}
 
@@ -76,7 +76,7 @@ class Checkbox extends AbstractFormField {
 	public function get_bool(): bool {
 		$val = $this->value;
 
-		return in_array( $val, [ '1', 'yes', 'true', 'tak' ] );
+		return in_array( $val, array( '1', 'yes', 'true', 'tak' ) );
 	}
 
 	public function print_checked(): string {
@@ -88,14 +88,13 @@ class Checkbox extends AbstractFormField {
 	 */
 	public function print_checkbox(): void {
 
-		echo sprintf(
+		printf(
 			'<input type="checkbox" value="yes" name="%s" id="%s" class="%s" %s>',
 			$this->get_field_name(),
 			$this->get_config_option( 'name' )->get_value(),
 			$this->get_config_option( 'class' )->get_value(),
 			$this->print_checked(),
 		);
-
 	}
 
 	/**

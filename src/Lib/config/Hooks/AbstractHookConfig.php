@@ -17,15 +17,17 @@ abstract class AbstractHookConfig extends AbstractArrayOption {
 	/**
 	 * List of hook keys and labels (must be set in subclass)
 	 */
-	protected array $available_hooks = [];
+	protected array $available_hooks = array();
 
-	public function register( array $args = [] ): void {
-		register_setting('inpost-izi', static::OPTION_NAME);
+	public function register( array $args = array() ): void {
+		register_setting( 'inpost-izi', static::OPTION_NAME );
 
-		parent::register( [
-			'type'    => 'array',
-			'default' => [],
-		] );
+		parent::register(
+			array(
+				'type'    => 'array',
+				'default' => array(),
+			)
+		);
 	}
 
 	public function get_hooks(): array {
@@ -37,21 +39,21 @@ abstract class AbstractHookConfig extends AbstractArrayOption {
 	 * @throws NotAllowedConfigOptionException
 	 */
 	public function get_form_fields(): array {
-		$current_values = $this->get( [] );
+		$current_values = $this->get( array() );
 		if ( ! is_array( $current_values ) ) {
-			$current_values = [];
+			$current_values = array();
 		}
 
-		$fields = [];
+		$fields = array();
 
 		foreach ( $this->available_hooks as $key => $label ) {
 			$fields[] = new Checkbox(
 				$key,
-				[
+				array(
 					'label' => $label,
 					'name'  => static::OPTION_NAME,
 					'class' => 'hook-checkbox',
-				],
+				),
 				in_array( $key, $current_values, true )
 			);
 		}

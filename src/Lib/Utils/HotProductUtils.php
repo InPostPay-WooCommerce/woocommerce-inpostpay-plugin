@@ -6,14 +6,14 @@ use Ilabs\Inpost_Pay\Lib\config\product\HotProductsConfig;
 use Ilabs\Inpost_Pay\Lib\Product\CustomMeta\HotProductPublishedMeta;
 
 class HotProductUtils {
-	public const STATUS_ACTIVE = 'ACTIVE';
+	public const STATUS_ACTIVE   = 'ACTIVE';
 	public const STATUS_INACTIVE = 'INACTIVE';
 
 	public static function buildHotProductDataByIds( array $product_ids ): array {
 		global $wpdb;
 
 		if ( empty( $product_ids ) ) {
-			return [];
+			return array();
 		}
 
 		// Filtrujemy tylko numeryczne ID dla bezpieczeństwa
@@ -21,7 +21,8 @@ class HotProductUtils {
 		$ids_placeholder = implode( ',', array_fill( 0, count( $product_ids ), '%d' ) );
 
 		// Główne zapytanie do pobrania produktów i ich metadanych
-		$query = $wpdb->prepare( "
+		$query = $wpdb->prepare(
+			"
 		        SELECT
 		            p.ID AS id,
 		            p.post_title AS name,
@@ -41,27 +42,30 @@ class HotProductUtils {
 		        WHERE p.ID IN ($ids_placeholder) AND p.post_type = 'product'
 		    ",
 			array_merge(
-				[ HotProductPublishedMeta::INPOST_PAY_HOT_PRODUCT_PUBLISHED ],
+				array( HotProductPublishedMeta::INPOST_PAY_HOT_PRODUCT_PUBLISHED ),
 				$product_ids
 			)
 		);
 
 		$results = $wpdb->get_results( $query );
 
-		return array_map( static function ( $row ) {
-			$start_date   = $row->start_date ? ( new \DateTime( $row->start_date ) )->format( DATE_ATOM ) : null;
-			$end_date     = $row->end_date ? ( new \DateTime( $row->end_date ) )->format( DATE_ATOM ) : null;
-			$is_published = $row->published && $row->published !== self::STATUS_INACTIVE;
+		return array_map(
+			static function ( $row ) {
+				$start_date   = $row->start_date ? ( new \DateTime( $row->start_date ) )->format( DATE_ATOM ) : null;
+				$end_date     = $row->end_date ? ( new \DateTime( $row->end_date ) )->format( DATE_ATOM ) : null;
+				$is_published = $row->published && $row->published !== self::STATUS_INACTIVE;
 
-			return [
-				'id'         => (int) $row->id,
-				'name'       => $row->name,
-				'ean'        => $row->ean ?: '',
-				'published'  => (bool) $is_published,
-				'start_date' => $start_date,
-				'end_date'   => $end_date,
-			];
-		}, $results );
+				return array(
+					'id'         => (int) $row->id,
+					'name'       => $row->name,
+					'ean'        => $row->ean ?: '',
+					'published'  => (bool) $is_published,
+					'start_date' => $start_date,
+					'end_date'   => $end_date,
+				);
+			},
+			$results
+		);
 	}
 
 

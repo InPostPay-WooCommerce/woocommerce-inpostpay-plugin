@@ -31,19 +31,19 @@ final class OrderHooksExecutor {
 	 */
 	public function __construct() {
 		$this->config        = new OrderHooksConfig();
-		$this->enabled_hooks = (array) $this->config->get( [] );
+		$this->enabled_hooks = (array) $this->config->get( array() );
 	}
 
 	/**
 	 * Triggers the WooCommerce checkout-related actions based on user settings.
 	 *
 	 * @param WC_Order $order WooCommerce order object.
-	 * @param int $order_id ID of the WooCommerce order.
-	 * @param array $data Optional data passed to the actions (e.g. checkout data).
+	 * @param int      $order_id ID of the WooCommerce order.
+	 * @param array    $data Optional data passed to the actions (e.g. checkout data).
 	 *
 	 * @return void
 	 */
-	public function trigger_checkout_hooks( WC_Order $order, int $order_id, array $data = [] ): void {
+	public function trigger_checkout_hooks( WC_Order $order, int $order_id, array $data = array() ): void {
 		$available_hooks = $this->config->get_hooks();
 
 		foreach ( $available_hooks as $key => $label ) {

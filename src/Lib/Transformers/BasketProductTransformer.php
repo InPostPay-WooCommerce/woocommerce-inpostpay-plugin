@@ -1,4 +1,9 @@
 <?php
+/**
+ * Basket product transformer.
+ *
+ * @package Ilabs\Inpost_Pay
+ */
 
 namespace Ilabs\Inpost_Pay\Lib\Transformers;
 
@@ -8,61 +13,102 @@ use Ilabs\Inpost_Pay\Lib\item\Price;
 use Ilabs\Inpost_Pay\Lib\item\Quantity;
 use WC_Product;
 
+/**
+ * Transforms WC cart item data into product data objects.
+ */
 final class BasketProductTransformer extends ProductTransformer {
 
 	private array $cart_item;
 	/**
+	 * Item price net amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPriceNet = 0;
+	protected $item_price_net = 0;
 	/**
+	 * Item price gross amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPriceGross = 0;
+	protected $item_price_gross = 0;
 	/**
+	 * Item price VAT amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPriceVat = 0;
+	protected $item_price_vat = 0;
 	/**
+	 * Item promo price net amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPromoPriceNet = 0;
+	protected $item_promo_price_net = 0;
 	/**
+	 * Item promo price gross amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPromoPriceGross = 0;
+	protected $item_promo_price_gross = 0;
 	/**
+	 * Item promo price VAT amount.
+	 *
 	 * @var float|mixed
 	 */
-	protected $itemPromoPriceVat = 0;
+	protected $item_promo_price_vat = 0;
 
 
+	/**
+	 * Constructor.
+	 *
+	 * @param WC_Product $product   WooCommerce product.
+	 * @param mixed      $cart_item Cart item data.
+	 */
 	public function __construct( WC_Product $product, $cart_item ) {
 		parent::__construct( $product );
 
 		$this->cart_item = $cart_item;
 	}
 
-	public function mapProductData( bool $isRelatedProduct = false ): ProductInterface {
-		$product_data = parent::mapProductData();
+	/**
+	 * Maps product data including variants.
+	 *
+	 * @param bool $is_related_product Whether this is a related product.
+	 *
+	 * @return ProductInterface
+	 */
+	public function map_product_data( bool $is_related_product = false ): ProductInterface {
+		$product_data = parent::map_product_data();
 
-		$product_data->set_variants( $this->mapProductVariables() );
+		$product_data->set_variants( $this->map_product_variables() );
 
 		return $product_data;
 	}
 
-	public function getProductIdentifier(): string {
+	/**
+	 * Returns unique product identifier including cart item key.
+	 *
+	 * @return string
+	 */
+	public function get_product_identifier(): string {
 		if ( isset( $this->cart_item['key'] ) ) {
 			return $this->cart_item['data']->get_id() . ':' . $this->cart_item['key'];
 		}
 
-		return parent::getProductIdentifier();
+		return parent::get_product_identifier();
 	}
 
-	public function readQuantity( $variation_id = null ): Quantity {
-		$quantity = $this->readStockQuantity( false, $variation_id );
+	/**
+	 * Reads quantity from cart item.
+	 *
+	 * @param mixed $variation_id Optional variation ID.
+	 *
+	 * @return Quantity
+	 */
+	public function read_quantity( $variation_id = null ): Quantity {
+		$quantity = $this->read_stock_quantity( false, $variation_id );
 
-		$quantity->set_quantity( ( (int) $this->cart_item['quantity'] === $this->cart_item['quantity'] )
+		$quantity->set_quantity(
+			( (int) $this->cart_item['quantity'] === $this->cart_item['quantity'] )
 			? $this->cart_item['quantity']
 			: number_format( $this->cart_item['quantity'], 2, '.', '' )
 		);
@@ -70,89 +116,100 @@ final class BasketProductTransformer extends ProductTransformer {
 		return $quantity;
 	}
 
-	public function readCartProductBasePrice(): Price {
+	/**
+	 * Reads base price from cart item.
+	 *
+	 * @return Price
+	 */
+	public function read_cart_product_base_price(): Price {
 		$quantity = $this->cart_item['quantity'];
 		$price    = new Price();
 
-		$priceIncludingTax = wc_get_price_including_tax( $this->wc_product, [ "price" => $this->wc_product->get_regular_price() ] );
-		$priceExcludingTax = wc_get_price_excluding_tax( $this->wc_product, [ "price" => $this->wc_product->get_regular_price() ] );
-		$vat               = $priceIncludingTax - $priceExcludingTax;
+		$price_including_tax = wc_get_price_including_tax( $this->wc_product, array( 'price' => $this->wc_product->get_regular_price() ) );
+		$price_excluding_tax = wc_get_price_excluding_tax( $this->wc_product, array( 'price' => $this->wc_product->get_regular_price() ) );
+		$vat                 = $price_including_tax - $price_excluding_tax;
 
-		$price->set_gross( number_format( $priceIncludingTax, 2, '.', '' ) );
-		$price->set_net( $priceExcludingTax );
+		$price->set_gross( number_format( $price_including_tax, 2, '.', '' ) );
+		$price->set_net( $price_excluding_tax );
 		$price->set_vat( number_format( $vat, 2, '.', '' ) );
 
-		$this->itemPriceNet   = $priceExcludingTax * $quantity;
-		$this->itemPriceGross = $priceIncludingTax * $quantity;
-		$this->itemPriceVat   = $vat * $quantity;
+		$this->item_price_net   = $price_excluding_tax * $quantity;
+		$this->item_price_gross = $price_including_tax * $quantity;
+		$this->item_price_vat   = $vat * $quantity;
 
 		return $price;
 	}
 
-	public function readCartProductPromoPrice(): Price {
+	/**
+	 * Reads promo price from cart item.
+	 *
+	 * @return Price
+	 */
+	public function read_cart_product_promo_price(): Price {
 		$quantity = $this->cart_item['quantity'];
 
-
 		if ( $this->wc_product->is_type( 'compositepro' ) ) {
-			//Store YES or NO
-			$compositepro_per_item_shipping = get_post_meta( $this->wc_product->get_id(), '_compositepro_per_item_shipping' );
+			// Store YES or NO.
+			$compositepro_per_item_shipping = get_post_meta( $this->wc_product->get_id(), '_compositepro_per_item_shipping', true );
 
-			$compositepro_per_item_pricing = get_post_meta( $this->wc_product->get_id(), '_compositepro_per_item_pricing' );
+			$compositepro_per_item_pricing = get_post_meta( $this->wc_product->get_id(), '_compositepro_per_item_pricing', true );
 
-			if ( $compositepro_per_item_pricing === 'no' && $compositepro_per_item_shipping === 'no' ) {
+			if ( 'no' === $compositepro_per_item_pricing && 'no' === $compositepro_per_item_shipping ) {
 				$price = new Price();
 
-				$priceIncludingTax = wc_get_price_including_tax( $this->wc_product );
-				$priceExcludingTax = wc_get_price_excluding_tax( $this->wc_product );
-				$vat               = $priceIncludingTax - $priceExcludingTax;
+				$price_including_tax = wc_get_price_including_tax( $this->wc_product );
+				$price_excluding_tax = wc_get_price_excluding_tax( $this->wc_product );
+				$vat                 = $price_including_tax - $price_excluding_tax;
 
-				$price->set_net( $priceExcludingTax );
-				$price->set_gross( number_format( $priceIncludingTax, 2, '.', '' ) );
+				$price->set_net( $price_excluding_tax );
+				$price->set_gross( number_format( $price_including_tax, 2, '.', '' ) );
 				$price->set_vat( number_format( $vat, 2, '.', '' ) );
-
 
 				return $price;
 			}
-
 		}
 
-		$lineTotalKey = 'subtotal';
+		$line_total_key = 'subtotal';
 
-		if ( ! isset( $this->cart_item['line_tax_data'][ $lineTotalKey ] ) ) {
-			$this->cart_item['line_tax_data'][ $lineTotalKey ] = [];
+		if ( ! isset( $this->cart_item['line_tax_data'][ $line_total_key ] ) ) {
+			$this->cart_item['line_tax_data'][ $line_total_key ] = array();
 		}
 
 		$price = new Price();
 
-		$tax_total = \WC_Tax::get_tax_total( $this->cart_item['line_tax_data'][ $lineTotalKey ] );
+		$tax_total = \WC_Tax::get_tax_total( $this->cart_item['line_tax_data'][ $line_total_key ] );
 
-		$productQuantity = ( new QuantityIntegrationFactory() )->create( $this->wc_product );
+		$product_quantity = ( new QuantityIntegrationFactory() )->create( $this->wc_product );
 
-		if ( $productQuantity->get_quantity_type() === 'DECIMAL' ) {
-			$priceIncludingTax = ( $this->cart_item["line_$lineTotalKey"] + $tax_total );
-			$priceExcludingTax = $this->cart_item["line_$lineTotalKey"];
-			$vat               = $tax_total;
+		if ( 'DECIMAL' === $product_quantity->get_quantity_type() ) {
+			$price_including_tax = ( $this->cart_item[ "line_$line_total_key" ] + $tax_total );
+			$price_excluding_tax = $this->cart_item[ "line_$line_total_key" ];
+			$vat                 = $tax_total;
 		} else {
-			$priceIncludingTax = ( $this->cart_item["line_$lineTotalKey"] + $tax_total ) / $quantity;
-			$priceExcludingTax = $this->cart_item["line_$lineTotalKey"] / $quantity;
-			$vat               = $tax_total / $quantity;
+			$price_including_tax = ( $this->cart_item[ "line_$line_total_key" ] + $tax_total ) / $quantity;
+			$price_excluding_tax = $this->cart_item[ "line_$line_total_key" ] / $quantity;
+			$vat                 = $tax_total / $quantity;
 		}
 
+		$this->item_promo_price_net   = $this->cart_item[ "line_$line_total_key" ];
+		$this->item_promo_price_gross = $this->cart_item[ "line_$line_total_key" ] + $tax_total;
+		$this->item_promo_price_vat   = $tax_total;
 
-		$this->itemPromoPriceNet   = $this->cart_item["line_$lineTotalKey"];
-		$this->itemPromoPriceGross = $this->cart_item["line_$lineTotalKey"] + $tax_total;
-		$this->itemPromoPriceVat   = $tax_total;
-
-		$price->set_gross( number_format( $priceIncludingTax, 2, '.', '' ) );
-		$price->set_net( $priceExcludingTax );
+		$price->set_gross( number_format( $price_including_tax, 2, '.', '' ) );
+		$price->set_net( $price_excluding_tax );
 		$price->set_vat( number_format( $vat, 2, '.', '' ) );
 
 		return $price;
 	}
 
-	public function mapProductAttributes(): array {
-		$array     = [];
-		$item_data = [];
+	/**
+	 * Maps product attributes from variation and cart item data.
+	 *
+	 * @return array
+	 */
+	public function map_product_attributes(): array {
+		$array     = array();
+		$item_data = array();
 
 		// Variation values are shown only if they are not found in the title as of 3.0.
 		// This is because variation titles display the attributes.
@@ -207,8 +264,10 @@ final class BasketProductTransformer extends ProductTransformer {
 			// Output flat or in list format.
 			if ( count( $item_data ) > 0 ) {
 				foreach ( $item_data as $data ) {
-					if ( strlen( strip_tags( wp_kses_post( $data['display'] ) ) ) > 1 ) {
-						$array[] = $this->mapProductAttribute( $data['key'], wp_kses_post( $data['display'] ) );
+					$attribute_value = $data['value'] ?? $data['display'];
+					$sanitized_value = wp_kses_post( $attribute_value );
+					if ( strlen( strip_tags( $sanitized_value ) ) > 1 ) {
+						$array[] = $this->map_product_attribute( $data['key'], $sanitized_value );
 					}
 				}
 			}
@@ -218,44 +277,56 @@ final class BasketProductTransformer extends ProductTransformer {
 	}
 
 	/**
+	 * Returns item price net amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_price_net() {
-		return $this->itemPriceNet;
+		return $this->item_price_net;
 	}
 
 	/**
+	 * Returns item price gross amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_price_gross() {
-		return $this->itemPriceGross;
+		return $this->item_price_gross;
 	}
 
 	/**
+	 * Returns item price VAT amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_price_vat() {
-		return $this->itemPriceVat;
+		return $this->item_price_vat;
 	}
 
 	/**
+	 * Returns item promo price net amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_promo_price_net() {
-		return $this->itemPromoPriceNet;
+		return $this->item_promo_price_net;
 	}
 
 	/**
+	 * Returns item promo price gross amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_promo_price_gross() {
-		return $this->itemPromoPriceGross;
+		return $this->item_promo_price_gross;
 	}
 
 	/**
+	 * Returns item promo price VAT amount.
+	 *
 	 * @return float|int|mixed
 	 */
 	public function get_item_promo_price_vat() {
-		return $this->itemPromoPriceVat;
+		return $this->item_promo_price_vat;
 	}
 }

@@ -20,16 +20,16 @@ class ElementorInpostWidget extends Widget_Base {
 	}
 
 	public function get_categories() {
-		return [ 'general' ]; //woocommerce
+		return array( 'general' ); // woocommerce
 	}
 
 	protected function _register_controls() {
 		$configurator = new WidgetControlsConfigurator();
-		$configurator->register_controls($this);
+		$configurator->register_controls( $this );
 	}
 
 	protected function render() {
-		if (!CurrencyHelper::isCurrencyAllowed()) {
+		if ( ! CurrencyHelper::isCurrencyAllowed() ) {
 			return;
 		}
 

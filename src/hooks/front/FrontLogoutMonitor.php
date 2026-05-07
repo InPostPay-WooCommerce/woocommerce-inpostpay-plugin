@@ -26,6 +26,14 @@ use function Ilabs\Inpost_Pay\inpost_pay_container;
 class FrontLogoutMonitor extends FrontBase {
 
 	/**
+	 * Prevents handleLogout from firing twice in a single request
+	 * (both wp_logout and clear_auth_cookie hooks can fire during logout).
+	 *
+	 * @var bool
+	 */
+	private static bool $logout_handled = false;
+
+	/**
 	 * Cart session service.
 	 *
 	 * @var CartSessionService
@@ -61,6 +69,11 @@ class FrontLogoutMonitor extends FrontBase {
 	 * @return void
 	 */
 	public function handleLogout(): void {
+		if ( self::$logout_handled ) {
+			Logger::log( '[LogoutMonitor] Already handled in this request – skip.' );
+			return;
+		}
+
 		$basket_id = BasketIdentification::get();
 
 		$current_user = wp_get_current_user();
@@ -68,10 +81,12 @@ class FrontLogoutMonitor extends FrontBase {
 			return;
 		}
 
-		 Logger::log( '[LogoutMonitor] basket id key: ' . $basket_id );
+		self::$logout_handled = true;
+
+		Logger::log( '[LogoutMonitor] basket id key: ' . $basket_id );
 
 		if ( empty( $basket_id ) ) {
-			 Logger::log( '[LogoutMonitor] No basket id – skip unbind call.' );
+			Logger::log( '[LogoutMonitor] No basket id – skip unbind call.' );
 
 			return;
 		}
@@ -83,12 +98,12 @@ class FrontLogoutMonitor extends FrontBase {
 		}
 
 		if ( empty( $binding_key ) ) {
-			 Logger::log( '[LogoutMonitor] No binding key for basket – skip unbind.' );
+			Logger::log( '[LogoutMonitor] No binding key for basket – skip unbind.' );
 
 			return;
 		}
 
-	    Logger::log( "[LogoutMonitor] Attempt unbind bindingKey={$binding_key}" );
+		Logger::log( "[LogoutMonitor] Attempt unbind bindingKey={$binding_key}" );
 
 		$resp            = ( new Remote() )->basket_binding_delete();
 		$terminal_errors = array( 'BASKET_NOT_FOUND', 'BASKET_NOT_BOUND' );
@@ -98,7 +113,7 @@ class FrontLogoutMonitor extends FrontBase {
 
 		$this->cart_session->remove_basket_binding_api_key( $basket_id );
 		( new BasketBindingApiKey() )->drop();
-		CookieHelper::delete('basket_binding_api_key');
+		CookieHelper::delete( 'basket_binding_api_key' );
 
 		FrontBasketChange::$block_action_set = true;
 		Logger::log( "[LogoutMonitor] Basket {$basket_id} unbound on logout" );

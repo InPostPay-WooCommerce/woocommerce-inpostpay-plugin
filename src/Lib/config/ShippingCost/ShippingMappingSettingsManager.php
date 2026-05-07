@@ -25,13 +25,13 @@ class ShippingMappingSettingsManager {
 
 		$this->zone_id = $zone_id;
 
-		$this->groups = [
+		$this->groups = array(
 			$this->getApmSettingsGroup(),
 			$this->getCodApmSettingsGroup(),
 			$this->getCourierSettingsGroup(),
 			$this->getCodCourierSettingsGroup(),
 			$this->getPwwApmSettingsGroup(),
-		];
+		);
 	}
 
 	public function register() {
@@ -41,19 +41,18 @@ class ShippingMappingSettingsManager {
 			$group->initOptionCostMappingApproach();
 
 		}
-//		$this->getShippingAddTaxField()->init();
+		// $this->getShippingAddTaxField()->init();
 		$this->getCheckShippingAvailabilityField()->init();
 	}
 
 	public function findGroup(
 		string $deliveryTypeCode,
 		string $optionCode = GroupInterface::DELIVERY_OPTION_CODE_NONE
-
 	): ?GroupInterface {
 
 		foreach ( $this->groups as $group ) {
 			if ( $optionCode !== $group->getDeliveryOptionCode()
-			     || $deliveryTypeCode !== $group->getDeliveryTypeCode() ) {
+				|| $deliveryTypeCode !== $group->getDeliveryTypeCode() ) {
 				continue;
 			}
 
@@ -68,31 +67,34 @@ class ShippingMappingSettingsManager {
 	 * @return GroupInterface[]
 	 */
 	public function findCourierGroupsWithOptions(): array {
-		return [
+		return array(
 			$this->getCodCourierSettingsGroup(),
-		];
+		);
 	}
 
 	/**
 	 * @return GroupInterface[]
 	 */
 	public function findApmGroupsWithOptions(): array {
-		return [
+		return array(
 			$this->getPwwApmSettingsGroup(),
 			$this->getCodApmSettingsGroup(),
-		];
+		);
 	}
 
 	public function getApmFields() {
-		return array_merge( $this->getApmSettingsGroup()->getFields(),
+		return array_merge(
+			$this->getApmSettingsGroup()->getFields(),
 			$this->getPwwApmSettingsGroup()->getFields(),
-			$this->getCodApmSettingsGroup()->getFields() );
-
+			$this->getCodApmSettingsGroup()->getFields()
+		);
 	}
 
 	public function getCourierFields() {
-		return array_merge( $this->getCourierSettingsGroup()->getFields(),
-			$this->getCodCourierSettingsGroup()->getFields() );
+		return array_merge(
+			$this->getCourierSettingsGroup()->getFields(),
+			$this->getCodCourierSettingsGroup()->getFields()
+		);
 	}
 
 	public function getCodApmSettingsGroup(): CodApmGroup {
@@ -130,6 +132,5 @@ class ShippingMappingSettingsManager {
 	}
 
 	public static function get() {
-
 	}
 }

@@ -41,6 +41,8 @@ class AdminSupportLogsDownload extends Base {
 			);
 		}
 
+		check_admin_referer( 'izi_download_logs' );
+
 		if ( ! class_exists( 'ZipArchive' ) ) {
 			wp_die(
 				esc_html__( 'PHP ZipArchive extension is required to download logs.', 'inpost-pay' ),

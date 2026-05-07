@@ -4,45 +4,40 @@ declare(strict_types=1);
 
 namespace Ilabs\Inpost_Pay\Integration\Language;
 
-class WpmlLanguageProvider implements LanguageProviderInterface
-{
-	public function isActive(): bool
-	{
-		return defined('ICL_SITEPRESS_VERSION') && function_exists('wpml_get_current_language');
+class WpmlLanguageProvider implements LanguageProviderInterface {
+
+	public function isActive(): bool {
+		return defined( 'ICL_SITEPRESS_VERSION' ) && function_exists( 'wpml_get_current_language' );
 	}
 
-	public function getCurrentSlug(): ?string
-	{
+	public function getCurrentSlug(): ?string {
 		return $this->isActive() ? wpml_get_current_language() : null;
 	}
 
-	public function getDefaultSlug(): ?string
-	{
-		return function_exists('wpml_get_default_language')
+	public function getDefaultSlug(): ?string {
+		return function_exists( 'wpml_get_default_language' )
 			? wpml_get_default_language()
 			: null;
 	}
 
-	public function getAvailableSlugs(): array
-	{
+	public function getAvailableSlugs(): array {
 		if ( ! $this->isActive() ) {
-			return [];
+			return array();
 		}
 
-		$languages = apply_filters('wpml_active_languages', null, ['skip_missing' => 0]);
-		return is_array($languages) ? array_keys($languages) : [];
+		$languages = apply_filters( 'wpml_active_languages', null, array( 'skip_missing' => 0 ) );
+		return is_array( $languages ) ? array_keys( $languages ) : array();
 	}
 
-	public function getCurrentLocale(): ?string
-	{
+	public function getCurrentLocale(): ?string {
 		if ( ! $this->isActive() ) {
 			return null;
 		}
 
-		$languages = apply_filters('wpml_active_languages', null);
-		if ( is_array($languages) ) {
+		$languages = apply_filters( 'wpml_active_languages', null );
+		if ( is_array( $languages ) ) {
 			foreach ( $languages as $lang ) {
-				if ( isset($lang['active'], $lang['default_locale']) && $lang['active'] ) {
+				if ( isset( $lang['active'], $lang['default_locale'] ) && $lang['active'] ) {
 					return $lang['default_locale'];
 				}
 			}
@@ -50,41 +45,43 @@ class WpmlLanguageProvider implements LanguageProviderInterface
 		return null;
 	}
 
-	public function getAvailableLocales(): array
-	{
+	public function getAvailableLocales(): array {
 		if ( ! $this->isActive() ) {
-			return [];
+			return array();
 		}
 
-		$languages = apply_filters('wpml_active_languages', null, ['skip_missing' => 0]);
+		$languages = apply_filters( 'wpml_active_languages', null, array( 'skip_missing' => 0 ) );
 
-		if ( ! is_array($languages) ) {
-			return [];
+		if ( ! is_array( $languages ) ) {
+			return array();
 		}
 
-		return array_values(array_filter(array_map(
-			static function ($lang) {
-				return $lang['default_locale'] ?? null;
-			},
-			$languages
-		)));
+		return array_values(
+			array_filter(
+				array_map(
+					static function ( $lang ) {
+						return $lang['default_locale'] ?? null;
+					},
+					$languages
+				)
+			)
+		);
 	}
 
-	public function getSlugToLocaleMap(): array
-	{
+	public function getSlugToLocaleMap(): array {
 		if ( ! $this->isActive() ) {
-			return [];
+			return array();
 		}
 
-		$languages = apply_filters('wpml_active_languages', null, ['skip_missing' => 0]);
-		if ( ! is_array($languages) ) {
-			return [];
+		$languages = apply_filters( 'wpml_active_languages', null, array( 'skip_missing' => 0 ) );
+		if ( ! is_array( $languages ) ) {
+			return array();
 		}
 
-		$map = [];
+		$map = array();
 		foreach ( $languages as $slug => $data ) {
-			if ( isset($data['default_locale']) ) {
-				$map[$slug] = $data['default_locale'];
+			if ( isset( $data['default_locale'] ) ) {
+				$map[ $slug ] = $data['default_locale'];
 			}
 		}
 		return $map;

@@ -29,6 +29,7 @@ class BindingProvider {
 		self::$is_bound = false;
 		try {
 			InPostIzi::getStorage()->insertSession( 'is_bound', false );
+			InPostIzi::getStorage()->sessionClose();
 		} catch ( SessionNotInitializedException $e ) {
 			// WC session not available (e.g. admin context without frontend cookie).
 			// In-memory state is already updated above — no persistence needed.

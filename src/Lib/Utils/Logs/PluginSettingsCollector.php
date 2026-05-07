@@ -15,6 +15,7 @@ use Ilabs\Inpost_Pay\Lib\config\widget_v2\WidgetV2SizeConfigInterface;
 use Ilabs\Inpost_Pay\Lib\form\exception\NotAllowedConfigOptionException;
 use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 use Ilabs\Inpost_Pay\Logger;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 /**
  * PluginSettingsCollector class.

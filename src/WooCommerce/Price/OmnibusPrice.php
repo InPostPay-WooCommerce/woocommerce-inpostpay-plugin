@@ -48,9 +48,9 @@ class OmnibusPrice {
 
 		if ( $is_taxable ) {
 			$priceIncludingTax = $lowestPrice->get_price_float();
-			$priceExcludingTax = wc_get_price_excluding_tax( $productSimple, [ 'price' => $lowestPrice->get_price_float() ] );
+			$priceExcludingTax = wc_get_price_excluding_tax( $productSimple, array( 'price' => $lowestPrice->get_price_float() ) );
 		} else {
-			$priceIncludingTax = wc_get_price_including_tax( $productSimple, [ 'price' => $lowestPrice->get_price_float() ] );
+			$priceIncludingTax = wc_get_price_including_tax( $productSimple, array( 'price' => $lowestPrice->get_price_float() ) );
 			$priceExcludingTax = $lowestPrice->get_price_float();
 		}
 
@@ -65,8 +65,7 @@ class OmnibusPrice {
 		$price
 			->set_gross( number_format( $priceIncludingTax, 2, '.', '' ) )
 			->set_net( $priceExcludingTax )
-			->set_vat( number_format( $vat, 2, '.', '' ) )
-		;
+			->set_vat( number_format( $vat, 2, '.', '' ) );
 
 		return $price;
 	}

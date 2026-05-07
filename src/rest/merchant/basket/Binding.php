@@ -14,6 +14,7 @@ use Ilabs\Inpost_Pay\models\CartSessionService;
 use Ilabs\Inpost_Pay\rest\Base;
 use JsonException;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Binding extends Base {
 

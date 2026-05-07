@@ -28,7 +28,7 @@ trait JsonSerializationHelper {
 	 * @return array
 	 */
 	public function autoSerialize(): array {
-		$data     = [];
+		$data     = array();
 		$reflect  = new ReflectionObject( $this );
 		$defaults = $reflect->getDefaultProperties();
 
@@ -91,7 +91,7 @@ trait JsonSerializationHelper {
 	 */
 	protected function serializeArray( ?array $items ): array {
 		if ( ! is_array( $items ) ) {
-			return [];
+			return array();
 		}
 
 		return array_map(

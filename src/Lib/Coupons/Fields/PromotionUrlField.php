@@ -9,13 +9,15 @@ class PromotionUrlField implements FieldInterface {
 
 	public function render( int $coupon_id ): void {
 		$meta = get_post_meta( $coupon_id, Coupon::META_PROMOTION_URL, true );
-		woocommerce_wp_text_input( [
-			'id'        => Coupon::META_PROMOTION_URL,
-			'label'     => __( 'Promotion URL', 'inpost-pay' ),
-			'value'     => $meta,
-			'style'     => ( ! $this->validate( $meta ) ) ? 'border: 1px solid red' : '',
-			'data_type' => 'url',
-		] );
+		woocommerce_wp_text_input(
+			array(
+				'id'        => Coupon::META_PROMOTION_URL,
+				'label'     => __( 'Promotion URL', 'inpost-pay' ),
+				'value'     => $meta,
+				'style'     => ( ! $this->validate( $meta ) ) ? 'border: 1px solid red' : '',
+				'data_type' => 'url',
+			)
+		);
 	}
 
 	public function save( int $post_id ): void {

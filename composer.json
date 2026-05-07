@@ -13,8 +13,8 @@
     }
   },
   "scripts": {
-    "cs": "vendor/bin/phpcs --standard=phpcs.xml src/Lib/Shipping",
-    "cbf": "vendor/bin/phpcbf src/Lib/Shipping",
+    "cs": "vendor/bin/phpcs --standard=phpcs.xml src/",
+    "cbf": "vendor/bin/phpcbf src/",
     "stan": "vendor/bin/phpstan --memory-limit=2G",
     "stancc": "rm -rf phpstan/cache"
   },

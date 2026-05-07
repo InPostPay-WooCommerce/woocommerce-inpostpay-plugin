@@ -13,6 +13,6 @@ class ConsentsMapper {
 	}
 
 	public function map(): array {
-		return [];
+		return array();
 	}
 }

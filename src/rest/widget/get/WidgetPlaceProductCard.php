@@ -14,7 +14,7 @@ class WidgetPlaceProductCard extends Base {
 		) {
 			$isBlock = $request->get_param( 'isBlock' );
 
-			if (  $isBlock === 'true' || esc_attr( get_option( 'izi_show_details' ) ) ) {
+			if ( $isBlock === 'true' || esc_attr( get_option( 'izi_show_details' ) ) ) {
 				$product_id = $request->get_param( 'product_id' );
 				ob_start();
 				( new FrontDisplayWidget() )->displayProduct( $product_id );

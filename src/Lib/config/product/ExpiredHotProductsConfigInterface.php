@@ -8,7 +8,7 @@ interface ExpiredHotProductsConfigInterface {
 
 	public const IZI_EXPIRED_HOT_PRODUCTS_LABEL = 'Expired Hot Products';
 
-	public const IZI_EXPIRED_HOT_PRODUCTS_DEFAULT = [];
+	public const IZI_EXPIRED_HOT_PRODUCTS_DEFAULT = array();
 
 	public const IZI_EXPIRED_HOT_PRODUCTS_DESCRIPTION = 'Collection of expired hot products displayed in the Inpost APP';
 }

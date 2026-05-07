@@ -12,5 +12,5 @@ interface ShippingMethodIntegrationInterface {
 
 	public function setWcOrder( WC_Order $order );
 
-	public function filterTotal( callable $callable, bool $isTaxed, object $basketPriceObj);
+	public function filterTotal( callable $callable, bool $isTaxed, object $basketPriceObj );
 }

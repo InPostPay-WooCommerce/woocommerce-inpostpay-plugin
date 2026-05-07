@@ -5,8 +5,7 @@ namespace Ilabs\Inpost_Pay\Integration\Shipping;
 /**
  * @desc WP_Desk
  */
-class WoocommercePaczkomatyInpostIntegration extends AbstractShippingMethodIntegration
-	implements ShippingMethodIntegrationInterface {
+class WoocommercePaczkomatyInpostIntegration extends AbstractShippingMethodIntegration implements ShippingMethodIntegrationInterface {
 
 	public function __construct( string $iziDeliveryMethodId ) {
 		$this->iziDeliveryMethodId = $iziDeliveryMethodId;

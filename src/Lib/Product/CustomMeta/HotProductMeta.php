@@ -2,8 +2,6 @@
 
 namespace Ilabs\Inpost_Pay\Lib\Product\CustomMeta;
 
-
-
 use Ilabs\Inpost_Pay\Lib\config\product\HotProductsConfig;
 use Ilabs\Inpost_Pay\Lib\form\Checkbox;
 use Ilabs\Inpost_Pay\Lib\form\error\ValidationError;
@@ -16,7 +14,7 @@ class HotProductMeta extends AbstractProductMeta implements ProductMetaInterface
 
 	public const INPOST_PAY_HOT_PRODUCT = '_izi_hot_product';
 
-	private const CONFIG = [
+	private const CONFIG = array(
 		'slug'    => self::INPOST_PAY_HOT_PRODUCT,
 		'type'    => 'boolean',
 		'single'  => true,
@@ -24,7 +22,7 @@ class HotProductMeta extends AbstractProductMeta implements ProductMetaInterface
 		'default' => 'yes',
 		'label'   => 'Hot Product',
 		'help'    => 'Enable this option if you want to show this product in Hot Products list.',
-	];
+	);
 
 	private static ?ValidationError $validation_error = null;
 
@@ -57,12 +55,15 @@ class HotProductMeta extends AbstractProductMeta implements ProductMetaInterface
 	 * @throws NotAllowedConfigOptionException
 	 */
 	public static function get_form_field( $post_ID ): FormFieldInterface {
-		return new Checkbox( self::get( $post_ID ), [
-			'label'       => self::get_label(),
-			'name'        => self::get_slug(),
-			'label_class' => 'label-gray',
-			'class'       => 'mobileToggle'
-		] );
+		return new Checkbox(
+			self::get( $post_ID ),
+			array(
+				'label'       => self::get_label(),
+				'name'        => self::get_slug(),
+				'label_class' => 'label-gray',
+				'class'       => 'mobileToggle',
+			)
+		);
 	}
 
 	public static function get( $post_ID ): bool {
@@ -84,15 +85,15 @@ class HotProductMeta extends AbstractProductMeta implements ProductMetaInterface
 				return true;
 			}
 
-//			if ( $hot_product_config->count() < HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ) {
-//				$hot_product_config->addValue( $_POST[ self::INPOST_PAY_HOT_PRODUCT ] );
-//			} else {
-//				self::$validation_error = new ValidationError(
-//					'You can add only %s hot products',
-//					[ HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ]
-//				);
-//
-//			}
+			// if ( $hot_product_config->count() < HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ) {
+			// $hot_product_config->addValue( $_POST[ self::INPOST_PAY_HOT_PRODUCT ] );
+			// } else {
+			// self::$validation_error = new ValidationError(
+			// 'You can add only %s hot products',
+			// [ HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ]
+			// );
+			//
+			// }
 		} catch ( IsNotArrayException $e ) {
 			return true;
 		}

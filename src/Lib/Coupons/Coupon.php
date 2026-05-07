@@ -21,15 +21,15 @@ use function Ilabs\Inpost_Pay\inpost_pay_container;
 class Coupon {
 
 	public const COUPON_TYPE_PERCENT_PRODUCT = 'inpost_pay_discount';
-	public const COUPON_TYPE_FIXED_PRODUCT = 'inpost_pay_discount_fixed_product';
-	public const COUPON_TYPE_FIXED_CART = 'inpost_pay_discount_fixed_cart';
-	public const META_VISIBLE_IN_APP = '_inpostpay_visible';
-	public const META_PROMOTION_URL = 'inpost_pay_promotion_url';
-	public const ONLY_IN_APP_COUPONS = [
+	public const COUPON_TYPE_FIXED_PRODUCT   = 'inpost_pay_discount_fixed_product';
+	public const COUPON_TYPE_FIXED_CART      = 'inpost_pay_discount_fixed_cart';
+	public const META_VISIBLE_IN_APP         = '_inpostpay_visible';
+	public const META_PROMOTION_URL          = 'inpost_pay_promotion_url';
+	public const ONLY_IN_APP_COUPONS         = array(
 		self::COUPON_TYPE_PERCENT_PRODUCT,
 		self::COUPON_TYPE_FIXED_PRODUCT,
 		self::COUPON_TYPE_FIXED_CART,
-	];
+	);
 	/** @var FieldInterface[] */
 	private array $fields;
 
@@ -43,37 +43,47 @@ class Coupon {
 		 */
 		$this->cart_session = inpost_pay_container()->get( CartSessionService::SERVICE_KEY );
 
-		$this->fields = [
+		$this->fields = array(
 			new PromotionUrlField(),
 			new VisibleInAppCheckboxField(),
-		];
+		);
 	}
 
 	public function hooks(): void {
-		add_filter( 'woocommerce_coupon_data_tabs', [ $this, 'add_inpostpay_coupon_tab' ] );
-		add_filter( 'woocommerce_coupon_discount_types', [ $this, 'inpost_pay_custom_discount_type' ], 10, 1 );
-		add_action( 'woocommerce_coupon_options_save', [ $this, 'save_meta' ], 10, 2 );
-		add_action( 'woocommerce_coupon_data_panels', [ $this, 'render_inpostpay_tab_panel' ], 10, 2 );
-		add_filter( 'woocommerce_coupon_is_valid', [ $this, 'inpost_pay_validate_custom_coupon' ], 10, 3 );
-		add_filter( 'woocommerce_coupon_get_discount_amount', [
-			$this,
-			'inpost_pay_apply_custom_coupon_discount',
-		], 10, 5 );
-		add_filter( 'woocommerce_product_coupon_types', [
-			$this,
-			'inpost_pay_woocommerce_product_coupon_types',
-		], 10, 2 );
+		add_filter( 'woocommerce_coupon_data_tabs', array( $this, 'add_inpostpay_coupon_tab' ) );
+		add_filter( 'woocommerce_coupon_discount_types', array( $this, 'inpost_pay_custom_discount_type' ), 10, 1 );
+		add_action( 'woocommerce_coupon_options_save', array( $this, 'save_meta' ), 10, 2 );
+		add_action( 'woocommerce_coupon_data_panels', array( $this, 'render_inpostpay_tab_panel' ), 10, 2 );
+		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'inpost_pay_validate_custom_coupon' ), 10, 3 );
+		add_filter(
+			'woocommerce_coupon_get_discount_amount',
+			array(
+				$this,
+				'inpost_pay_apply_custom_coupon_discount',
+			),
+			10,
+			5
+		);
+		add_filter(
+			'woocommerce_product_coupon_types',
+			array(
+				$this,
+				'inpost_pay_woocommerce_product_coupon_types',
+			),
+			10,
+			2
+		);
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_coupon_scripts' ], 75 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_coupon_scripts' ), 75 );
 	}
 
 	public function add_inpostpay_coupon_tab( $tabs ) {
-		$tabs['inpostpay'] = [
+		$tabs['inpostpay'] = array(
 			'label'    => __( 'InPost Pay', 'inpost-pay' ),
 			'target'   => 'inpost_pay_coupon_data',
-			'class'    => [],
+			'class'    => array(),
 			'priority' => 25,
-		];
+		);
 
 		return $tabs;
 	}
@@ -156,8 +166,8 @@ class Coupon {
 			$cart_total = 0.0;
 			foreach ( WC()->cart->get_cart() as $item ) {
 				if ( isset( $item['data'] ) && $item['data'] instanceof \WC_Product ) {
-					$price = $item['data']->get_price();
-					$qty = $item['quantity'];
+					$price       = $item['data']->get_price();
+					$qty         = $item['quantity'];
 					$cart_total += $price * $qty;
 				}
 			}
@@ -188,7 +198,7 @@ class Coupon {
 			wp_enqueue_script(
 				'inpostpay-coupons',
 				InpostPay::get_instance()->get_js_assets_path() . 'admin-coupon-script.js',
-				[ 'jquery' ]
+				array( 'jquery' )
 			);
 		}
 	}

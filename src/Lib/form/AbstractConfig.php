@@ -7,15 +7,15 @@ use Ilabs\Inpost_Pay\Lib\form\exception\NotFoundConfigOptionException;
 use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 
 abstract class AbstractConfig {
-	private $config = [];
+	private $config = array();
 
 	public function __construct( $config ) {
 		$this->config = $this->prepare_config( $config );
 	}
 
-	public final function prepare_config( $config ) {
+	final public function prepare_config( $config ) {
 		foreach ( $config as $key => $value ) {
-			if (is_array($value)) {
+			if ( is_array( $value ) ) {
 				$config[ $key ] = new ConfigOption(
 					$key,
 					$value['required'],
@@ -34,14 +34,14 @@ abstract class AbstractConfig {
 	/**
 	 * @return mixed
 	 */
-	public final function get_config() {
+	final public function get_config() {
 		return $this->config;
 	}
 
 	/**
 	 * @throws NotFoundConfigOptionException
 	 */
-	public final function get_config_option( string $name ) {
+	final public function get_config_option( string $name ) {
 		if ( $this->has_config_option( $name ) ) {
 			return $this->config[ $name ];
 		}
@@ -52,7 +52,7 @@ abstract class AbstractConfig {
 	 * @throws NotAllowedConfigOptionException
 	 * @throws RequiredConfigOptionException
 	 */
-	public final function set_config( $configOptions ) {
+	final public function set_config( $configOptions ) {
 		foreach ( $configOptions as $key => $value ) {
 			if ( ! isset( $this->config[ $key ] ) ) {
 				throw new NotAllowedConfigOptionException( $key );
@@ -75,7 +75,7 @@ abstract class AbstractConfig {
 		}
 	}
 
-	public final function has_config_option( string $name ): bool {
+	final public function has_config_option( string $name ): bool {
 		return isset( $this->config[ $name ] ) && $this->config[ $name ] instanceof ConfigOption;
 	}
 }

@@ -231,6 +231,27 @@ class InPostIzi {
 	}
 
 	/**
+	 * Sanitize and validate an environment value.
+	 *
+	 * Casts the input to int and returns it when it matches one of the valid
+	 * environment identifiers. Falls back to ENVIRONMENT_DEVELOP otherwise.
+	 * Safe to use directly as a WordPress register_setting sanitize_callback.
+	 *
+	 * @param mixed $value Raw value to sanitize.
+	 *
+	 * @return int
+	 *
+	 * @since 2.0.7.1
+	 */
+	public static function sanitize_environment( $value ): int {
+		$int = (int) $value;
+
+		return in_array( $int, array( self::ENVIRONMENT_DEVELOP, self::ENVIRONMENT_PRODUCTION, self::ENVIRONMENT_SANDBOX ), true )
+			? $int
+			: self::ENVIRONMENT_DEVELOP;
+	}
+
+	/**
 	 * Get API URL based on environment.
 	 *
 	 * @return string The API URL for the current environment.

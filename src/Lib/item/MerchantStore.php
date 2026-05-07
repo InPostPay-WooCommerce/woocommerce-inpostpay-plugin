@@ -28,8 +28,7 @@ class MerchantStore extends Item implements \JsonSerializable {
 
 		$cookie = ( new MerchantCookie() )->wp_woocommerce_session();
 
-		$this->cookies = [ $cookie ];
-
+		$this->cookies = array( $cookie );
 	}
 
 	public function jsonSerialize(): array {

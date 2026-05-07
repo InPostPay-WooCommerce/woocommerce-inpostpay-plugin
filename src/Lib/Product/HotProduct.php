@@ -50,7 +50,7 @@ class HotProduct {
 		 */
 		$product_helper = inpost_pay_container()->get( WooProductHelper::SERVICE_KEY );
 		$products       = $product_helper->load_products_safe( $hot_products_list );
-		$content        = [];
+		$content        = array();
 
 		foreach ( $products as $id => $wc_product ) {
 			if ( ! $wc_product ) {
@@ -58,7 +58,7 @@ class HotProduct {
 			}
 
 			$product_transformer = new HotProductTransformer( $wc_product );
-			$content[]           = $product_transformer->transform( $global_main_image_only, [], true );
+			$content[]           = $product_transformer->transform( $global_main_image_only, array(), true );
 		}
 
 		$hot_products->set_content( $content );
@@ -71,14 +71,14 @@ class HotProduct {
 		$api_response = ( new Products() )->get();
 
 		if ( empty( $api_response->content ) ) {
-			return [];
+			return array();
 		}
 
-		$product_ids      = [];
-		$api_products_ids = [];
+		$product_ids      = array();
+		$api_products_ids = array();
 		foreach ( $api_response->content as $product ) {
 			$api_products_ids[] = $product->product_id;
-			if ( $product->status === "INACTIVE" ) {
+			if ( $product->status === 'INACTIVE' ) {
 				$product_ids[] = $product->product_id;
 
 			}
@@ -107,10 +107,10 @@ class HotProduct {
 		$api_response = ( new Products() )->get();
 
 		if ( empty( $api_response->content ) ) {
-			return [];
+			return array();
 		}
 
-		$expired_product_ids = [];
+		$expired_product_ids = array();
 		$current_time        = new \DateTime( 'now', new \DateTimeZone( 'Europe/Warsaw' ) );
 
 		foreach ( $api_response->content as $product ) {

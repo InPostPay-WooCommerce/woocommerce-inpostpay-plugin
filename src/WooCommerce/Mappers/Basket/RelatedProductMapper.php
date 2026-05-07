@@ -23,7 +23,7 @@ class RelatedProductMapper {
 	 * @return array The mapped related products
 	 */
 	public function mapRelatedProducts( ProductMapper $productMapper ): array {
-		$array = [];
+		$array = array();
 		$max   = (int) esc_attr( get_option( 'izi_related_count' ) );
 
 		if ( ! $max ) {
@@ -54,7 +54,7 @@ class RelatedProductMapper {
 				continue;
 			}
 
-			$count ++;
+			++$count;
 			$array[] = $this->mapRelatedProduct( $product );
 
 			if ( $count >= $max ) {
@@ -76,11 +76,11 @@ class RelatedProductMapper {
 	public function mapRelatedProduct( WC_Product $productSimple ): ProductInterface {
 		$productTransformer = new ProductTransformer( $productSimple );
 
-		$product = $productTransformer->mapProductData( true );
-		$product->set_base_price( $productTransformer->readProductBasePrice() );
-		$product->set_promo_price( $productTransformer->readProductPromoPrice() );
+		$product = $productTransformer->map_product_data( true );
+		$product->set_base_price( $productTransformer->read_product_base_price() );
+		$product->set_promo_price( $productTransformer->read_product_promo_price() );
 
-		$quantity = $productTransformer->readStockQuantity();
+		$quantity = $productTransformer->read_stock_quantity();
 		$quantity->set_quantity( 1 );
 		$product->set_quantity( $quantity );
 
@@ -102,7 +102,7 @@ class RelatedProductMapper {
 	 * @return array The mapped custom related products
 	 */
 	public static function mapCustomRelatedProducts( array $cartContents ): array {
-		$relatedProducts = [];
+		$relatedProducts = array();
 
 		if ( empty( $cartContents ) ) {
 			return $relatedProducts;
@@ -135,8 +135,8 @@ class RelatedProductMapper {
 			}
 
 			$transformer = new ProductTransformer( $product );
-			$base_price  = $transformer->readProductBasePrice();
-			$promo_price = $transformer->readProductPromoPrice();
+			$base_price  = $transformer->read_product_base_price();
+			$promo_price = $transformer->read_product_promo_price();
 
 			$available_quantity = $product->get_stock_quantity() ?: 999;
 
@@ -187,7 +187,7 @@ class RelatedProductMapper {
 		foreach ( $prod_atts as $attribute ) {
 			$attributes[] = array(
 				'attribute_name'  => wc_attribute_label( $attribute->get_name() ),
-				'attribute_value' => $product->get_attribute( $attribute->get_name() )
+				'attribute_value' => $product->get_attribute( $attribute->get_name() ),
 			);
 		}
 

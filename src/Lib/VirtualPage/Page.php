@@ -19,7 +19,7 @@ class Page implements PageInterface {
 	public function __construct( $url, $title = 'Untitled', $template = 'page.php' ) {
 		$this->url = filter_var( $url, FILTER_SANITIZE_URL );
 		$this->setTitle( $title );
-		$this->setTemplate( $template);
+		$this->setTemplate( $template );
 	}
 
 	public function getUrl() {
@@ -51,7 +51,7 @@ class Page implements PageInterface {
 
 	public function asWpPost(): WP_Post {
 		if ( is_null( $this->wp_post ) ) {
-			$post = array(
+			$post          = array(
 				'ID'             => 0,
 				'post_title'     => $this->title,
 				'post_name'      => sanitize_title( $this->title ),
@@ -71,8 +71,8 @@ class Page implements PageInterface {
 				'post_date'      => current_time( 'mysql' ),
 				'post_date_gmt'  => current_time( 'mysql', 1 ),
 				'post_author'    => is_user_logged_in() ? get_current_user_id() : 0,
-				'is_virtual'     => TRUE,
-				'filter'         => 'raw'
+				'is_virtual'     => true,
+				'filter'         => 'raw',
 			);
 			$this->wp_post = new WP_Post( (object) $post );
 		}

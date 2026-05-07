@@ -15,8 +15,7 @@ class Coupon_Helper {
 		return true;
 	}
 
-	public static function validate_cart_having_omnibus_coupons( \WC_Cart $cart
-	): bool {
+	public static function validate_cart_having_omnibus_coupons( \WC_Cart $cart ): bool {
 		$return = false;
 		$codes  = $cart->get_applied_coupons();
 

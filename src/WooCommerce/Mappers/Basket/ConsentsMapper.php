@@ -13,10 +13,10 @@ class ConsentsMapper {
 	 */
 	public function mapConsents(): array {
 		$consents = get_option( 'izi_consents' );
-		$response = [];
+		$response = array();
 
 		if ( ! is_array( $consents ) ) {
-			return [];
+			return array();
 		}
 
 		foreach ( $consents as $key => $consent ) {
@@ -41,7 +41,7 @@ class ConsentsMapper {
 
 				$serialized = $consentObject->jsonSerialize();
 				$response[] = $serialized;
-			} else if ( ! empty( $consent['additional_consent_links'] ) ) {
+			} elseif ( ! empty( $consent['additional_consent_links'] ) ) {
 				$first_key  = array_key_first( $consent['additional_consent_links'] );
 				$consent_id = $consent['additional_consent_links'][ $first_key ]['id'] ?? $key + 1;
 				$url        = $consent['additional_consent_links'][ $first_key ]['url'];
@@ -77,17 +77,17 @@ class ConsentsMapper {
 	 */
 	private function map_additional_consents_links( ?array $additional_consent_links ): array {
 		if ( ! is_array( $additional_consent_links ) || count( $additional_consent_links ) === 0 ) {
-			return [];
+			return array();
 		}
 
-		$links = [];
+		$links = array();
 
 		foreach ( $additional_consent_links as $key => $additional_content_link ) {
-			$links[] = [
+			$links[] = array(
 				'id'           => $additional_content_link['id'] ?? $key,
 				'consent_link' => get_permalink( (int) $additional_content_link['url'] ),
 				'label_link'   => $additional_content_link['label'] ?? get_the_title( (int) $additional_content_link['url'] ),
-			];
+			);
 		}
 
 		return $links;

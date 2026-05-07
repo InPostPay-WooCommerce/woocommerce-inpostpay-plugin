@@ -12,11 +12,11 @@ use Ilabs\Inpost_Pay\models\CartSessionService;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
 
 class CurrencyStateManager {
-	private const LAST_CURRENCY_TRANSIENT = 'inpost_pay_last_currency';
+	private const LAST_CURRENCY_TRANSIENT     = 'inpost_pay_last_currency';
 	private const CURRENCY_RESTORED_TRANSIENT = 'inpost_pay_currency_restored_';
-	private const WAS_BINDING_RESTORED = 'inpost_pay_was_binding_restored_';
-	private const WAS_INPOST_PAY_UNBOUND = 'inpost_pay_was_unbound_';
-	private const STORED_BINDING_PREFIX = 'inpost_pay_stored_binding_';
+	private const WAS_BINDING_RESTORED        = 'inpost_pay_was_binding_restored_';
+	private const WAS_INPOST_PAY_UNBOUND      = 'inpost_pay_was_unbound_';
+	private const STORED_BINDING_PREFIX       = 'inpost_pay_stored_binding_';
 
 	private static ?CartSessionService $cart_session_service = null;
 
@@ -39,12 +39,12 @@ class CurrencyStateManager {
 		}
 
 		if ( $currentCurrency !== $lastCurrency ) {
-//			Logger::log( "Currency changed from {$lastCurrency} to {$currentCurrency}" );
+			// Logger::log( "Currency changed from {$lastCurrency} to {$currentCurrency}" );
 
 			$wasAllowed = in_array( $lastCurrency, CurrencyHelper::AVAILABLE_CURRENCIES, true );
 			$isAllowed  = in_array( $currentCurrency, CurrencyHelper::AVAILABLE_CURRENCIES, true );
 
-//			Logger::log( "[CurrencyState] wasAllowed: {$wasAllowed}, isAllowed: {$isAllowed}" );
+			// Logger::log( "[CurrencyState] wasAllowed: {$wasAllowed}, isAllowed: {$isAllowed}" );
 
 			$basketId = BasketIdentification::get();
 			if ( empty( $basketId ) ) {
@@ -56,9 +56,9 @@ class CurrencyStateManager {
 			$cart_session = self::get_cart_service();
 
 			if ( $wasAllowed && ! $isAllowed ) {
-//				Logger::log( "[CurrencyState] Unbinding triggered. Basket ID: {$basketId}" );
+				// Logger::log( "[CurrencyState] Unbinding triggered. Basket ID: {$basketId}" );
 				$bindingKey = $cart_session->basket_binding_api_key( $basketId );
-//				Logger::log( "[CurrencyState] Unbinding triggered. Basket ID: {$basketId}, Key: {$bindingKey}" );
+				// Logger::log( "[CurrencyState] Unbinding triggered. Basket ID: {$basketId}, Key: {$bindingKey}" );
 
 				if ( ! empty( $bindingKey ) ) {
 					self::unbindAppCart( $bindingKey, $basketId );
@@ -73,7 +73,7 @@ class CurrencyStateManager {
 						MINUTE_IN_SECONDS * 5
 					);
 
-//					Logger::log('[CurrencyState] Cart binding restored: set_transient WAS_BINDING_RESTORED_' . self::getUserIdentifier());
+					// Logger::log('[CurrencyState] Cart binding restored: set_transient WAS_BINDING_RESTORED_' . self::getUserIdentifier());
 				}
 
 				set_transient(
@@ -114,7 +114,7 @@ class CurrencyStateManager {
 
 		if (
 			! isset( $response->error_code ) ||
-			! in_array( $response->error_code, [ 'BASKET_NOT_FOUND', 'BASKET_NOT_BOUND' ], true )
+			! in_array( $response->error_code, array( 'BASKET_NOT_FOUND', 'BASKET_NOT_BOUND' ), true )
 		) {
 			set_transient(
 				self::WAS_INPOST_PAY_UNBOUND . self::getUserIdentifier(),
@@ -178,8 +178,8 @@ class CurrencyStateManager {
 	private static function getBasketData(): ?string {
 		try {
 			$cart_session = self::get_cart_service();
-			$basketId   = BasketIdentification::get();
-			$basketData = $cart_session->get_cart_cache_by_id( $basketId );
+			$basketId     = BasketIdentification::get();
+			$basketData   = $cart_session->get_cart_cache_by_id( $basketId );
 
 			if ( empty( $basketData ) ) {
 				$inpostPay = InpostPay::get_instance();

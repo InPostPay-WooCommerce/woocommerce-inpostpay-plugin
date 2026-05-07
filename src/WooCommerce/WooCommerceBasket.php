@@ -23,7 +23,7 @@ use WooCommerce;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
 
 class WooCommerceBasket extends IziJsonResponse {
-	public static bool $hasCoupons = false;
+	public static bool $hasCoupons  = false;
 	public static bool $couponError = false;
 
 	private CartSessionService $cart_session;
@@ -55,7 +55,7 @@ class WooCommerceBasket extends IziJsonResponse {
 	 * Maps the WooCommerce cart data to a Basket object
 	 *
 	 * @param WooCommerce $wooCommerce The WooCommerce instance
-	 * @param bool $refresh Whether to refresh the cart contents
+	 * @param bool        $refresh Whether to refresh the cart contents
 	 *
 	 * @return Basket The mapped basket
 	 */
@@ -67,8 +67,7 @@ class WooCommerceBasket extends IziJsonResponse {
 		}
 
 		// Prepare shipping defaults
-//		$this->prepareShippingDefaults();
-
+		$this->prepareShippingDefaults();
 
 		// Get cart contents
 		$cartContentManager = new CartContentManager();
@@ -145,6 +144,10 @@ class WooCommerceBasket extends IziJsonResponse {
 	 * Prepares shipping defaults for the WooCommerce cart
 	 */
 	private function prepareShippingDefaults(): void {
+		if ( ! WC()->customer instanceof \WC_Customer ) {
+			return;
+		}
+
 		$customer = WC()->customer;
 		if ( empty( $customer->get_shipping_country() ) ) {
 			$customer->set_shipping_country( 'PL' );
@@ -155,6 +158,5 @@ class WooCommerceBasket extends IziJsonResponse {
 		if ( empty( $customer->get_shipping_city() ) ) {
 			$customer->set_shipping_city( 'Warszawa' );
 		}
-		WC()->cart->calculate_totals();
 	}
 }

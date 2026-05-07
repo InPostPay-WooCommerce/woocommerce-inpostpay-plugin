@@ -5,6 +5,17 @@ namespace Ilabs\Inpost_Pay;
 use Ilabs\Inpost_Pay\Container\ServiceContainer;
 use Ilabs\Inpost_Pay\Exception\MissingServiceContainerException;
 
+if ( ! function_exists( 'inpost_pay' ) ) {
+	/**
+	 * Returns a new instance of the main Plugin class.
+	 *
+	 * @return Plugin
+	 */
+	function inpost_pay(): Plugin {
+		return new Plugin();
+	}
+}
+
 if ( ! function_exists( 'inpost_pay_container' ) ) {
 	/**
 	 * Global accessor for the InPost Pay DI container.
@@ -31,4 +42,3 @@ if ( ! function_exists( 'inpost_pay_container' ) ) {
 		return $container;
 	}
 }
-

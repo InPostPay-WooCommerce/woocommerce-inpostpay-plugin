@@ -6,6 +6,7 @@ use Ilabs\Inpost_Pay\Lib\item\PromoCode;
 use Ilabs\Inpost_Pay\Lib\omnibus\Coupon_Helper;
 use WC_Cart;
 use WC_Coupon;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class PromoCodeMapper {
 	/**
@@ -16,7 +17,7 @@ class PromoCodeMapper {
 	 * @return array The mapped promo codes
 	 */
 	public function mapPromoCodes( WC_Cart $cart ): array {
-		$array = [];
+		$array = array();
 		if ( $cart ) {
 			foreach ( $cart->get_applied_coupons() as $coupon ) {
 				$array[] = $this->mapPromoCode( $coupon );
@@ -51,7 +52,8 @@ class PromoCodeMapper {
 				->get_omnibus()
 				->get_woocommerce_logger( 'Omnibus' )
 				->log_debug(
-					sprintf( '[PromoCodeMapper] [mapPromoCode] [coupon %s is valid OMNIBUS coupon]',
+					sprintf(
+						'[PromoCodeMapper] [mapPromoCode] [coupon %s is valid OMNIBUS coupon]',
 						print_r( $promoCode->get_name(), true )
 					)
 				);

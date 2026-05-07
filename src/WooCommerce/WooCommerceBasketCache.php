@@ -21,13 +21,14 @@ class WooCommerceBasketCache {
 	}
 
 	public static function store( $cart_id = null ): string {
-		self::restore( $cart_id );
-
 		$cart = WC()->cart;
 
-		$cleanCart = array_filter( $cart->cart_contents, function ( $item ) {
-			return is_array( $item ) && isset( $item['product_id'] );
-		} );
+		$cleanCart = array_filter(
+			$cart->cart_contents,
+			static function ( $item ) {
+				return is_array( $item ) && isset( $item['product_id'] );
+			}
+		);
 
 		$storeCart['cart_contents']   = $cleanCart;
 		$storeCart['applied_coupons'] = $cart->applied_coupons;
@@ -59,7 +60,7 @@ class WooCommerceBasketCache {
 			return;
 		}
 
-		$cleanCart = [];
+		$cleanCart = array();
 		foreach ( $contents['cart_contents'] as $key => $item ) {
 			if ( is_array( $item ) && isset( $item['product_id'] ) ) {
 				if ( ! empty( $item['tmcartepo'] ) ) {

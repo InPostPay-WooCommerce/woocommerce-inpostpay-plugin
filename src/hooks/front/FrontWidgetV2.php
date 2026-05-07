@@ -155,7 +155,8 @@ class FrontWidgetV2 extends FrontBase {
 				merchantClientId: `<?php echo esc_attr( self::$merchant_id ); ?>`,
 				basketBindingApiKey: ``,
 				language: `<?php echo esc_attr( LangHelper::getWidgetLangAttr() ); ?>`,
-				isBlock: `<?php echo has_block( 'woocommerce/cart' ) || has_block( 'woocommerce/checkout' ) ? 'true' : 'false'; ?>`
+				isBlock: `<?php echo has_block( 'woocommerce/cart' ) || has_block( 'woocommerce/checkout' ) ? 'true' : 'false'; ?>`,
+				cartWidgetPlacement: `<?php echo esc_attr( get_option( 'izi_place_basket', '' ) ); ?>`
 			};
 			console.log("Basket ID: <?php echo esc_html( self::$basket_id ); ?>");
 		</script>

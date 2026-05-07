@@ -14,7 +14,7 @@ class Migration {
 	 *
 	 * @var string
 	 */
-	private const version = '2.0.2';
+	private const version = '2.0.3';
 
 	/**
 	 * Database table schemas.
@@ -29,12 +29,13 @@ class Migration {
 	 * Initializes the database schemas for all required tables.
 	 */
 	public function __construct() {
-		$this->schemas = [
-			'cart_session' => "CREATE TABLE {tableName} (
+		$this->schemas = array(
+			'cart_session'    => 'CREATE TABLE {tableName} (
                 id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
                 session_id TEXT,
                 confirmation_response MEDIUMTEXT,
                 cart_id VARCHAR(255),
+                INDEX idx_cart_id (cart_id),
                 order_id INTEGER,
                 redirect_url VARCHAR(255),
                 basket_cache MEDIUMTEXT,
@@ -50,15 +51,15 @@ class Migration {
 				analytics MEDIUMTEXT DEFAULT NULL,
 				action_type VARCHAR(255) DEFAULT NULL,
                 PRIMARY KEY  (id)
-                ) {charset};",
+                ) {charset};',
 
-			'order_aliases' => "CREATE TABLE {tableName} (
+			'order_aliases'   => 'CREATE TABLE {tableName} (
 				alias_order_id VARCHAR(64) NOT NULL PRIMARY KEY,
 				order_id BIGINT UNSIGNED NOT NULL,
 				created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-				) {charset};",
+				) {charset};',
 
-			'unavailable' => "CREATE TABLE {tableName} (
+			'unavailable'     => 'CREATE TABLE {tableName} (
 				id mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				category_id BIGINT UNSIGNED DEFAULT NULL,
 				product_id BIGINT UNSIGNED DEFAULT NULL,
@@ -66,7 +67,7 @@ class Migration {
 				INDEX idx_product_id (product_id),
 				INDEX idx_category_id (category_id),
 				INDEX idx_category_null_product (category_id, product_id)
-				) {charset};",
+				) {charset};',
 
 			'basket_bindings' => 'CREATE TABLE {tableName} (
 			    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -76,8 +77,8 @@ class Migration {
 			    updated_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
 			    UNIQUE INDEX idx_basket_id (basket_id),
 			    UNIQUE INDEX idx_api_key (basket_binding_api_key)
-			) {charset};'
-		];
+			) {charset};',
+		);
 	}
 
 	/**
@@ -95,7 +96,7 @@ class Migration {
 			return;
 		}
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		foreach ( $this->schemas as $schemaName => $schema ) {
 			$tableName = $wpdb->prefix . 'izi_' . $schemaName;
@@ -114,6 +115,10 @@ class Migration {
 		if ( $current_version && version_compare( $current_version, '2.0.1', '<=' ) ) {
 			$this->add_session_expiry_index();
 			$this->schedule_expired_session_cleanup();
+		}
+
+		if ( $current_version && version_compare( $current_version, '2.0.2', '<=' ) ) {
+			$this->add_cart_id_index();
 		}
 
 		update_option( 'izi-db-version', self::version );
@@ -222,6 +227,32 @@ class Migration {
 	}
 
 	/**
+	 * Add index on cart_id to the cart_session table.
+	 *
+	 * @return void
+	 */
+	private function add_cart_id_index(): void {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'izi_cart_session';
+
+		$table_exists = $wpdb->get_var(
+			$wpdb->prepare( 'SHOW TABLES LIKE %s', $table )
+		);
+
+		if ( ! $table_exists ) {
+			return;
+		}
+
+		$indexes          = $wpdb->get_results( "SHOW INDEX FROM {$table}", ARRAY_A );
+		$existing_indexes = array_column( $indexes, 'Key_name' );
+
+		if ( ! in_array( 'idx_cart_id', $existing_indexes, true ) ) {
+			$wpdb->query( "ALTER TABLE {$table} ADD INDEX idx_cart_id (cart_id)" );
+		}
+	}
+
+	/**
 	 * Add indexes to the unavailable table.
 	 *
 	 * Creates performance indexes for the unavailable table if they don't exist.
@@ -233,10 +264,12 @@ class Migration {
 
 		$table_name = $wpdb->prefix . 'izi_unavailable';
 
-		$table_exists = $wpdb->get_var( $wpdb->prepare(
-			'SHOW TABLES LIKE %s',
-			$table_name
-		) );
+		$table_exists = $wpdb->get_var(
+			$wpdb->prepare(
+				'SHOW TABLES LIKE %s',
+				$table_name
+			)
+		);
 
 		if ( ! $table_exists ) {
 			Logger::log( '[MIGRATION] Table ' . $table_name . ' does not exist - skipping index creation' );

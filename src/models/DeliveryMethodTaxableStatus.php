@@ -11,18 +11,15 @@ class DeliveryMethodTaxableStatus {
 
 	/**
 	 * @param string $deliveryTypeCode
-	 * @param bool $isTaxable
+	 * @param bool   $isTaxable
 	 */
 	public function __construct(
-
 		string $deliveryTypeCode,
 		bool $isTaxable
-
 	) {
 
 		$this->deliveryTypeCode = $deliveryTypeCode;
 		$this->isTaxable        = $isTaxable;
-
 	}
 
 
@@ -33,6 +30,4 @@ class DeliveryMethodTaxableStatus {
 	public function isTaxable(): bool {
 		return $this->isTaxable;
 	}
-
-
 }

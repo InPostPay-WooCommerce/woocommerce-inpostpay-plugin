@@ -78,29 +78,29 @@ class Cron {
 	 */
 	private function delete_expired_cart_sessions(): void {
 		$batch_size     = 250;
-		$cleanup_needed = (bool) get_option('izi_session_cleanup_needed');
+		$cleanup_needed = (bool) get_option( 'izi_session_cleanup_needed' );
 		$time_budget    = $cleanup_needed ? 2.0 : 0.5;
 		$max_loops      = $cleanup_needed ? 20 : 5;
 
 		$total_deleted = 0;
-		$start         = microtime(true);
+		$start         = microtime( true );
 		$loops         = 0;
 
 		do {
-			$deleted = $this->cart_session_repository->delete_expired_sessions($batch_size);
+			$deleted        = $this->cart_session_repository->delete_expired_sessions( $batch_size );
 			$total_deleted += $deleted;
-			$loops++;
+			++$loops;
 
-			if ($deleted < $batch_size) {
-				if ($cleanup_needed) {
-					delete_option('izi_session_cleanup_needed');
-					Logger::log('[Cron] Expired session backlog cleared');
+			if ( $deleted < $batch_size ) {
+				if ( $cleanup_needed ) {
+					delete_option( 'izi_session_cleanup_needed' );
+					Logger::log( '[Cron] Expired session backlog cleared' );
 				}
 				break;
 			}
 		} while (
 			$loops < $max_loops &&
-			(microtime(true) - $start) < $time_budget
+			( microtime( true ) - $start ) < $time_budget
 		);
 
 		if ( $total_deleted > 0 ) {

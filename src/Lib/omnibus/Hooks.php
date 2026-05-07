@@ -7,32 +7,40 @@ use WC_Product_Grouped;
 use WC_Product_Variable;
 use WC_Product_Variation;
 use WP_Post;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Hooks {
 
 	public function init() {
-		/*add_filter( 'woocommerce_grouped_product_columns',
+		/*
+		add_filter( 'woocommerce_grouped_product_columns',
 			[ $this, 'filter_grouped_product_columns' ],
 			10,
 			2 );*/
-		/*add_action( 'woocommerce_grouped_product_list_after_omnibus',
+		/*
+		add_action( 'woocommerce_grouped_product_list_after_omnibus',
 			[ $this, 'filter_grouped_product_child' ],
 			10,
 			1 );*/
-		/*add_action( 'woocommerce_single_product_summary',
+		/*
+		add_action( 'woocommerce_single_product_summary',
 			[ $this, 'single_product_summary' ],
 			11,
 			1 );*/
-		/*add_action( 'woocommerce_get_price_html', [
+		/*
+		add_action( 'woocommerce_get_price_html', [
 			$this,
 			'woocommerce_get_variation_price_html',
 		], 10, 2 );*/
-		add_action( 'woocommerce_variation_options_pricing',
-			[ $this, 'woocommerce_variation_options_pricing' ],
+		add_action(
+			'woocommerce_variation_options_pricing',
+			array( $this, 'woocommerce_variation_options_pricing' ),
 			10,
-			3 );
+			3
+		);
 
-		/*add_action( 'woocommerce_after_shop_loop_item_title',
+		/*
+		add_action( 'woocommerce_after_shop_loop_item_title',
 			[ $this, 'after_shop_loop_item_title' ],
 			10,
 			3 );
@@ -51,11 +59,13 @@ class Hooks {
 
 	public function filter_grouped_product_child( WC_Product $product ) {
 		if ( ( new Product_Service() )->should_show_omnibus_note( $product )
-		     && ! apply_filters( inpost_pay()
+			&& ! apply_filters(
+				inpost_pay()
 				->get_omnibus()
 				->add_slug_prefix( 'disable_message' ),
 				false,
-				$product ) ) {
+				$product
+			) ) {
 			echo '<tr><td>';
 			inpost_pay()->get_omnibus()->output_product_note_html( $product );
 			echo '</td></tr>';
@@ -66,12 +76,14 @@ class Hooks {
 		$product = wc_get_product();
 
 		if ( ! $product instanceof WC_Product_Variable
-		     && ! $product instanceof WC_Product_Grouped ) {
-			if ( ! apply_filters( inpost_pay()
+			&& ! $product instanceof WC_Product_Grouped ) {
+			if ( ! apply_filters(
+				inpost_pay()
 				->get_omnibus()
 				->add_slug_prefix( 'disable_message' ),
 				false,
-				$product ) ) {
+				$product
+			) ) {
 				inpost_pay()
 					->get_omnibus()
 					->output_product_note_html( $product );
@@ -85,16 +97,18 @@ class Hooks {
 	): string {
 		$original_price_html = $price;
 		if ( ! ( new Product_Service() )->should_show_omnibus_note( $product )
-		     || ! $product instanceof WC_Product_Variation ) {
+			|| ! $product instanceof WC_Product_Variation ) {
 
 			return $original_price_html;
 		}
 
-		if ( apply_filters( inpost_pay()
+		if ( apply_filters(
+			inpost_pay()
 			->get_omnibus()
 			->add_slug_prefix( 'disable_message' ),
 			false,
-			$product ) ) {
+			$product
+		) ) {
 			return $original_price_html;
 		}
 
@@ -114,18 +128,23 @@ class Hooks {
 				return $original_price_html;
 			}
 
-			return sprintf( "%s<span class='omnibus-by-ilabs-price-note'><br>%s</span>"
-				,
+			return sprintf(
+				"%s<span class='omnibus-by-ilabs-price-note'><br>%s</span>",
 				$original_price_html,
-				$price_note_template_service->get_product_note_html( $lowest_price->get_price_float(),
-					$product ) );
+				$price_note_template_service->get_product_note_html(
+					$lowest_price->get_price_float(),
+					$product
+				)
+			);
 		} else {
-			return sprintf( "%s<span class='omnibus-by-ilabs-price-note'><br>%s</span>"
-				,
+			return sprintf(
+				"%s<span class='omnibus-by-ilabs-price-note'><br>%s</span>",
 				$original_price_html,
 				$price_note_template_service->get_product_note_html(
 					$product->get_regular_price( 'false' ),
-					$product ) );
+					$product
+				)
+			);
 		}
 	}
 
@@ -139,7 +158,6 @@ class Hooks {
 			return;
 		}
 
-
 		$post_id          = $variation_post->ID;
 		$price_repository = new Lowest_Price_Cache_Post_Meta_Repository();
 		$omnibus_price    = $price_repository->get( $post_id );
@@ -151,16 +169,20 @@ class Hooks {
 		}
 
 		woocommerce_wp_text_input(
-			[
+			array(
 				'id'          => inpost_pay()->add_slug_prefix( 'omnibus_price' ),
-				'label'       => __( 'Omnibus Price',
-					'inpost-pay' ),
+				'label'       => __(
+					'Omnibus Price',
+					'inpost-pay'
+				),
 				'value'       => wc_format_localized_price( $omnibus_price_val ),
 				'class'       => '',
 				'data_type'   => 'price',
-				'description' => __( 'If you provide non-tax prices for this product, provide a non-tax Omnibus price. If you provide tax-inclusive prices for this product, provide the tax-inclusive Omnibus price.',
-					'inpost-pay' ),
-			]
+				'description' => __(
+					'If you provide non-tax prices for this product, provide a non-tax Omnibus price. If you provide tax-inclusive prices for this product, provide the tax-inclusive Omnibus price.',
+					'inpost-pay'
+				),
+			)
 		);
 	}
 
@@ -182,30 +204,34 @@ class Hooks {
 		}
 	}
 
-	public function omnibus_by_ilabs_message_shortcode( $atts = [] ) {
+	public function omnibus_by_ilabs_message_shortcode( $atts = array() ) {
 		$product      = wc_get_product();
 		$atts         = array_change_key_case( (array) $atts, CASE_LOWER );
 		$omnibus_atts = shortcode_atts(
-			[
+			array(
 				'only_on_single' => true,
-			],
+			),
 			$atts
 		);
-		if ( strtolower( $omnibus_atts['only_on_single'] ) === "false" ) {
+		if ( strtolower( $omnibus_atts['only_on_single'] ) === 'false' ) {
 			$omnibus_atts['only_on_single'] = false;
 		}
-		if ( strtolower( $omnibus_atts['only_on_single'] ) === "true" ) {
+		if ( strtolower( $omnibus_atts['only_on_single'] ) === 'true' ) {
 			$omnibus_atts['only_on_single'] = true;
 		}
 		if ( ! $product instanceof WC_Product_Variable
-		     && ! $product instanceof WC_Product_Grouped ) {
-			if ( ! apply_filters( inpost_pay()
+			&& ! $product instanceof WC_Product_Grouped ) {
+			if ( ! apply_filters(
+				inpost_pay()
 				->get_omnibus()
 				->add_slug_prefix( 'disable_message' ),
 				false,
-				$product ) ) {
-				inpost_pay()->get_omnibus()->output_product_note_html( $product,
-					$omnibus_atts['only_on_single'] );
+				$product
+			) ) {
+				inpost_pay()->get_omnibus()->output_product_note_html(
+					$product,
+					$omnibus_atts['only_on_single']
+				);
 			}
 		}
 	}

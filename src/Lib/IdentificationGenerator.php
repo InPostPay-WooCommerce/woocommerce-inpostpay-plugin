@@ -2,23 +2,24 @@
 
 namespace Ilabs\Inpost_Pay\Lib;
 
-class IdentificationGenerator
-{
-    public static function generate(): string
-    {
-        $id = implode('-', [
-            IdentificationGenerator::random(8),
-            IdentificationGenerator::random(4),
-            IdentificationGenerator::random(4),
-            IdentificationGenerator::random(4),
-            IdentificationGenerator::random(12),
-        ]);
+class IdentificationGenerator {
 
-        return $id;
-    }
+	public static function generate(): string {
+		$id = implode(
+			'-',
+			array(
+				self::random( 8 ),
+				self::random( 4 ),
+				self::random( 4 ),
+				self::random( 4 ),
+				self::random( 12 ),
+			)
+		);
 
-    public static function random($size)
-    {
-        return bin2hex(random_bytes($size / 2));
-    }
+		return $id;
+	}
+
+	public static function random( $size ) {
+		return bin2hex( random_bytes( $size / 2 ) );
+	}
 }

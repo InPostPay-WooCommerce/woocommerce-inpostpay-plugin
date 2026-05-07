@@ -38,22 +38,30 @@ class Destination {
 			);
 
 		} else {
+			// Country is used only for shipping zone matching. WC session country can be
+			// corrupted by IP geolocation from external server requests (e.g. InPost
+			// confirmation requests come from non-PL servers and WC saves the geolocated
+			// country back to the user's session). Use the store's configured base location
+			// to ensure stable zone resolution regardless of request origin.
+			$base_location    = wc_get_base_location();
+			$session_customer = WC()->session ? (array) WC()->session->get( 'customer' ) : array();
+
 			$shipping_data = array(
-				'country'   => WC()->customer->get_shipping_country(),
-				'state'     => WC()->customer->get_shipping_state(),
-				'postcode'  => WC()->customer->get_shipping_postcode(),
-				'city'      => WC()->customer->get_shipping_city(),
-				'address'   => WC()->customer->get_shipping_address(),
-				'address_2' => WC()->customer->get_shipping_address_2(),
+				'country'   => $base_location['country'] ?? '',
+				'state'     => $session_customer['shipping_state'] ?? '',
+				'postcode'  => $session_customer['shipping_postcode'] ?? '',
+				'city'      => $session_customer['shipping_city'] ?? '',
+				'address'   => $session_customer['shipping_address_1'] ?? '',
+				'address_2' => $session_customer['shipping_address_2'] ?? '',
 			);
 
 			$billing_data = array(
-				'country'   => WC()->customer->get_shipping_country(),
-				'state'     => WC()->customer->get_shipping_state(),
-				'postcode'  => WC()->customer->get_shipping_postcode(),
-				'city'      => WC()->customer->get_shipping_city(),
-				'address'   => WC()->customer->get_shipping_address(),
-				'address_2' => WC()->customer->get_shipping_address_2(),
+				'country'   => $base_location['country'] ?? '',
+				'state'     => $session_customer['billing_state'] ?? '',
+				'postcode'  => $session_customer['billing_postcode'] ?? '',
+				'city'      => $session_customer['billing_city'] ?? '',
+				'address'   => $session_customer['billing_address_1'] ?? '',
+				'address_2' => $session_customer['billing_address_2'] ?? '',
 			);
 		}
 

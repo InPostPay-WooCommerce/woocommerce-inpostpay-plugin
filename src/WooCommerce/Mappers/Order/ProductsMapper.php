@@ -8,19 +8,19 @@ use Ilabs\Inpost_Pay\Lib\Transformers\OrderProductTransformer;
 
 class ProductsMapper {
 	private \WC_Order $order;
-	private float $orderBasePriceNet = 0.0;
-	private float $orderBasePriceGross = 0.0;
-	private float $orderBasePriceVat = 0.0;
-	private float $orderPromoPriceNet = 0.0;
+	private float $orderBasePriceNet    = 0.0;
+	private float $orderBasePriceGross  = 0.0;
+	private float $orderBasePriceVat    = 0.0;
+	private float $orderPromoPriceNet   = 0.0;
 	private float $orderPromoPriceGross = 0.0;
-	private float $orderPromoPriceVat = 0.0;
+	private float $orderPromoPriceVat   = 0.0;
 
 	public function __construct( $order ) {
 		$this->order = $order;
 	}
 
 	public function map(): array {
-		$products = [];
+		$products = array();
 
 		foreach ( $this->order->get_items() as $cartContent ) {
 			if ( ! $cartContent->get_product() ) {
@@ -37,7 +37,7 @@ class ProductsMapper {
 		$orderProductTransformer = new OrderProductTransformer( $simpleProduct, $this->order, $item );
 
 		/** @var Product $product */
-		$product = $orderProductTransformer->mapProductData();
+		$product = $orderProductTransformer->map_product_data();
 
 		if ( $simpleProduct instanceof \WC_Product_Variation ) {
 			$variation_id = $simpleProduct->get_id();
@@ -64,13 +64,13 @@ class ProductsMapper {
 	}
 
 	public function getCalculatedPriceTotals(): array {
-		return [
+		return array(
 			'orderBasePriceNet'    => $this->orderBasePriceNet,
 			'orderBasePriceGross'  => $this->orderBasePriceGross,
 			'orderBasePriceVat'    => $this->orderBasePriceVat,
 			'orderPromoPriceNet'   => $this->orderPromoPriceNet,
 			'orderPromoPriceGross' => $this->orderPromoPriceGross,
 			'orderPromoPriceVat'   => $this->orderPromoPriceVat,
-		];
+		);
 	}
 }

@@ -28,7 +28,7 @@ class WidgetCheckoutPage extends Base {
 
 				ob_start();
 				( new FrontDisplayWidget() )->displayCheckout();
-				header('Content-Type:text/html; charset=UTF-8');
+				header( 'Content-Type:text/html; charset=UTF-8' );
 				die( ob_get_clean() );
 			}
 			die;

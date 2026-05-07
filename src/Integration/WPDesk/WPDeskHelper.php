@@ -65,7 +65,7 @@ class WPDeskHelper {
 				)
 			);
 
-			return $single ? $actual_total : [ $actual_total ];
+			return $single ? $actual_total : array( $actual_total );
 		}
 
 		return $value;

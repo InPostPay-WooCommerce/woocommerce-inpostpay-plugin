@@ -4,7 +4,7 @@ namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost;
 
 abstract class AbstractGroup implements GroupInterface {
 
-	private ?BoolField $isActiveField = null;
+	private ?BoolField $isActiveField                             = null;
 	private ?OptionCostMappingApproach $optionCostMappingApproach = null;
 	private ?int $zone_id = null;
 
@@ -24,17 +24,17 @@ abstract class AbstractGroup implements GroupInterface {
 
 	public function getDeliveryOptionName(): ?string {
 		if ( GroupInterface::DELIVERY_OPTION_CODE_COD === $this->getDeliveryOptionCode() ) {
-			return "Pobranie";
+			return 'Pobranie';
 		}
 
 		if ( GroupInterface::DELIVERY_OPTION_CODE_PWW === $this->getDeliveryOptionCode() ) {
-			return "Paczka w Weekend";
+			return 'Paczka w Weekend';
 		}
 
 		return null;
 	}
 
-	protected abstract function getIsActiveFieldId(): string;
+	abstract protected function getIsActiveFieldId(): string;
 
 	protected function getIsActiveFieldLabel(): string {
 		return __( 'Enabled', 'inpost-pay' );
@@ -58,8 +58,7 @@ abstract class AbstractGroup implements GroupInterface {
 
 	public function initIsActiveField(): void {
 
-		$this->isActiveField = new BoolField
-		(
+		$this->isActiveField = new BoolField(
 			$this->getIsActiveFieldId(),
 			$this->getIsActiveFieldLabel(),
 			$this->getIsActiveFieldTooltip(),
@@ -113,8 +112,7 @@ abstract class AbstractGroup implements GroupInterface {
 		$tooltip = $this->getOptionCostMappingApproachTooltip();
 
 		if ( $id ) {
-			$this->optionCostMappingApproach = new OptionCostMappingApproach
-			(
+			$this->optionCostMappingApproach = new OptionCostMappingApproach(
 				$this->getOptionCostMappingApproachId(),
 				$this->getOptionCostMappingApproachLabel(),
 				$this->getOptionCostMappingApproachTooltip(),

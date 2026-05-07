@@ -2,7 +2,6 @@
 
 namespace Ilabs\Inpost_Pay\Lib;
 
-
 use Ilabs\Inpost_Pay\Lib\Product\CustomMeta\AvailableForProduct;
 use Ilabs\Inpost_Pay\Lib\form\exception\NotAllowedConfigOptionException;
 use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
@@ -11,28 +10,28 @@ use Ilabs\Inpost_Pay\Logger;
 class ProductMetaBox {
 	public const NAME = 'inpost_pay_product_meta_box';
 
-	public const AVAILABLE_META = [
+	public const AVAILABLE_META = array(
 		AvailableForProduct::class,
 
-	];
+	);
 
 
 	public function register(): void {
-		add_filter( 'woocommerce_product_data_tabs', [ $this, 'filter_woocommerce_product_data_tabs' ], 10, 1 );
-		add_action( 'woocommerce_product_data_panels', [ $this, 'action_woocommerce_product_data_panels' ], 10, 0 );
-		add_action( 'woocommerce_admin_process_product_object', [ $this, 'save' ], 10, 1 );
+		add_filter( 'woocommerce_product_data_tabs', array( $this, 'filter_woocommerce_product_data_tabs' ), 10, 1 );
+		add_action( 'woocommerce_product_data_panels', array( $this, 'action_woocommerce_product_data_panels' ), 10, 0 );
+		add_action( 'woocommerce_admin_process_product_object', array( $this, 'save' ), 10, 1 );
 	}
 
 	/**
 	 * Add custom product setting tab.
 	 */
 	public function filter_woocommerce_product_data_tabs( $default_tabs ) {
-		$default_tabs[self::NAME] = [
+		$default_tabs[ self::NAME ] = array(
 			'label'    => __( 'InPost Pay', 'inpost-pay' ),
 			'target'   => self::NAME,
 			'priority' => 50,
-			'class'    => [],
-		];
+			'class'    => array(),
+		);
 
 		return $default_tabs;
 	}
@@ -43,8 +42,7 @@ class ProductMetaBox {
 	 */
 	public function action_woocommerce_product_data_panels(): void {
 		global $post;
-		echo '<div id="'.self::NAME.'" class="panel woocommerce_options_panel">';
-
+		echo '<div id="' . self::NAME . '" class="panel woocommerce_options_panel">';
 
 		foreach ( self::AVAILABLE_META as $meta ) {
 			try {
@@ -53,7 +51,7 @@ class ProductMetaBox {
 				$field->print_label();
 				$field->print_field();
 				echo '</p>';
-			} catch ( RequiredConfigOptionException|NotAllowedConfigOptionException $e ) {
+			} catch ( RequiredConfigOptionException | NotAllowedConfigOptionException $e ) {
 				Logger::log( $e->getMessage() );
 			}
 		}
@@ -76,7 +74,7 @@ class ProductMetaBox {
 		foreach ( self::AVAILABLE_META as $meta ) {
 			// Sanitize user input
 			if ( $meta::validate( $post_id ) ) {
-				$new_value = sanitize_text_field( $_POST[$meta::get_slug()] );
+				$new_value = sanitize_text_field( $_POST[ $meta::get_slug() ] );
 
 				// Update the meta field in the database
 				update_post_meta( $post_id, $meta::get_slug(), $new_value );
@@ -84,9 +82,6 @@ class ProductMetaBox {
 				wc_add_notice( __( $meta::get_validation_error(), 'inpost-pay' ), 'error' );
 				return;
 			}
-
 		}
-
-
 	}
 }

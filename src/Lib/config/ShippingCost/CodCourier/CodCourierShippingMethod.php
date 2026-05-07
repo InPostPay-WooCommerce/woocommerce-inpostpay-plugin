@@ -33,20 +33,20 @@ final class CodCourierShippingMethod extends AbstractShippingMethodField impleme
 
 	public function get_label(): string {
 		return __(
-			"Prices and courier shipping availability map with:",
-			"inpost-pay"
+			'Prices and courier shipping availability map with:',
+			'inpost-pay'
 		);
 	}
 
 	public function get_tooltip(): string {
 		return __(
-			"Determines which shipping method is to be associated",
-			"inpost-pay"
+			'Determines which shipping method is to be associated',
+			'inpost-pay'
 		);
 	}
 
 	public function get_legacy_option_id(): string {
-		return 'izi_transport_method_courier';//w legacy jest nie ma "cod"
+		return 'izi_transport_method_courier';// w legacy jest nie ma "cod"
 	}
 
 	public function has_legacy_option_priority(): bool {

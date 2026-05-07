@@ -19,7 +19,7 @@ class ProductExtrasForWoocommerceAvailabilityIntegration extends AbstractAvailab
 	private function isChild(): bool {
 
 		if ( isset( $this->cart_item['product_extras']['products']['child_field'] )
-		     && $this->cart_item['product_extras']['products']['child_field'] === 1 ) {
+			&& $this->cart_item['product_extras']['products']['child_field'] === 1 ) {
 			return true;
 		}
 

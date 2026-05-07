@@ -21,9 +21,9 @@ class ProductThirdPartyFilter {
 	 * @return ProductFilterInterface[]
 	 */
 	private function getProductFilterInterfaces(): array {
-		return [
+		return array(
 			new ExtendonsCompositeProductFilter(),
 			new SmartCompositeProductFilter(),
-		];
+		);
 	}
 }

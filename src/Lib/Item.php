@@ -12,7 +12,7 @@ class Item implements JsonSerializable {
 	 * Magic setter with validation.
 	 *
 	 * @param string $property Property name.
-	 * @param mixed $value Value to set.
+	 * @param mixed  $value Value to set.
 	 *
 	 * @throws ErrorException If property does not exist.
 	 */
@@ -88,7 +88,7 @@ class Item implements JsonSerializable {
 	public function getProducts() {
 		$data = $this->toArray();
 
-		return $data['products'] ?? [];
+		return $data['products'] ?? array();
 	}
 
 	/**

@@ -15,8 +15,7 @@ class ExtendonsCompositeCartItemFilter extends AbstractCartItemFilter implements
 		return true;
 	}
 
-	public function resolveParentBundleProductId( array $cartItemContent
-	): ?int {
+	public function resolveParentBundleProductId( array $cartItemContent ): ?int {
 		if ( isset( $cartItemContent['bundled_by'] ) && is_string( $cartItemContent['bundled_by'] ) ) {
 
 			return ( (int) $cartItemContent['bundled_by'] );

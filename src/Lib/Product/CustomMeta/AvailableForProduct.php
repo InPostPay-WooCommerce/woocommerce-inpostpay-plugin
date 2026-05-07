@@ -1,7 +1,6 @@
 <?php
 namespace Ilabs\Inpost_Pay\Lib\Product\CustomMeta;
 
-
 use Ilabs\Inpost_Pay\Lib\form\Checkbox;
 use Ilabs\Inpost_Pay\Lib\form\error\ValidationError;
 use Ilabs\Inpost_Pay\Lib\form\exception\NotAllowedConfigOptionException;
@@ -12,7 +11,7 @@ class AvailableForProduct extends AbstractProductMeta implements ProductMetaInte
 
 	public const INPOST_PAY_AVAILABLE_FOR_PRODUCT = '_izi_available_for_product';
 
-	private const CONFIG = [
+	private const CONFIG = array(
 		'slug'    => self::INPOST_PAY_AVAILABLE_FOR_PRODUCT,
 		'type'    => 'boolean',
 		'single'  => true,
@@ -20,7 +19,7 @@ class AvailableForProduct extends AbstractProductMeta implements ProductMetaInte
 		'default' => 'yes',
 		'label'   => 'Available in Inpost Pay',
 		'help'    => 'Enable this option if you want to show this product in Inpost Pay.',
-	];
+	);
 
 	private static ?ValidationError $validation_error = null;
 
@@ -54,12 +53,15 @@ class AvailableForProduct extends AbstractProductMeta implements ProductMetaInte
 	 * @throws NotAllowedConfigOptionException
 	 */
 	public static function get_form_field( $post_ID ): FormFieldInterface {
-		return new Checkbox( self::get( $post_ID ), [
-			'label'       => self::get_label(),
-			'name'        => self::get_slug(),
-			'label_class' => 'label-gray',
-			'class'       => 'mobileToggle'
-		] );
+		return new Checkbox(
+			self::get( $post_ID ),
+			array(
+				'label'       => self::get_label(),
+				'name'        => self::get_slug(),
+				'label_class' => 'label-gray',
+				'class'       => 'mobileToggle',
+			)
+		);
 	}
 
 	public static function get( $post_ID ): bool {

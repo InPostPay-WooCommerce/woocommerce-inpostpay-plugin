@@ -3,6 +3,7 @@
 namespace Ilabs\Inpost_Pay\Lib\omnibus;
 
 use WC_Product;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Price_Note_Template_Service {
 
@@ -20,6 +21,6 @@ class Price_Note_Template_Service {
 	}
 
 	public function output_product_note_html( float $lowest_price, WC_Product $product ) {
-		echo wp_kses( $this->get_product_note_html( $lowest_price, $product ), [ 'p' => [ 'class' => [] ] ] );
+		echo wp_kses( $this->get_product_note_html( $lowest_price, $product ), array( 'p' => array( 'class' => array() ) ) );
 	}
 }

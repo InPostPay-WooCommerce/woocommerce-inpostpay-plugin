@@ -17,7 +17,7 @@ class SelectOption {
 	}
 
 	public function get_translated_name(): ?string {
-		return __($this->get_name(), 'inpost-pay');
+		return __( $this->get_name(), 'inpost-pay' );
 	}
 
 	public function is_selected(): bool {
@@ -25,11 +25,9 @@ class SelectOption {
 	}
 
 	public function print_selected(): string {
-		if ($this->is_selected()) {
+		if ( $this->is_selected() ) {
 			return 'selected';
 		}
 		return '';
 	}
-
-
 }

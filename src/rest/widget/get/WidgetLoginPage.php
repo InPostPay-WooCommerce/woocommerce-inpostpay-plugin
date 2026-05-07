@@ -14,11 +14,11 @@ class WidgetLoginPage extends Base {
 		) {
 			$isBlock = $request->get_param( 'isBlock' );
 
-			if (  $isBlock === 'true' || esc_attr( get_option( 'izi_show_login_page' ) ) ) {
+			if ( $isBlock === 'true' || esc_attr( get_option( 'izi_show_login_page' ) ) ) {
 
 				ob_start();
 				( new FrontDisplayWidget() )->displayLoginPage();
-				header('Content-Type:text/html; charset=UTF-8');
+				header( 'Content-Type:text/html; charset=UTF-8' );
 				die( ob_get_clean() );
 			}
 			die;

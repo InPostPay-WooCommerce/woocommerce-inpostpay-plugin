@@ -20,17 +20,17 @@ msgstr ""
 msgid "Accepted"
 msgstr "Zaakceptowany"
 
-#: src/views/config-sections/agreements-template.view.php:59
-#: src/views/config-sections/agreements.view.php:72
+#: src/views/config-sections/agreements-template.view.php:66
+#: src/views/config-sections/agreements.view.php:86
 msgid "Add a description to be displayed with the agreement in the InPost mobile application"
 msgstr "Dodaj opis, który ma być wyświetlany przy zgodzie w aplikacji InPost mobile"
 
-#: src/views/config-sections/agreements-template.view.php:153
-#: src/views/config-sections/agreements.view.php:218
+#: src/views/config-sections/agreements-template.view.php:151
+#: src/views/config-sections/agreements.view.php:243
 msgid "Add additional link"
 msgstr "Dodaj dodatkowy link"
 
-#: src/views/config-sections/agreements.view.php:229
+#: src/views/config-sections/agreements.view.php:264
 msgid "Add Consent"
 msgstr "Dodaj zgodę"
 
@@ -40,55 +40,53 @@ msgstr "Dodaj zgodę"
 msgid "Add InPost Pay button to your content"
 msgstr "Dodaj przycisk InPost Pay do treści"
 
-#: src/views/config-sections/net-transport-price.view.php:4
+#: src/views/config-sections/net-transport-price.view.php:14
 msgid "Add VAT to the transport price:"
 msgstr "Dolicz VAT do ceny transportu:"
 
-#: src/views/config-sections/tm-apm.view.php:198
-#: src/views/config-sections/tm-apm.view.php:315
-#: src/views/config-sections/tm-courier.view.php:180
+#: src/views/config-sections/tm-apm.view.php:187
+#: src/views/config-sections/tm-apm.view.php:304
+#: src/views/config-sections/tm-courier.view.php:165
 msgid "Added fee"
 msgstr "Dodatkowa prowizja"
 
-#: src/views/config-sections/agreements-template.view.php:126
-#: src/views/config-sections/agreements.view.php:151
+#: src/views/config-sections/agreements-template.view.php:116
 msgid "Additional Consent Links:"
 msgstr "Dodatkowe linki:"
 
-#: src/views/config-sections/tm-apm.view.php:214
-#: src/views/config-sections/tm-apm.view.php:332
-#: src/views/config-sections/tm-courier.view.php:199
+#: src/views/config-sections/tm-apm.view.php:204
+#: src/views/config-sections/tm-apm.view.php:321
+#: src/views/config-sections/tm-courier.view.php:185
 msgid "Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings."
 msgstr "Pole dodatkowej prowizji kwotowej dla tej opcji dostawy. Podana kwota jest kwotą netto, a podatek będzie doliczony w zależności od ustawień podatku."
 
-#: src/views/config-sections/tm-additional-options.view.php:10
+#: src/views/config-sections/tm-additional-options.view.php:18
 msgid "Additional options:"
 msgstr "Dodatkowe opcje:"
 
-#: src/views/config-sections/product-card-gui.view.php:66
+#: src/views/config-sections/product-card-gui.view.php:67
 msgid "After add to cart button"
 msgstr "Za przyciskiem dodania do koszyka"
 
-#: src/views/config-sections/product-card-gui.view.php:74
+#: src/views/config-sections/product-card-gui.view.php:69
 msgid "After add to cart form"
 msgstr "Za formularzem dodania do koszyka"
 
-#: src/views/config-sections/checkout-gui.view.php:52
-#: src/views/config-sections/minicart-gui.view.php:52
-#: src/views/config-sections/order-gui.view.php:69
+#: src/views/config-sections/checkout-gui.view.php:58
+#: src/views/config-sections/order-gui.view.php:75
 msgid "After billing form"
 msgstr "Po formularzu płatności"
 
-#: src/views/config-sections/cart-gui.view.php:120
+#: src/views/config-sections/cart-gui.view.php:90
 msgid "After cart area"
 msgstr "Po obszarze koszyka"
 
-#: src/views/config-sections/cart-gui.view.php:72
-#: src/views/config-sections/order-gui.view.php:56
+#: src/views/config-sections/cart-gui.view.php:78
+#: src/views/config-sections/order-gui.view.php:63
 msgid "After cart contents"
 msgstr "Po zawartości koszyka"
 
-#: src/views/config-sections/cart-gui.view.php:76
+#: src/views/config-sections/cart-gui.view.php:79
 msgid "After cart table slot 1"
 msgstr "Po tabeli slot 1"
 
@@ -96,92 +94,85 @@ msgstr "Po tabeli slot 1"
 msgid "After cart table slot 2"
 msgstr "Po tabeli slot 2"
 
-#: src/views/config-sections/cart-gui.view.php:116
+#: src/views/config-sections/cart-gui.view.php:89
 msgid "After cart totals"
 msgstr "Po podsumowaniu"
 
-#: src/views/config-sections/checkout-gui.view.php:76
-#: src/views/config-sections/order-gui.view.php:73
+#: src/views/config-sections/checkout-gui.view.php:64
+#: src/views/config-sections/order-gui.view.php:79
 msgid "After checkout form"
 msgstr "Po formularzu zamówienia"
 
-#: src/views/config-sections/checkout-gui.view.php:64
-#: src/views/config-sections/minicart-gui.view.php:64
-#: src/views/config-sections/order-gui.view.php:52
+#: src/views/config-sections/checkout-gui.view.php:61
+#: src/views/config-sections/order-gui.view.php:60
 msgid "After customer details"
 msgstr "Po danych kupującego"
 
-#: src/views/config-sections/minicart-gui.view.php:76
-msgid "After minicart form"
-msgstr "Za formularzem dodania do koszyka"
-
-#: src/views/config-sections/order-gui.view.php:50
+#: src/views/config-sections/order-gui.view.php:59
 msgid "After order notes"
 msgstr "Po notatkach zamówienia"
 
-#: src/views/config-sections/checkout-gui.view.php:72
-#: src/views/config-sections/minicart-gui.view.php:72
-#: src/views/config-sections/order-gui.view.php:72
+#: src/views/config-sections/checkout-gui.view.php:63
+#: src/views/config-sections/order-gui.view.php:78
 msgid "After order review"
 msgstr "Po podsumowaniu zamówienia"
 
-#: src/views/config-sections/cart-gui.view.php:108
-#: src/views/config-sections/order-gui.view.php:60
+#: src/views/config-sections/cart-gui.view.php:87
+#: src/views/config-sections/order-gui.view.php:67
 msgid "After order total"
 msgstr "Po sumie zamówienia"
 
-#: src/views/config-sections/order-gui.view.php:64
+#: src/views/config-sections/order-gui.view.php:71
 msgid "After payment"
 msgstr "Po płatności"
 
-#: src/views/config-sections/product-card-gui.view.php:62
+#: src/views/config-sections/product-card-gui.view.php:66
 msgid "After quantity field"
 msgstr "Za polem ilości produktów"
 
-#: src/views/config-sections/cart-gui.view.php:100
-#: src/views/config-sections/order-gui.view.php:58
+#: src/views/config-sections/cart-gui.view.php:85
+#: src/views/config-sections/order-gui.view.php:65
 msgid "After shipping"
 msgstr "Po wysyłce"
 
-#: src/views/config-sections/cart-gui.view.php:96
+#: src/views/config-sections/cart-gui.view.php:84
 msgid "After shipping calculator"
 msgstr "Po kalkulatorze wysyłki"
 
 #: src/views/config-sections/checkout-gui.view.php:60
-#: src/views/config-sections/minicart-gui.view.php:60
-#: src/views/config-sections/order-gui.view.php:71
+#: src/views/config-sections/order-gui.view.php:77
 msgid "After shipping form"
 msgstr "Po formularzu wysyłki"
 
-#: src/views/config-sections/product-card-gui.view.php:86
+#: src/views/config-sections/product-card-gui.view.php:72
 msgid "After single product summary"
 msgstr "Po podsumowaniu produktu"
 
-#: src/views/config-sections/order-gui.view.php:63
+#: src/views/config-sections/order-gui.view.php:70
 msgid "After submit"
 msgstr "Po zatwierdzeniu"
 
-#: src/views/config-sections/product-card-gui.view.php:70
+#: src/views/config-sections/product-card-gui.view.php:68
 msgid "After variations form"
 msgstr "Za formularzem wariantów"
 
-#: src/views/config-sections/agreements-template.view.php:14
-#: src/views/config-sections/agreements-template.view.php:140
-#: src/views/config-sections/agreements.view.php:177
+#: src/views/config-sections/agreements-template.view.php:25
+#: src/views/config-sections/agreements-template.view.php:131
+#: src/views/config-sections/agreements.view.php:192
 msgid "Agreement address"
 msgstr "Adres zgody"
 
-#: src/views/admin.php:48
-#: src/views/admin.php:77
+#: src/views/admin.php:51
+#: src/views/admin.php:80
 msgid "Agreements"
 msgstr "Zgody"
 
-#: src/views/config-sections/cart-gui.view.php:155
-#: src/views/config-sections/checkout-gui.view.php:112
-#: src/views/config-sections/login-page-gui.view.php:96
-#: src/views/config-sections/minicart-gui.view.php:112
-#: src/views/config-sections/order-gui.view.php:114
-#: src/views/config-sections/product-card-gui.view.php:125
+#: src/views/config-sections/cart-gui.view.php:122
+#: src/views/config-sections/checkout-gui.view.php:96
+#: src/views/config-sections/login-page-gui.view.php:93
+#: src/views/config-sections/minicart-gui.view.php:93
+#: src/views/config-sections/order-gui.view.php:109
+#: src/views/config-sections/product-card-gui.view.php:102
 msgid "Alignment"
 msgstr "Położenie"
 
@@ -192,19 +183,19 @@ msgstr "Położenie"
 msgid "An error occurred"
 msgstr "Wystąpił błąd"
 
-#: src/rest/admin/product/HotProducts.php:341
+#: src/rest/admin/product/HotProducts.php:363
 msgid "Availability dates updated for some products. Some failed to update."
 msgstr "Daty dostępności zostały zaktualizowane dla części produktów. Niektórych nie udało się zaktualizować."
 
-#: src/rest/admin/product/HotProducts.php:338
+#: src/rest/admin/product/HotProducts.php:360
 msgid "Availability dates updated."
 msgstr "Daty dostępności zostały zaktualizowane."
 
-#: src/views/config-sections/tm-apm.view.php:346
+#: src/views/config-sections/tm-apm.view.php:338
 msgid "Available from"
 msgstr "Dostępne od"
 
-#: src/views/config-sections/tm-apm.view.php:393
+#: src/views/config-sections/tm-apm.view.php:367
 msgid "Available to"
 msgstr "Dostępne do"
 
@@ -215,7 +206,7 @@ msgid "Back"
 msgstr "Wróć"
 
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:41
-#: src/views/config-sections/button-appearance.view.php:15
+#: src/views/config-sections/button-appearance.view.php:25
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:270
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:320
@@ -242,108 +233,106 @@ msgstr "Podsumowanie koszyka"
 msgid "Basket summary"
 msgstr "Podsumowanie koszyka"
 
-#: src/views/config-sections/product-card-gui.view.php:50
+#: src/views/config-sections/product-card-gui.view.php:63
 msgid "Before add to cart button"
 msgstr "Przed przyciskiem dodania do koszyka"
 
-#: src/views/config-sections/product-card-gui.view.php:42
+#: src/views/config-sections/product-card-gui.view.php:61
 msgid "Before add to cart form"
 msgstr "Przed formularzem dodania do koszyka"
 
-#: src/views/config-sections/checkout-gui.view.php:48
-#: src/views/config-sections/order-gui.view.php:68
+#: src/views/config-sections/checkout-gui.view.php:57
+#: src/views/config-sections/order-gui.view.php:74
 msgid "Before billing form"
 msgstr "Przed formularzem płatności"
 
-#: src/views/config-sections/cart-gui.view.php:52
+#: src/views/config-sections/cart-gui.view.php:73
 msgid "Before cart"
 msgstr "Przed koszykiem"
 
-#: src/views/config-sections/cart-gui.view.php:60
+#: src/views/config-sections/cart-gui.view.php:75
 msgid "Before cart content"
 msgstr "Przed zawartością koszyka"
 
-#: src/views/config-sections/order-gui.view.php:55
+#: src/views/config-sections/order-gui.view.php:62
 msgid "Before cart contents"
 msgstr "Przed zawartością koszyka"
 
-#: src/views/config-sections/cart-gui.view.php:56
+#: src/views/config-sections/cart-gui.view.php:74
 msgid "Before cart table"
 msgstr "Przed tabelą"
 
-#: src/views/config-sections/cart-gui.view.php:84
+#: src/views/config-sections/cart-gui.view.php:81
 msgid "Before cart totals"
 msgstr "Przed sumą"
 
-#: src/views/config-sections/checkout-gui.view.php:40
-#: src/views/config-sections/order-gui.view.php:66
+#: src/views/config-sections/checkout-gui.view.php:55
+#: src/views/config-sections/order-gui.view.php:72
 msgid "Before checkout form"
 msgstr "Przed formularzem zamówienia"
 
-#: src/views/config-sections/checkout-gui.view.php:44
-#: src/views/config-sections/order-gui.view.php:67
+#: src/views/config-sections/checkout-gui.view.php:56
+#: src/views/config-sections/order-gui.view.php:73
 msgid "Before customer details"
 msgstr "Przed danymi kupującego"
 
-#: src/views/config-sections/login-page-gui.view.php:48
+#: src/views/config-sections/login-page-gui.view.php:58
 msgid "Before Login Form"
 msgstr "Przed formularzem logowania"
 
-#: src/views/config-sections/minicart-gui.view.php:40
+#: src/views/config-sections/minicart-gui.view.php:57
 msgid "Before minicart"
 msgstr "Przed Minicart"
 
-#: src/views/config-sections/minicart-gui.view.php:44
+#: src/views/config-sections/minicart-gui.view.php:58
 msgid "Before minicart contents"
 msgstr "Przed zawartością koszyka"
 
-#: src/views/config-sections/order-gui.view.php:49
+#: src/views/config-sections/order-gui.view.php:58
 msgid "Before order notes"
 msgstr "Przed notatkami zamówienia"
 
-#: src/views/config-sections/checkout-gui.view.php:68
-#: src/views/config-sections/minicart-gui.view.php:68
-#: src/views/config-sections/order-gui.view.php:53
+#: src/views/config-sections/checkout-gui.view.php:62
+#: src/views/config-sections/order-gui.view.php:61
 msgid "Before order review"
 msgstr "Przed podsumowaniem zamówienia"
 
-#: src/views/config-sections/cart-gui.view.php:104
-#: src/views/config-sections/order-gui.view.php:59
+#: src/views/config-sections/cart-gui.view.php:86
+#: src/views/config-sections/order-gui.view.php:66
 msgid "Before order total"
 msgstr "Przed sumą zamówienia"
 
-#: src/views/config-sections/order-gui.view.php:61
+#: src/views/config-sections/order-gui.view.php:68
 msgid "Before payment"
 msgstr "Przed płatnością"
 
-#: src/views/config-sections/product-card-gui.view.php:58
+#: src/views/config-sections/product-card-gui.view.php:65
 msgid "Before quantity field"
 msgstr "Przed polem ilości produktów"
 
-#: src/views/config-sections/cart-gui.view.php:88
-#: src/views/config-sections/order-gui.view.php:57
+#: src/views/config-sections/cart-gui.view.php:82
+#: src/views/config-sections/order-gui.view.php:64
 msgid "Before shipping"
 msgstr "Przed wysyłką"
 
-#: src/views/config-sections/cart-gui.view.php:92
+#: src/views/config-sections/cart-gui.view.php:83
 msgid "Before shipping calculator"
 msgstr "Przed kalkulatorem wysyłki"
 
-#: src/views/config-sections/checkout-gui.view.php:56
-#: src/views/config-sections/minicart-gui.view.php:56
-#: src/views/config-sections/order-gui.view.php:70
+#: src/views/config-sections/checkout-gui.view.php:59
+#: src/views/config-sections/order-gui.view.php:76
 msgid "Before shipping form"
 msgstr "Przed formularzem wysyłki"
 
-#: src/views/config-sections/product-card-gui.view.php:54
+#: src/views/config-sections/product-card-gui.view.php:64
 msgid "Before single variation"
 msgstr "Przed pojedynczym wariantem"
 
-#: src/views/config-sections/order-gui.view.php:62
+#: src/views/config-sections/order-gui.view.php:69
 msgid "Before submit"
 msgstr "Przed zatwierdzeniem"
 
-#: src/views/config-sections/product-card-gui.view.php:46
+#: src/views/config-sections/product-card-gui.view.php:62
 msgid "Before variations form"
 msgstr "Przed formularzem wariantów"
 
@@ -402,8 +391,8 @@ msgstr "Inpost Pay przycisk"
 msgid "Bright"
 msgstr "Jasny"
 
-#: src/views/admin.php:52
-#: src/views/config-sections/button-appearance.view.php:7
+#: src/views/admin.php:55
+#: src/views/config-sections/button-appearance.view.php:17
 msgid "Button appearance"
 msgstr "Wygląd przycisków"
 
@@ -413,7 +402,7 @@ msgstr "Wygląd przycisków"
 msgid "Button Settings"
 msgstr "Ustawienia przycisku"
 
-#: src/views/admin.php:186
+#: src/views/admin.php:193
 msgid "Buyers quickly recognize that by making a purchase in your store, they can take advantage of a fast and secure purchasing and delivery service through a company they know and trust, directly contributing to their purchasing decisions."
 msgstr "Kupujący szybko rozpoznają, że dokonując zakupu w Twoim sklepie mogą skorzystać z usługi szybkiego i bezpiecznego zakupu oraz dostawy przez firmę, której usługi znają i do której mają zaufanie, co bezpośrednio przyczynia się do decyzji zakupowych Klientów."
 
@@ -427,23 +416,23 @@ msgstr "Kupujący szybko rozpoznają, że dokonując zakupu w Twoim sklepie mog�
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/views/config-sections/tm-apm.view.php:60
+#: src/views/config-sections/tm-apm.view.php:69
 #: src/views/config-sections/tm-apm.view.php:143
-#: src/views/config-sections/tm-apm.view.php:259
-#: src/views/config-sections/tm-courier.view.php:40
-#: src/views/config-sections/tm-courier.view.php:123
+#: src/views/config-sections/tm-apm.view.php:260
+#: src/views/config-sections/tm-courier.view.php:49
+#: src/views/config-sections/tm-courier.view.php:122
 msgid "Carrier mapping"
 msgstr "Mapuj z metodą wysyłki"
 
-#: src/views/config-sections/cart-gui.view.php:2
+#: src/views/config-sections/cart-gui.view.php:10
 msgid "Cart"
 msgstr "Koszyk"
 
-#: src/views/config-sections/cart-gui.view.php:64
+#: src/views/config-sections/cart-gui.view.php:76
 msgid "Cart contents"
 msgstr "Zawartość koszyka"
 
-#: src/views/config-sections/cart-gui.view.php:68
+#: src/views/config-sections/cart-gui.view.php:77
 msgid "Cart coupon"
 msgstr "Przy kuponach"
 
@@ -454,12 +443,6 @@ msgstr "Pobranie (COD) Kurier:"
 #: src/Lib/config/ShippingCost/CodApm/CodApmGroup.php:81
 msgid "Cash on Delivery (COD) Parcel Machine"
 msgstr "Pobranie (COD) Paczkomat"
-
-#: src/views/config-sections/payment.view.php:65
-msgid ""
-"Cash on delivery payment will be available only if you have a signed agreement\n"
-"                        with InPost to provide this service in your store"
-msgstr "Płatność przy odbiorze będzie dostępna tylko wtedy, kiedy posiadasz podpisaną umowę z InPost na świadczenie tej usługi w Twoim sklepie"
 
 #: src/views/hot-products/hot-products-page.php:64
 #: src/views/unavailable/unavailable-categories-page.php:34
@@ -475,15 +458,15 @@ msgstr "Kategoria"
 msgid "Category ID"
 msgstr "ID kategorii"
 
-#: src/views/config-sections/tm-additional-options.view.php:31
+#: src/views/config-sections/tm-additional-options.view.php:43
 msgid "Check shipping method availability for products based on InPost logistic plugin settings"
 msgstr "Sprawdź dostępność metod wysyłki dla produktów bazując na ustawieniach wtyczki logistycznej InPost"
 
-#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:19
+#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:20
 msgid "Check this option if the coupon should be available in the InPost Pay app (max 5 active)."
 msgstr "Zaznacz, jeśli ten kupon ma być dostępny w aplikacji InPost Pay (maks. 5 aktywnych)."
 
-#: src/views/config-sections/checkout-gui.view.php:2
+#: src/views/config-sections/checkout-gui.view.php:10
 msgid "Checkout"
 msgstr "Strona zamawiania"
 
@@ -497,15 +480,15 @@ msgstr "Strona zamówienia"
 msgid "Checkout page"
 msgstr "Strona zamówienia"
 
-#: src/views/config-sections/environment.view.php:48
+#: src/views/config-sections/environment.view.php:53
 msgid "Choose the environment on which you want to display the InPost Pay service. Remember to ensure that the service works correctly in your store before switching to the production environment"
 msgstr "Wybierz środowisko, na którym chcesz pokazać usługę InPost Pay. Pamiętaj, aby przed przejściem na środowisko produkcyjne upewnić się, że usługa w Twoim sklepie działa prawidłowo"
 
-#: src/views/config-sections/environment.view.php:106
+#: src/views/config-sections/environment.view.php:100
 msgid "Client ID"
 msgstr "Client ID"
 
-#: src/views/config-sections/environment.view.php:128
+#: src/views/config-sections/environment.view.php:129
 msgid "Client Secret"
 msgstr "Client Secret"
 
@@ -521,31 +504,31 @@ msgstr "Zamknij"
 msgid "Confirmation"
 msgstr "Potwierdzenie"
 
-#: src/views/admin.php:342
+#: src/views/admin.php:391
 msgid "Contact a sales representative"
 msgstr "Skontaktuj się z przedstawicielem handlowym"
 
-#: src/views/admin.php:328
+#: src/views/admin.php:375
 msgid "Contact and Support"
 msgstr "Kontakt i wsparcie"
 
-#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:55
+#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:57
 msgid "Coupon is already expired and cannot be made available in the InPost Pay app."
 msgstr "Kupon jest już nieaktywny i nie może być udostępniony w aplikacji InPost Pay."
 
-#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:51
+#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:53
 msgid "Coupon must have a description to be visible in the InPost Pay app."
 msgstr "Kupon musi mieć opis, aby był widoczny w aplikacji InPost Pay."
 
-#: src/Lib/config/ShippingCost/Courier/CourierGroup.php:89
+#: src/Lib/config/ShippingCost/Courier/CourierGroup.php:90
 msgid "Courier"
 msgstr "Kurier"
 
-#: src/views/config-sections/tm-courier.view.php:30
+#: src/views/config-sections/tm-courier.view.php:43
 msgid "Courier:"
 msgstr "Kurier:"
 
-#: src/views/admin.php:263
+#: src/views/admin.php:296
 msgid "Current version of the plugin"
 msgstr "Aktualna wersja wtyczki"
 
@@ -557,16 +540,16 @@ msgstr "Aktualna wersja wtyczki"
 msgid "Dark"
 msgstr "Ciemny"
 
-#: src/views/admin.php:114
+#: src/views/admin.php:117
 msgid "Default Zone - For locations not covered by other zones"
 msgstr "Domyślna strefa - dla lokalizacji nieobjętych innymi strefami"
 
-#: src/views/config-sections/agreements-template.view.php:48
-#: src/views/config-sections/agreements.view.php:59
+#: src/views/config-sections/agreements-template.view.php:56
+#: src/views/config-sections/agreements.view.php:69
 msgid "Descriptions visible in application"
 msgstr "Opisy widoczne w aplikacji"
 
-#: src/views/config-sections/product-desc-source.view.php:18
+#: src/views/config-sections/product-desc-source.view.php:26
 msgid "Determines if full or short description will be mapped"
 msgstr "Określa czy mapowany będzie pełny czy krótki opis"
 
@@ -579,14 +562,14 @@ msgstr "Określa czy opcja Pobranie (COD) jest dostępna"
 msgid "Determines if the Package on Weekend (PWW) is active"
 msgstr "Określa czy opcja Paczka w weekend (PWW) jest dostępna"
 
-#: src/views/config-sections/button-appearance.view.php:41
+#: src/views/config-sections/button-appearance.view.php:45
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:274
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:324
 msgid "Determines the background theme"
 msgstr "Określa motyw tła"
 
-#: src/views/config-sections/button-appearance.view.php:114
+#: src/views/config-sections/button-appearance.view.php:102
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:282
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:332
@@ -599,23 +582,23 @@ msgstr "Określa wygląd przycisku"
 msgid "Determines the button size"
 msgstr "Określa rozmiar przycisku"
 
-#: src/views/config-sections/button-appearance.view.php:77
+#: src/views/config-sections/button-appearance.view.php:73
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:266
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:316
 msgid "Determines the variant of button"
 msgstr "Określa wariant przycisku"
 
-#: src/views/config-sections/statuses.view.php:19
+#: src/views/config-sections/statuses.view.php:24
 msgid "Determines what order status should be set after the payment is completed"
 msgstr "Określa jaki status mają mieć zamówienia, które zostaną opłacone przez InPost Pay"
 
-#: src/views/config-sections/net-transport-price.view.php:38
+#: src/views/config-sections/net-transport-price.view.php:35
 msgid "Determines whether tax should be added to the shipping price"
 msgstr "Określa czy ma być dodany podatek do ceny transportu"
 
 #: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:41
-#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:44
+#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:47
 #: src/Lib/config/ShippingCost/CodApm/CodApmPrice.php:41
 #: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:42
 #: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:41
@@ -626,16 +609,16 @@ msgstr "Określa czy ma być dodany podatek do ceny transportu"
 #: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToDay.php:43
 #: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToHour.php:42
 #: src/Lib/config/ShippingCost/PwwApm/PwwApmPrice.php:41
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:42
-#: src/views/config-sections/tm-apm.view.php:98
-#: src/views/config-sections/tm-apm.view.php:179
-#: src/views/config-sections/tm-apm.view.php:295
-#: src/views/config-sections/tm-courier.view.php:81
-#: src/views/config-sections/tm-courier.view.php:162
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:41
+#: src/views/config-sections/tm-apm.view.php:94
+#: src/views/config-sections/tm-apm.view.php:166
+#: src/views/config-sections/tm-apm.view.php:283
+#: src/views/config-sections/tm-courier.view.php:74
+#: src/views/config-sections/tm-courier.view.php:145
 msgid "Determines which shipping method is to be associated"
 msgstr "Określa która metoda przesyłki ma być powiązana"
 
-#: src/views/config-sections/environment.view.php:20
+#: src/views/config-sections/environment.view.php:32
 msgid "Develop"
 msgstr "Deweloperskie"
 
@@ -643,7 +626,7 @@ msgstr "Deweloperskie"
 msgid "Digital delivery email:"
 msgstr "E-mail wysyłki cyfrowej:"
 
-#: src/views/config-sections/button-appearance.view.php:10
+#: src/views/config-sections/button-appearance.view.php:20
 msgid "Display"
 msgstr "Wyświetlanie"
 
@@ -654,19 +637,19 @@ msgstr "Wyświetlanie"
 msgid "Do you want to save the selected products?"
 msgstr "Czy chcesz zapisać wybrane produkty?"
 
-#: src/views/config-sections/mapper-option.view.php:141
+#: src/views/config-sections/mapper-option.view.php:149
 msgid "Enable custom basket response (for troubleshooting only)"
 msgstr "Włącz niestandardową odpowiedź koszyka (tylko do celów diagnostycznych)"
 
-#: src/views/admin.php:237
+#: src/views/admin.php:260
 msgid "Enable debbuging"
 msgstr "Włącz debugowanie"
 
-#: src/views/config-sections/payment.view.php:47
+#: src/views/config-sections/payment.view.php:52
 msgid "Enable payment on delivery according to the signed agreement with InPost"
 msgstr "Włącz płatność przy odbiorze zgodnie z podpisaną umową z InPost"
 
-#: src/views/config-sections/payment.view.php:7
+#: src/views/config-sections/payment.view.php:17
 msgid "Enable payments in accordance with the signed agreement with the bank"
 msgstr "Włącz płatności zgodne z podpisaną umową z bankiem"
 
@@ -674,15 +657,15 @@ msgstr "Włącz płatności zgodne z podpisaną umową z bankiem"
 msgid "Enabled"
 msgstr "Włączone"
 
-#: src/views/admin.php:184
+#: src/views/admin.php:191
 msgid "Ensure proper exposure of the InPost Pay service, allowing for:"
 msgstr "Zadbaj o poprawną ekspozycję usługi InPost Pay, dzięki czemu:"
 
-#: src/Lib/Coupons/Fields/PromotionUrlField.php:25
+#: src/Lib/Coupons/Fields/PromotionUrlField.php:27
 msgid "Enter valid url address"
 msgstr "Wprowadź prawidłowy adres URL"
 
-#: src/views/config-sections/environment.view.php:4
+#: src/views/config-sections/environment.view.php:25
 msgid "Environment"
 msgstr "Środowisko"
 
@@ -737,32 +720,32 @@ msgstr "Nie udało się zainicjalizować widgetu InPost"
 msgid "Failed to load InPost widget script"
 msgstr "Nie udało się załadować skryptu widgetu InPost"
 
-#: src/views/admin.php:346
+#: src/views/admin.php:395
 msgid "FAQ"
 msgstr "FAQ"
 
-#: src/views/config-sections/environment.view.php:84
+#: src/views/config-sections/environment.view.php:75
 msgid "For all"
 msgstr "Każdemu"
 
-#: src/views/config-sections/environment.view.php:75
+#: src/views/config-sections/environment.view.php:72
 msgid "For testers"
 msgstr "Testerom"
 
-#: src/views/config-sections/cart-gui.view.php:9
+#: src/views/config-sections/cart-gui.view.php:24
 msgid "For the added widget in the elementor editor or gutenberg block, disable the display in the standard configuration as this may cause the button to be displayed twice"
 msgstr "W przypadku dodania widgetu w edytorze Elementor lub w bloku gutenberg należy wyłączyć wyświetlanie w standardowej konfiguracji ponieważ może to powodować podwójne wyświetlenie przycisku"
 
-#: src/views/config-sections/environment.view.php:164
+#: src/views/config-sections/environment.view.php:174
 msgid "For the sandbox environment, enter a random string of characters. For the production environment, log in to InPost and retrieve the POS ID"
 msgstr "W przypadku środowiska sandbox - wpisz losowy ciąg znaków. W przypadku środowiska produkcyjnego - zaloguj się do InPost i pobierz POS ID"
 
-#: src/views/config-sections/cart-gui.view.php:145
-#: src/views/config-sections/checkout-gui.view.php:102
-#: src/views/config-sections/login-page-gui.view.php:86
-#: src/views/config-sections/minicart-gui.view.php:102
-#: src/views/config-sections/order-gui.view.php:102
-#: src/views/config-sections/product-card-gui.view.php:115
+#: src/views/config-sections/cart-gui.view.php:109
+#: src/views/config-sections/checkout-gui.view.php:83
+#: src/views/config-sections/login-page-gui.view.php:80
+#: src/views/config-sections/minicart-gui.view.php:80
+#: src/views/config-sections/order-gui.view.php:96
+#: src/views/config-sections/product-card-gui.view.php:89
 msgid "For WooCommerce cart subpages, you can add widgets in various parts of the page. Choose a location that fits your template, following the instructions available in the Merchant Guide"
 msgstr "Dla podstron koszyka Woocommerce umożliwia dodawanie widgetów w różnych częściach podstrony. Wybierz umiejscowienie pasujące do Twojego szablonu kierując się wskazówkami dostępnymi w Przewodniku Merchanta"
 
@@ -770,7 +753,7 @@ msgstr "Dla podstron koszyka Woocommerce umożliwia dodawanie widgetów w różn
 msgid "Friday"
 msgstr "Piątek"
 
-#: src/SettingsPage.php:133
+#: src/SettingsPage.php:137
 msgid "Full description"
 msgstr "Pełny opis"
 
@@ -787,7 +770,7 @@ msgstr "Okres wyróżnienia"
 msgid "Highlight period set"
 msgstr "Ustawiono okres wyróżnienia"
 
-#: src/rest/admin/product/HotProducts.php:197
+#: src/rest/admin/product/HotProducts.php:209
 #: src/views/hot-products/hot-products-page.php:45
 msgid "Highlight products"
 msgstr "Wyróżnione produkty"
@@ -807,12 +790,12 @@ msgstr "Produkty wyróżnione w aplikacji InPost"
 msgid "Hot products limit reached"
 msgstr "Osiągnięto limit wyróżnionych produktów"
 
-#: src/views/config-sections/environment.view.php:96
+#: src/views/config-sections/environment.view.php:87
 msgid "If you choose \"testers\", the widget will be visible only to those who should see it. To display the widget in this mode in a web browser, enter your store address with the addition of ?showIzi=true. Example: https://yourstore.com?showIzi=true"
 msgstr "Jeśli wybierzesz \"testerom\" widget będzie widoczny tylko dla osób, które mają go zobaczyć. W celu wyświetlenia widgetu w ym trybie w przeglądarce internetowej wpisz adres Twojego sklepu z dopiskiem ?showIzi=true Przykład: https://mojsklep.pl?showIzi=true"
 
-#: src/Lib/omnibus/Hooks.php:161
-#: src/Lib/omnibus/Plugin.php:135
+#: src/Lib/omnibus/Hooks.php:181
+#: src/Lib/omnibus/Plugin.php:142
 msgid "If you provide non-tax prices for this product, provide a non-tax Omnibus price. If you provide tax-inclusive prices for this product, provide the tax-inclusive Omnibus price."
 msgstr "Jeżeli dla tego produktu wprowadzasz ceny bez podatku, wprowadź cenę Omnibus bez podatku. Jeżeli dla tego produktu wprowadzasz ceny zawierające podatek, wprowadź opodatkowaną cenę Omnibus."
 
@@ -822,7 +805,7 @@ msgstr "Jeżeli dla tego produktu wprowadzasz ceny bez podatku, wprowadź cenę 
 msgid "If you want to use this button, we recommend you to remove other InpostPay buttons from your page"
 msgstr "Jeśli chcesz użyć tego przycisku, zalecamy usunięcie innych przycisków InPost Pay ze strony"
 
-#: src/views/config-sections/cart-gui.view.php:6
+#: src/views/config-sections/cart-gui.view.php:15
 msgid "If your store uses Elementor, please refer to the manual to activate widget visibility"
 msgstr "Jeżeli Twój sklep korzysta z edytora Elementor, sprawdź w dokumentacji jak go aktywować"
 
@@ -861,8 +844,8 @@ msgstr "Inpost Paczkomat"
 #. Plugin Name of the plugin
 #: inpost-pay.php
 #: src/InpostPay.php:259
-#: src/Lib/Coupons/Coupon.php:72
-#: src/Lib/ProductMetaBox.php:31
+#: src/Lib/Coupons/Coupon.php:82
+#: src/Lib/ProductMetaBox.php:30
 msgid "InPost Pay"
 msgstr "InPost Pay"
 
@@ -872,24 +855,24 @@ msgstr "InPost Pay"
 msgid "InPost Pay Button"
 msgstr "Przycisk InPost Pay"
 
-#: src/Lib/Coupons/Coupon.php:92
+#: src/Lib/Coupons/Coupon.php:102
 msgid "InPost Pay – fixed amount (cart)"
 msgstr "InPost Pay – rabat kwotowy (koszyk)"
 
-#: src/Lib/Coupons/Coupon.php:91
+#: src/Lib/Coupons/Coupon.php:101
 msgid "InPost Pay – fixed amount (product)"
 msgstr "InPost Pay – rabat kwotowy (produkt)"
 
-#: src/Lib/Coupons/Coupon.php:90
+#: src/Lib/Coupons/Coupon.php:100
 msgid "InPost Pay – percentage (product)"
 msgstr "InPost Pay – rabat procentowy (produkt)"
 
-#: src/views/admin.php:306
+#: src/views/admin.php:347
 msgid "Instructions for Configuring the InPost Pay Plugin"
 msgstr "Instrukcja konfiguracji wtyczki InPost Pay"
 
-#: src/views/config-sections/agreements-template.view.php:72
-#: src/views/config-sections/agreements.view.php:83
+#: src/views/config-sections/agreements-template.view.php:75
+#: src/views/config-sections/agreements.view.php:95
 msgid "Is it required"
 msgstr "Czy wymagane"
 
@@ -899,19 +882,19 @@ msgstr "Czy wymagane"
 msgid "Large"
 msgstr "Duży"
 
-#: src/views/config-sections/tm-additional-options.view.php:25
+#: src/views/config-sections/tm-additional-options.view.php:32
 msgid "Leave this option disabled if you are not using the official InPost logistic plugin"
 msgstr "Pozostaw tę opcję wyłączoną, jeżeli nie korzystasz z oficjalnej wtyczki logistycznej InPost"
 
-#: src/views/config-sections/agreements-template.view.php:4
-#: src/views/config-sections/agreements-template.view.php:130
-#: src/views/config-sections/agreements.view.php:160
+#: src/views/config-sections/agreements-template.view.php:12
+#: src/views/config-sections/agreements-template.view.php:121
+#: src/views/config-sections/agreements.view.php:168
 msgid "Link identifier"
 msgstr "Identyfikator"
 
-#: src/views/config-sections/agreements-template.view.php:9
-#: src/views/config-sections/agreements-template.view.php:135
-#: src/views/config-sections/agreements.view.php:168
+#: src/views/config-sections/agreements-template.view.php:18
+#: src/views/config-sections/agreements-template.view.php:126
+#: src/views/config-sections/agreements.view.php:179
 msgid "Link label"
 msgstr "Tekst linku"
 
@@ -921,27 +904,27 @@ msgstr "Tekst linku"
 msgid "Loading InPost Pay script..."
 msgstr "Ładowanie skryptu InPost Pay..."
 
-#: src/views/config-sections/login-page-gui.view.php:40
+#: src/views/config-sections/login-page-gui.view.php:56
 msgid "Login Footer"
 msgstr "Logowanie Stopka"
 
-#: src/views/config-sections/login-page-gui.view.php:56
+#: src/views/config-sections/login-page-gui.view.php:60
 msgid "Login Form"
 msgstr "W formularzu logowania"
 
-#: src/views/config-sections/login-page-gui.view.php:60
+#: src/views/config-sections/login-page-gui.view.php:61
 msgid "Login Form End"
 msgstr "Na końcu formularza logowania"
 
-#: src/views/config-sections/login-page-gui.view.php:52
+#: src/views/config-sections/login-page-gui.view.php:59
 msgid "Login Form Start"
 msgstr "Na początku formularzu logowania"
 
-#: src/views/config-sections/login-page-gui.view.php:44
+#: src/views/config-sections/login-page-gui.view.php:57
 msgid "Login Header"
 msgstr "Logowanie nagłówek"
 
-#: src/views/config-sections/login-page-gui.view.php:2
+#: src/views/config-sections/login-page-gui.view.php:11
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:32
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:82
@@ -952,47 +935,47 @@ msgstr "Strona Logowania"
 msgid "Login page"
 msgstr "Strona logowania"
 
-#: src/Lib/omnibus/Price_Note_Template_Service.php:10
+#: src/Lib/omnibus/Price_Note_Template_Service.php:11
 msgid "Lowest price 30 days before the discount:"
 msgstr "Najniższa cena z 30 dni przed obniżką:"
 
-#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:18
+#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:19
 msgid "Make available in InPost Pay app"
 msgstr "Udostępnij w aplikacji InPost Pay"
 
-#: src/views/config-sections/product-desc-source.view.php:4
+#: src/views/config-sections/product-desc-source.view.php:14
 msgid "Map product description based on:"
 msgstr "Bazowy opis produktu do zmapowania:"
 
-#: src/views/config-sections/cart-gui.view.php:230
-#: src/views/config-sections/product-card-gui.view.php:205
+#: src/views/config-sections/cart-gui.view.php:200
+#: src/views/config-sections/product-card-gui.view.php:183
 msgid "Margin bottom"
 msgstr "Margines dolny"
 
-#: src/views/config-sections/cart-gui.view.php:206
-#: src/views/config-sections/product-card-gui.view.php:181
+#: src/views/config-sections/cart-gui.view.php:174
+#: src/views/config-sections/product-card-gui.view.php:157
 msgid "Margin left"
 msgstr "Margines lewy"
 
-#: src/views/config-sections/cart-gui.view.php:218
-#: src/views/config-sections/product-card-gui.view.php:193
+#: src/views/config-sections/cart-gui.view.php:187
+#: src/views/config-sections/product-card-gui.view.php:170
 msgid "Margin right"
 msgstr "Margines prawy"
 
-#: src/views/config-sections/cart-gui.view.php:194
-#: src/views/config-sections/product-card-gui.view.php:169
+#: src/views/config-sections/cart-gui.view.php:161
+#: src/views/config-sections/product-card-gui.view.php:144
 msgid "Margin top"
 msgstr "Margines górny"
 
-#: src/views/config-sections/product-card-gui.view.php:164
+#: src/views/config-sections/product-card-gui.view.php:137
 msgid "Margins"
 msgstr "Marginesy"
 
-#: src/views/admin.php:55
+#: src/views/admin.php:58
 msgid "Marketing"
 msgstr "Marketing"
 
-#: src/views/config-sections/suggested-products.view.php:4
+#: src/views/config-sections/suggested-products.view.php:12
 msgid "Max suggested products amount:"
 msgstr "Maksymalna liczba sugerowanych produktów:"
 
@@ -1002,29 +985,25 @@ msgstr "Maksymalna liczba sugerowanych produktów:"
 msgid "Medium"
 msgstr "Średni"
 
-#: src/views/config-sections/environment.view.php:186
+#: src/views/config-sections/environment.view.php:202
 msgid "Merchant Client ID can be retrieved from the merchant panel"
 msgstr "Merchant Client ID można uzyskać w panelu merchanta"
 
-#: src/views/admin.php:302
+#: src/views/admin.php:343
 msgid "Merchant Guide - How to properly display InPost Pay in your online store"
 msgstr "Przewodnik Merchanta - jak poprawnie wyświetlić InPost Pay w Twoim sklepie internetowym"
 
-#: src/views/config-sections/environment.view.php:174
+#: src/views/config-sections/environment.view.php:187
 msgid "Merchant ID"
 msgstr "Merchant ID"
 
-#: src/views/admin.php:314
+#: src/views/admin.php:355
 msgid "Merchant panel - transaction preview and returns handling"
 msgstr "Instrukcja obsługi zwrotów"
 
-#: src/views/config-sections/minicart-gui.view.php:2
+#: src/views/config-sections/minicart-gui.view.php:12
 msgid "Minicart"
 msgstr "Minicart"
-
-#: src/views/config-sections/minicart-gui.view.php:48
-msgid "Minicart contents"
-msgstr "Zawartość koszyka"
 
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:35
@@ -1040,19 +1019,19 @@ msgstr "Minicart"
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: src/views/admin.php:253
+#: src/views/admin.php:284
 msgid "News"
 msgstr "Aktualności"
 
-#: src/views/config-sections/net-transport-price.view.php:29
+#: src/views/config-sections/net-transport-price.view.php:23
 msgid "No"
 msgstr "Nie"
 
-#: src/rest/admin/product/HotProducts.php:292
+#: src/rest/admin/product/HotProducts.php:313
 msgid "No availability data provided."
 msgstr "Nie podano danych o dostępności."
 
-#: src/rest/admin/product/HotProducts.php:48
+#: src/rest/admin/product/HotProducts.php:47
 msgid "No hot products found."
 msgstr "Nie znaleziono wyróżnionych produktów."
 
@@ -1095,8 +1074,8 @@ msgstr "Nie wybrano"
 msgid "of"
 msgstr "z"
 
-#: src/Lib/omnibus/Hooks.php:156
-#: src/Lib/omnibus/Plugin.php:130
+#: src/Lib/omnibus/Hooks.php:174
+#: src/Lib/omnibus/Plugin.php:135
 msgid "Omnibus Price"
 msgstr "Cena Omnibus"
 
@@ -1104,7 +1083,7 @@ msgstr "Cena Omnibus"
 msgid "Optional"
 msgstr "Opcjonalne"
 
-#: src/views/config-sections/order-gui.view.php:2
+#: src/views/config-sections/order-gui.view.php:13
 msgid "Order"
 msgstr "Zamówienie"
 
@@ -1126,35 +1105,35 @@ msgstr "Zamówienie nie zostało znalezione"
 msgid "Package on Weekend (PWW) Parcel Locker:"
 msgstr "Paczka w Weekend (PWW) Paczkomat:"
 
-#: src/views/config-sections/cart-gui.view.php:280
-#: src/views/config-sections/product-card-gui.view.php:258
+#: src/views/config-sections/cart-gui.view.php:254
+#: src/views/config-sections/product-card-gui.view.php:242
 msgid "Padding bottom"
 msgstr "Padding dolny"
 
-#: src/views/config-sections/cart-gui.view.php:256
-#: src/views/config-sections/product-card-gui.view.php:234
+#: src/views/config-sections/cart-gui.view.php:228
+#: src/views/config-sections/product-card-gui.view.php:216
 msgid "Padding left"
 msgstr "Padding lewy"
 
-#: src/views/config-sections/cart-gui.view.php:268
-#: src/views/config-sections/product-card-gui.view.php:246
+#: src/views/config-sections/cart-gui.view.php:241
+#: src/views/config-sections/product-card-gui.view.php:229
 msgid "Padding right"
 msgstr "Padding prawy"
 
-#: src/views/config-sections/cart-gui.view.php:244
-#: src/views/config-sections/product-card-gui.view.php:222
+#: src/views/config-sections/cart-gui.view.php:215
+#: src/views/config-sections/product-card-gui.view.php:203
 msgid "Padding top"
 msgstr "Padding górny"
 
-#: src/views/config-sections/product-card-gui.view.php:217
+#: src/views/config-sections/product-card-gui.view.php:196
 msgid "Paddings"
 msgstr "Wypełnienia"
 
-#: src/Lib/config/ShippingCost/Apm/ApmGroup.php:92
+#: src/Lib/config/ShippingCost/Apm/ApmGroup.php:93
 msgid "Parcel locker"
 msgstr "Paczkomat"
 
-#: src/views/config-sections/tm-apm.view.php:51
+#: src/views/config-sections/tm-apm.view.php:63
 msgid "Parcel Locker:"
 msgstr "Paczkomat:"
 
@@ -1166,7 +1145,7 @@ msgstr "Paczkomat:"
 msgid "Payment ID:"
 msgstr "ID Płatności:"
 
-#: src/views/config-sections/payment.view.php:24
+#: src/views/config-sections/payment.view.php:31
 msgid "Payment methods have been specified in the payment gateway service agreement"
 msgstr "Metody płatności zostały określone na umowie o obsługę bramki płatniczej"
 
@@ -1178,34 +1157,34 @@ msgstr "Numer referencyjny płatności:"
 msgid "Payment type:"
 msgstr "Typ płatności:"
 
-#: src/views/config-sections/cart-gui.view.php:43
-#: src/views/config-sections/checkout-gui.view.php:31
-#: src/views/config-sections/login-page-gui.view.php:31
-#: src/views/config-sections/minicart-gui.view.php:31
-#: src/views/config-sections/order-gui.view.php:40
-#: src/views/config-sections/product-card-gui.view.php:32
+#: src/views/config-sections/cart-gui.view.php:64
+#: src/views/config-sections/checkout-gui.view.php:46
+#: src/views/config-sections/login-page-gui.view.php:47
+#: src/views/config-sections/minicart-gui.view.php:48
+#: src/views/config-sections/order-gui.view.php:49
+#: src/views/config-sections/product-card-gui.view.php:51
 msgid "Placement"
 msgstr "Umiejscowienie"
 
-#: src/Lib/InPostIzi.php:440
+#: src/Lib/InPostIzi.php:461
 #: src/Lib/view/DisplayPlaceHolder.php:15
 msgid "Please complete the required fields to use InpostPay."
 msgstr "Proszę uzupełnić wymagane pola, aby użyć InpostPay."
 
-#: src/views/admin.php:189
+#: src/views/admin.php:196
 msgid "Please familiarize yourself with the dedicated Merchant Guide regarding the proper implementation of the InPost Pay service. It gathers information on the current branding of InPost Pay, guidelines for the visual implementation of the widget, and best practices worth applying to build a positive user experience among online buyers. You will find the Merchant Guide in the \"useful links\" section."
 msgstr "Zapoznaj się z dedykowanym Przewodnikiem Merchanta, dotyczącym poprawnej implementacji usługi InPost Pay. Gromadzi on w jednym miejscu informacje w zakresie aktualnego brandingu InPost Pay, wytyczne odnośnie implementacji wizualnej widgetu oraz dobre praktyki, warte stosowania przy budowaniu pozytywnego user experience wśród Kupujących online. Przewodnik Merchanta znajdziesz w sekcji \"przydatne linki\"."
 
-#: src/views/admin.php:356
+#: src/views/admin.php:405
 #, php-format
 msgid "Please go to the '%s' tab and fill in the required data before saving."
 msgstr "Przejdź do zakładki „%s” i uzupełnij wymagane dane przed zapisaniem."
 
-#: src/views/admin.php:207
+#: src/views/admin.php:220
 msgid "Plugin status"
 msgstr "Status wtyczki"
 
-#: src/views/config-sections/environment.view.php:152
+#: src/views/config-sections/environment.view.php:158
 msgid "POS ID"
 msgstr "POS ID"
 
@@ -1215,11 +1194,11 @@ msgstr "POS ID"
 msgid "Preview mode - button is not functional in editor"
 msgstr "Tryb podglądu – przycisk nie działa w edytorze"
 
-#: src/views/admin.php:50
+#: src/views/admin.php:53
 msgid "Price of transport"
 msgstr "Koszt transportu"
 
-#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:29
+#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:32
 #: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:34
 #: src/Lib/config/ShippingCost/CodCourier/CodCourierShippingMethod.php:35
 #: src/Lib/config/ShippingCost/Courier/CourierShippingMethod.php:34
@@ -1233,11 +1212,11 @@ msgstr "Ceny i dostępności wysyłki kurierem mapuj z:"
 
 #: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:34
 #: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:35
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:35
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:34
 msgid "Pricing and shipping availability from Parcel Machine Map with:"
 msgstr "Ceny i dostępności wysyłki z Paczkomat mapuj z:"
 
-#: src/views/config-sections/cart-gui.view.php:112
+#: src/views/config-sections/cart-gui.view.php:88
 msgid "Proceed to checkout"
 msgstr "Przy przejściu do zamówienia"
 
@@ -1261,7 +1240,7 @@ msgid "Product Card"
 msgstr "Karta produktu"
 
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:25
-#: src/views/config-sections/product-card-gui.view.php:2
+#: src/views/config-sections/product-card-gui.view.php:15
 msgid "Product card"
 msgstr "Karta produktu"
 
@@ -1282,15 +1261,15 @@ msgstr "Produkt został usunięty z Hot Produktów z powodu brakującego lub nie
 msgid "Product ID"
 msgstr "ID produktu"
 
-#: src/views/config-sections/product-card-gui.view.php:82
+#: src/views/config-sections/product-card-gui.view.php:71
 msgid "Product meta end"
 msgstr "Koniec meta produktu"
 
-#: src/views/config-sections/product-card-gui.view.php:78
+#: src/views/config-sections/product-card-gui.view.php:70
 msgid "Product meta start"
 msgstr "Początek meta produktu"
 
-#: src/Lib/Api/v1/Products.php:134
+#: src/Lib/Api/v1/Products.php:136
 msgid "Product not added"
 msgstr "Produkt nie został dodany"
 
@@ -1298,11 +1277,12 @@ msgstr "Produkt nie został dodany"
 msgid "Product not found"
 msgstr "Nie znaleziono produktu"
 
-#: src/rest/admin/product/HotProducts.php:214
+#: src/rest/admin/product/HotProducts.php:228
+#: src/rest/merchant/basket/Add/AddProductHandler.php:120
 msgid "Product not found."
 msgstr "Produkt nie znaleziony."
 
-#: src/rest/admin/product/HotProducts.php:226
+#: src/rest/admin/product/HotProducts.php:242
 msgid "Product not removed."
 msgstr "Produkt nie usunięty."
 
@@ -1310,11 +1290,11 @@ msgstr "Produkt nie usunięty."
 msgid "Product removed from Hot Products."
 msgstr "Produkt został usunięty z listy Hot Produktów"
 
-#: src/rest/admin/product/HotProducts.php:236
+#: src/rest/admin/product/HotProducts.php:253
 msgid "Product removed."
 msgstr "Produkt usunięty."
 
-#: src/views/config-sections/environment.view.php:36
+#: src/views/config-sections/environment.view.php:41
 msgid "Production"
 msgstr "Produkcyjne"
 
@@ -1323,17 +1303,17 @@ msgstr "Produkcyjne"
 msgid "Products do not meet the requirements for distinction."
 msgstr "Produkty nie spełniają wymagań wyróżnienia."
 
-#: src/rest/admin/product/HotProducts.php:279
+#: src/rest/admin/product/HotProducts.php:299
 msgid "Products not removed."
 msgstr "Produkty nie zostały usunięte."
 
-#: src/rest/admin/product/HotProducts.php:201
+#: src/rest/admin/product/HotProducts.php:213
 #: src/views/hot-products/hot-products-page.php:142
 #: src/views/unavailable/unavailable-page.php:172
 msgid "Products that could not be highlighted"
 msgstr "Produkty, których nie udało się wyróżnić"
 
-#: src/Lib/Coupons/Fields/PromotionUrlField.php:14
+#: src/Lib/Coupons/Fields/PromotionUrlField.php:15
 msgid "Promotion URL"
 msgstr "Adres do promocji"
 
@@ -1344,18 +1324,18 @@ msgstr "Adres do promocji"
 msgid "Rejected"
 msgstr "Niezaakceptowane"
 
-#: src/views/config-sections/environment.view.php:118
+#: src/views/config-sections/environment.view.php:116
 msgid "Remember that the client ID differs depending on the selected environment. To obtain a sandbox Client ID, contact us through the contact form. To obtain a production Client ID, log in to InPost and complete the store's data"
 msgstr "Pamiętaj, że client ID w zależności od wybranego środowiska różni się. Aby uzyskać sandboxowe Client ID skontaktuj się z nami przez formularz kontaktowy. Aby uzyskać produkcyjne Client ID zaloguj się do InPost i uzupełnij dane sklepu"
 
-#: src/views/config-sections/environment.view.php:142
+#: src/views/config-sections/environment.view.php:145
 msgid "Remember that the Client Secret differs depending on the selected environment. To obtain a sandbox Client Secret, contact us through the contact form. To obtain a production Client Secret, log in to InPost and complete the store's data"
 msgstr "Pamiętaj, że Client Secret w zależności od wybranego środowiska różni się. Aby uzyskać sandboxowe Client Secret skontaktuj się z nami przez formularz kontaktowy. Aby uzyskać produkcyjne Client Secret zaloguj się do InPost i uzupełnij dane sklepu"
 
-#: src/views/config-sections/agreements-template.view.php:34
-#: src/views/config-sections/agreements-template.view.php:116
-#: src/views/config-sections/agreements.view.php:125
-#: src/views/config-sections/agreements.view.php:199
+#: src/views/config-sections/agreements-template.view.php:45
+#: src/views/config-sections/agreements-template.view.php:108
+#: src/views/config-sections/agreements.view.php:129
+#: src/views/config-sections/agreements.view.php:218
 #: src/views/hot-products/hot-products-page.php:11
 #: src/views/unavailable/unavailable-categories-page.php:9
 #: src/views/unavailable/unavailable-page.php:9
@@ -1404,12 +1384,12 @@ msgstr "Wymagane raz"
 msgid "results"
 msgstr "wyników"
 
-#: src/views/admin.php:310
+#: src/views/admin.php:351
 msgid "Returns handling instructions"
 msgstr "Instrukcja obsługi zwrotów"
 
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:77
-#: src/views/config-sections/button-appearance.view.php:88
+#: src/views/config-sections/button-appearance.view.php:82
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:278
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:328
@@ -1430,7 +1410,7 @@ msgstr "Sobota"
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/views/admin.php:358
+#: src/views/admin.php:407
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
@@ -1449,29 +1429,29 @@ msgstr "Szukaj na liście"
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:22
 #: src/SettingsPage.php:106
 #: src/SettingsPage.php:117
-#: src/views/config-sections/agreements-template.view.php:21
-#: src/views/config-sections/agreements-template.view.php:143
-#: src/views/config-sections/agreements.view.php:187
-#: src/views/config-sections/cart-gui.view.php:160
-#: src/views/config-sections/checkout-gui.view.php:36
-#: src/views/config-sections/checkout-gui.view.php:117
-#: src/views/config-sections/login-page-gui.view.php:36
-#: src/views/config-sections/login-page-gui.view.php:101
-#: src/views/config-sections/minicart-gui.view.php:36
-#: src/views/config-sections/minicart-gui.view.php:117
-#: src/views/config-sections/order-gui.view.php:45
-#: src/views/config-sections/order-gui.view.php:119
-#: src/views/config-sections/product-card-gui.view.php:37
-#: src/views/config-sections/product-card-gui.view.php:130
-#: src/views/config-sections/tm-apm.view.php:71
-#: src/views/config-sections/tm-apm.view.php:153
-#: src/views/config-sections/tm-apm.view.php:269
-#: src/views/config-sections/tm-courier.view.php:51
-#: src/views/config-sections/tm-courier.view.php:133
+#: src/views/config-sections/agreements-template.view.php:32
+#: src/views/config-sections/agreements-template.view.php:136
+#: src/views/config-sections/agreements.view.php:204
+#: src/views/config-sections/cart-gui.view.php:127
+#: src/views/config-sections/checkout-gui.view.php:51
+#: src/views/config-sections/checkout-gui.view.php:101
+#: src/views/config-sections/login-page-gui.view.php:52
+#: src/views/config-sections/login-page-gui.view.php:98
+#: src/views/config-sections/minicart-gui.view.php:53
+#: src/views/config-sections/minicart-gui.view.php:98
+#: src/views/config-sections/order-gui.view.php:54
+#: src/views/config-sections/order-gui.view.php:114
+#: src/views/config-sections/product-card-gui.view.php:56
+#: src/views/config-sections/product-card-gui.view.php:107
+#: src/views/config-sections/tm-apm.view.php:75
+#: src/views/config-sections/tm-apm.view.php:148
+#: src/views/config-sections/tm-apm.view.php:265
+#: src/views/config-sections/tm-courier.view.php:55
+#: src/views/config-sections/tm-courier.view.php:127
 msgid "Select"
 msgstr "Wybierz"
 
-#: src/views/admin.php:93
+#: src/views/admin.php:96
 msgid "Select and configure supported shipping methods for each shipping zone"
 msgstr "Wybierz i skonfiguruj obsługiwane metody dostawy dla każdej strefy wysyłki"
 
@@ -1481,11 +1461,11 @@ msgstr "Wybierz i skonfiguruj obsługiwane metody dostawy dla każdej strefy wys
 msgid "Select Products"
 msgstr "Wybierz produkty"
 
-#: src/views/config-sections/payment.view.php:105
+#: src/views/config-sections/payment.view.php:98
 msgid "Select the available payment methods in InPostPay. If none are selected, all payment methods will be available by default in accordance with the signed agreement."
 msgstr "Wybierz dostępne metody płatności w InPostPay. W przypadku nie wybrania, domyślnie będą dostępne wszystkie metody płatności zgodnie z podpisaną umową."
 
-#: src/views/config-sections/tm-method-switcher.view.php:17
+#: src/views/config-sections/tm-method-switcher.view.php:33
 msgid "Select transport methods:"
 msgstr "Wybierz metody dostawy:"
 
@@ -1494,14 +1474,14 @@ msgstr "Wybierz metody dostawy:"
 msgid "Selected"
 msgstr "Wybrano"
 
-#: src/DashboardMenu.php:22
+#: src/DashboardMenu.php:24
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:14
-#: src/views/admin.php:46
-#: src/views/admin.php:63
+#: src/views/admin.php:49
+#: src/views/admin.php:66
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/views/admin.php:32
+#: src/views/admin.php:35
 msgid "Settings Saved"
 msgstr "Ustawienia zostały zapisane"
 
@@ -1509,21 +1489,21 @@ msgstr "Ustawienia zostały zapisane"
 msgid "Shipment:"
 msgstr "Wysyłka:"
 
-#: src/SettingsPage.php:135
+#: src/SettingsPage.php:141
 msgid "Short description"
 msgstr "Krótki opis"
 
-#: src/views/config-sections/cart-gui.view.php:16
-#: src/views/config-sections/cart-gui.view.php:48
-#: src/views/config-sections/checkout-gui.view.php:7
-#: src/views/config-sections/login-page-gui.view.php:7
-#: src/views/config-sections/minicart-gui.view.php:7
-#: src/views/config-sections/order-gui.view.php:7
-#: src/views/config-sections/product-card-gui.view.php:7
+#: src/views/config-sections/cart-gui.view.php:34
+#: src/views/config-sections/cart-gui.view.php:69
+#: src/views/config-sections/checkout-gui.view.php:16
+#: src/views/config-sections/login-page-gui.view.php:17
+#: src/views/config-sections/minicart-gui.view.php:18
+#: src/views/config-sections/order-gui.view.php:19
+#: src/views/config-sections/product-card-gui.view.php:21
 msgid "Show"
 msgstr "Wyświetlaj"
 
-#: src/views/config-sections/environment.view.php:59
+#: src/views/config-sections/environment.view.php:67
 msgid "Show widget"
 msgstr "Pokazuj widget"
 
@@ -1557,36 +1537,36 @@ msgstr "Małe zaokrąglenie"
 msgid "Sort by"
 msgstr "Sortowanie"
 
-#: src/views/config-sections/product-card-gui.view.php:164
+#: src/views/config-sections/product-card-gui.view.php:138
 msgid "Specify custom margin values if the widget is too close to standard buttons"
 msgstr "Określ indywidualne wartości marginesów, jeśli widget znajduje się zbyt blisko standardowych przycisków"
 
-#: src/views/config-sections/product-card-gui.view.php:217
+#: src/views/config-sections/product-card-gui.view.php:197
 msgid "Specify individual padding values for the button if the widget is too narrow or too wide"
 msgstr "Określ indywidualne wartości wypełnienia przycisku, jeśli widget jest zbyt wąski lub za szeroki"
 
-#: src/views/config-sections/cart-gui.view.php:182
-#: src/views/config-sections/checkout-gui.view.php:140
-#: src/views/config-sections/login-page-gui.view.php:125
-#: src/views/config-sections/minicart-gui.view.php:140
-#: src/views/config-sections/order-gui.view.php:147
-#: src/views/config-sections/product-card-gui.view.php:154
+#: src/views/config-sections/cart-gui.view.php:146
+#: src/views/config-sections/checkout-gui.view.php:120
+#: src/views/config-sections/login-page-gui.view.php:117
+#: src/views/config-sections/minicart-gui.view.php:115
+#: src/views/config-sections/order-gui.view.php:131
+#: src/views/config-sections/product-card-gui.view.php:124
 msgid "Specify the orientation of the widget in the available space. If your template allocates a narrow space for the widget, the setting will not affect the appearance"
 msgstr "Określa orientację widgetu w dostępnej dla niego przestrzeni. Jeśli Twój szablon przeznacza wąską przestrzeń na widget ustawienie nie będzie miało wpływu na wygląd"
 
-#: src/views/config-sections/agreements.view.php:93
+#: src/views/config-sections/agreements.view.php:104
 msgid "Specify the page to which your customer will be redirected when clicking on a specific agreement in the InPost mobile application"
 msgstr "Określa stronę, na którą zostanie przekierowany Twój klient w celu, który kliknie na daną zgodę w aplikacji InPost mobile"
 
-#: src/views/config-sections/agreements-template.view.php:83
+#: src/views/config-sections/agreements-template.view.php:85
 msgid "Specify whether the agreement is required or optional"
 msgstr "Określ czy zgoda jest wymagana czy opcjonalna"
 
-#: src/views/config-sections/statuses.view.php:4
+#: src/views/config-sections/statuses.view.php:12
 msgid "Statuses for order paid by InPost Pay"
 msgstr "Statusy dla zamówienia opłaconego przez InPost Pay"
 
-#: src/views/config-sections/statuses.view.php:60
+#: src/views/config-sections/statuses.view.php:67
 msgid "Statuses for orders"
 msgstr "Statusy dla zamówień"
 
@@ -1607,15 +1587,15 @@ msgstr "Sukces"
 msgid "Sunday"
 msgstr "Niedziela"
 
-#: src/views/admin.php:59
+#: src/views/admin.php:62
 msgid "Support"
 msgstr "Wsparcie"
 
-#: src/rest/order/Create.php:1157
+#: src/rest/order/Create.php:1174
 msgid "Tax id"
 msgstr "NIP"
 
-#: src/views/admin.php:338
+#: src/views/admin.php:387
 msgid "Technical support - please use the contact form"
 msgstr "Pomoc techniczna - skorzystaj z formularza kontaktowego"
 
@@ -1630,31 +1610,31 @@ msgstr "Strona podziękowania"
 msgid "Thank you page"
 msgstr "Strona podziękowania"
 
-#: src/views/admin.php:180
+#: src/views/admin.php:185
 msgid "The configuration of the InPost Pay plugin"
 msgstr "Konfiguracja wtyczki InPost Pay"
 
-#: src/views/admin.php:40
+#: src/views/admin.php:43
 msgid "The value repeats itself"
 msgstr "Wartość się powtarza"
 
-#: src/views/config-sections/hooks.view.php:22
+#: src/views/config-sections/hooks.view.php:28
 msgid "These actions are used to manually trigger WooCommerce logic for plugins like SalesKing when using InPost Pay. Enable only if needed – some plugins may require additional $_POST data or cause conflicts."
 msgstr "Te akcje umożliwiają ręczne wywołanie logiki WooCommerce wymaganej przez niektóre wtyczki (np. SalesKing) przy użyciu InPost Pay. Włączaj tylko jeśli to konieczne – niektóre wtyczki mogą wymagać dodatkowych danych z $_POST lub powodować konflikty."
 
-#: src/views/config-sections/hooks.view.php:41
+#: src/views/config-sections/hooks.view.php:49
 msgid "These actions are used to trigger logic on cart events (like quantity change or removal), useful for syncing InPost Pay basket when native WooCommerce hooks aren't enough. Enable only if needed."
 msgstr "Te akcje umożliwiają ręczne wywołanie logiki koszyka WooCommerce przy użyciu InPost Pay. Włączaj tylko jeśli to konieczne – niektóre wtyczki mogą nie wykrywać zmian w koszyku automatycznie lub wymagać własnych hooków."
 
-#: src/views/admin.php:41
+#: src/views/admin.php:44
 msgid "This field is required"
 msgstr "To pole jest wymagane"
 
-#: src/views/config-sections/mapper-option.view.php:181
+#: src/views/config-sections/mapper-option.view.php:188
 msgid "This option enables a modern and more compatible response format for integrations and WooCommerce behavior. It is currently being tested and will soon become the default across all environments. We recommend keeping it enabled to ensure the best experience and future compatibility."
 msgstr "Ta opcja włącza nowoczesny i bardziej kompatybilny format odpowiedzi, który lepiej współpracuje z integracjami oraz zachowaniem WooCommerce. Obecnie jest w fazie testów, a wkrótce stanie się domyślnym ustawieniem we wszystkich środowiskach. Zalecamy jej włączenie, aby zapewnić najlepsze dziaÅ"
 
-#: src/views/config-sections/mapper-option.view.php:149
+#: src/views/config-sections/mapper-option.view.php:157
 msgid "This option enables an alternative basket response structure required by some versions of the InPost Pay. Activate only if instructed by InPost technical support. Do not enable unless necessary – using this option may cause inconsistencies in basket calculations, shipping costs, or discount handling."
 msgstr "Ta opcja włącza alternatywną strukturę odpowiedzi koszyka wymaganą przez niektóre wersje InPost Pay. Aktywuj tylko na wyraźne polecenie zespołu wsparcia technicznego InPost. Nie włączaj, jeśli nie jest to konieczne – użycie tej opcji może spowodować nieprawidłowości w obliczeniach koszyka, kosztach dostawy lub obsłudze rabatów."
 
@@ -1662,25 +1642,16 @@ msgstr "Ta opcja włącza alternatywną strukturę odpowiedzi koszyka wymaganą 
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: src/views/admin.php:213
+#: src/views/admin.php:229
 msgid "To collect data from the log, enable debugging appropriately beforehand"
 msgstr "Aby zbierać dane z logu, włącz debugowanie odpowiednio wcześniej"
 
-#: src/views/config-sections/suggested-products.view.php:20
-msgid ""
-"To display suggested products, you must fill out the Related Products \n"
-"                                            section in the WooCommerce product configuration. 1. Go to edit the product \n"
-"                                            in your store. 2. In the Product Data panel, select the \"Related products\" \n"
-"                                            section. 3. Fill in the \"up-sell\" or \"cross-sell\" sections - products from \n"
-"                                            both sections will be visible in the application."
-msgstr "W celu pokazania produktów sugerowanych należy uzupełnić sekcję Produktów Powiązanych w konfiguracji produktu WooCommerce. 1. Przejdź do edycji produktu w Twoim sklepie. 2. W panelu Dane Produktu wybierz sekcję “Powiązane produkty”. 3. Wypełnij sekcje “up-sell” bądź “cross-sell” - produkty z obu sekcji będą widoczne w aplikacji."
-
-#: src/views/config-sections/cart-gui.view.php:30
-#: src/views/config-sections/checkout-gui.view.php:21
-#: src/views/config-sections/login-page-gui.view.php:21
-#: src/views/config-sections/minicart-gui.view.php:21
-#: src/views/config-sections/order-gui.view.php:28
-#: src/views/config-sections/product-card-gui.view.php:21
+#: src/views/config-sections/cart-gui.view.php:51
+#: src/views/config-sections/checkout-gui.view.php:33
+#: src/views/config-sections/login-page-gui.view.php:34
+#: src/views/config-sections/minicart-gui.view.php:35
+#: src/views/config-sections/order-gui.view.php:36
+#: src/views/config-sections/product-card-gui.view.php:38
 msgid "To increase conversion, we recommend displaying InPost Pay on both the cart and product pages"
 msgstr "W celu zwiększenia konwersji rekomendujemy wyświetlanie InPost Pay zarówno na karcie koszyka, jak i karcie produktu"
 
@@ -1696,7 +1667,7 @@ msgstr "Do lewej"
 msgid "To the right"
 msgstr "Do prawej"
 
-#: src/views/admin.php:89
+#: src/views/admin.php:92
 msgid "Transport price"
 msgstr "Koszt transportu"
 
@@ -1720,25 +1691,25 @@ msgstr "Wykluczone produkty"
 msgid "Unavailable successfully."
 msgstr "Pomyślnie oznaczono jako niedostępne."
 
-#: src/views/config-sections/mapper-option.view.php:173
+#: src/views/config-sections/mapper-option.view.php:180
 msgid "Use modern response format (recommended)"
 msgstr "Używaj nowoczesnego formatu odpowiedzi (zalecane)"
 
-#: src/views/admin.php:292
+#: src/views/admin.php:331
 msgid "Useful links"
 msgstr "Przydatne linki"
 
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:54
-#: src/views/config-sections/button-appearance.view.php:51
+#: src/views/config-sections/button-appearance.view.php:53
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:1
 #: src/Integration/Blocks/Gutenberg/Button/edit.js:262
 #: assets/js/blocks/gutenberg/inpost-pay-button/index.js:312
 msgid "Variant"
 msgstr "Wariant"
 
-#: src/views/admin.php:269
-#: src/views/admin.php:273
-#: src/views/admin.php:277
+#: src/views/admin.php:302
+#: src/views/admin.php:306
+#: src/views/admin.php:310
 msgid "Version"
 msgstr "Wersja"
 
@@ -1750,7 +1721,7 @@ msgstr "Środa"
 msgid "Widget size"
 msgstr "Rozmiar widgetu"
 
-#: src/views/admin.php:187
+#: src/views/admin.php:194
 msgid "With the widget placed correctly, you help your customers notice the InPost Pay service, allowing them to complete purchases on your website without the need to provide their data, which is especially important for customers who prefer anonymous shopping without logging in."
 msgstr "Przy prawidłowym umiejscowieniu widgetu pomagasz swoim Klientom zauważyć usługę InPost Pay, dzięki której będą mogli sfinalizować zakupy na Twojej stronie bez konieczności podawania swoich danych, co jest szczególnie istotne w przypadku Klientów, którzy preferują anonimowe zakupy bez logowania."
 
@@ -1766,11 +1737,11 @@ msgstr "Nieprawidłowe dane uwierzytelniające"
 msgid "Yellow"
 msgstr "Żółty"
 
-#: src/views/config-sections/net-transport-price.view.php:24
+#: src/views/config-sections/net-transport-price.view.php:20
 msgid "Yes"
 msgstr "Tak"
 
-#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:73
+#: src/Lib/Coupons/Fields/VisibleInAppCheckboxField.php:77
 msgid "You can mark up to 5 coupons as available in the InPost Pay app."
 msgstr "Możesz oznaczyć maksymalnie 5 kuponów jako dostępne w aplikacji InPost Pay."
 
@@ -1778,40 +1749,40 @@ msgstr "Możesz oznaczyć maksymalnie 5 kuponów jako dostępne w aplikacji InPo
 msgid "You have reached the maximum number of hot products allowed by InPost Pay."
 msgstr "Osiągnięto maksymalny limit hot produktów dozwolonych przez InPost Pay."
 
-#: src/views/config-sections/tm-method-switcher.view.php:57
+#: src/views/config-sections/tm-method-switcher.view.php:73
 msgid "You haven't selected any active delivery method. The Buyer will be unable to select a delivery method in the app."
 msgstr "Nie wybrano żadnej metody dostawy. Kupujący nie będzie miał możliwości wybrania metody dostawy w aplikacji."
 
-#: src/DashboardMenu.php:33
+#: src/DashboardMenu.php:35
 msgid "InPost Pay - Hot Products"
 msgstr "InPost Pay - Hot Produkty"
 
 #: lang/strings.php:21
-#: src/DashboardMenu.php:34
+#: src/DashboardMenu.php:36
 msgid "Hot Products"
 msgstr "Hot Produkty"
 
-#: src/DashboardMenu.php:45
+#: src/DashboardMenu.php:47
 msgid "InPost Pay - Unavailable Products"
 msgstr "InPost Pay - Wykluczone Produkty"
 
-#: src/DashboardMenu.php:46
+#: src/DashboardMenu.php:48
 msgid "Unavailable Products"
 msgstr "Wykluczone Produkty"
 
-#: src/DashboardMenu.php:56
+#: src/DashboardMenu.php:58
 msgid "InPost Pay - Unavailable Categories"
 msgstr "InPost Pay - Wykluczone Kategorie"
 
-#: src/DashboardMenu.php:57
+#: src/DashboardMenu.php:59
 msgid "Unavailable Categories"
 msgstr "Wykluczone Kategorie"
 
-#: src/rest/admin/product/HotProducts.php:181
+#: src/rest/admin/product/HotProducts.php:191
 msgid "You reached the limit of hot products."
 msgstr "Osiągnąłeś limit Hot Produktów."
 
-#: src/rest/admin/product/HotProducts.php:277
+#: src/rest/admin/product/HotProducts.php:297
 msgid "Products removed."
 msgstr "Produkty zostały usunięte."
 
@@ -1821,11 +1792,11 @@ msgstr "Produkty zostały usunięte."
 msgid "Failed to reinitialize InPost widget"
 msgstr "Nie udało się ponownie zainicjalizować widgetu InPost"
 
-#: src/views/config-sections/mapper-option.view.php:86
+#: src/views/config-sections/mapper-option.view.php:92
 msgid "Show only main Hot Product image in the InPost Pay app"
 msgstr "Pokazuj tylko główne zdjęcie Hot Produktu w aplikacji InPost Pay"
 
-#: src/views/config-sections/mapper-option.view.php:94
+#: src/views/config-sections/mapper-option.view.php:101
 msgid "Enable this option if you want customers using the InPost Pay app to see only the main product image. If disabled, the full product gallery will be shown (recommended default)."
 msgstr "Włącz tę opcję, aby klienci korzystający z aplikacji InPost Pay widzieli tylko główne zdjęcie produktu. Po wyłączeniu widoczna będzie pełna galeria zdjęć produktu (zalecane ustawienie domyślne)."
 
@@ -1842,19 +1813,15 @@ msgstr "Ustawienie globalne: wyświetlana jest pełna galeria"
 msgid "Override gallery setting for this Hot Product"
 msgstr "Nadpisz ustawienie galerii dla tego Hot Produktu"
 
-#: src/views/config-sections/mapper-option.view.php:45
+#: src/views/config-sections/mapper-option.view.php:61
 msgid "Refresh page after adding product to cart"
 msgstr "Odśwież stronę po dodaniu produktu do koszyka"
 
-#: src/views/config-sections/mapper-option.view.php:53
-msgid "Enable this option to refresh the page after cart changes. This may be required depending on how your theme handles cart messages (e.g. if the “product added to cart” notice only appears after a refresh)."
-msgstr "Włącz tę opcję, aby odświeżać stronę po zmianach w koszyku. Może to być wymagane w zależności od sposobu wyświetlania komunikatów w Twoim sklepie (np. gdy komunikat o dodaniu produktu do koszyka pojawia się dopiero po odświeżeniu strony)."
-
-#: src/views/config-sections/statuses.view.php:30
+#: src/views/config-sections/statuses.view.php:37
 msgid "Statuses for COD order"
 msgstr "Status dla zamówienia pobraniowego"
 
-#: src/views/config-sections/statuses.view.php:45
+#: src/views/config-sections/statuses.view.php:49
 msgid "Determines what order status should be set in cod order"
 msgstr "Określa jaki status powinien być ustawiony po złożeniu zamówienia za pobraniem"
 
@@ -1865,7 +1832,7 @@ msgid "Number of configured Hot Products: %d. Remove all Hot Products to change 
 msgstr "Ilość skonfigurowanych Hot produktów: %d. Usuń wszystkie Hot produkty, aby zmienić ustawienie galerii."
 
 #. translators: %d - number of configured Hot Products
-#: src/views/config-sections/mapper-option.view.php:116
+#: src/views/config-sections/mapper-option.view.php:124
 #, php-format
 msgid "Number of configured Hot Products: %d. Remove all Hot Products to change this setting."
 msgstr "Ilość skonfigurowanych Hot produktów: %d. Usuń wszystkie Hot produkty, aby zmienić to ustawienie."
@@ -1878,11 +1845,11 @@ msgstr "Nie masz uprawnień do uzyskania dostępu do tego zasobu."
 msgid "Permission Denied"
 msgstr "Brak uprawnień"
 
-#: src/hooks/admin/AdminSupportLogsDownload.php:46
+#: src/hooks/admin/AdminSupportLogsDownload.php:48
 msgid "PHP ZipArchive extension is required to download logs."
 msgstr "Do pobrania logów wymagana jest rozszerzenie PHP ZipArchive."
 
-#: src/hooks/admin/AdminSupportLogsDownload.php:47
+#: src/hooks/admin/AdminSupportLogsDownload.php:49
 msgid "Missing Extension"
 msgstr "Brakujące rozszerzenie"
 
@@ -1894,19 +1861,19 @@ msgstr "Nie udało się utworzyć archiwum ZIP."
 msgid "Export Error"
 msgstr "Błąd eksportu"
 
-#: src/views/admin.php:224
+#: src/views/admin.php:241
 msgid "Download plugin data and logs (today)"
 msgstr "Pobierz dane i logi wtyczki (dzisiaj)"
 
-#: src/views/config-sections/mapper-option.view.php:4
+#: src/views/config-sections/mapper-option.view.php:27
 msgid "Custom thank you page (optional)"
 msgstr "Niestandardowa strona podziękowania (opcjonalnie)"
 
-#: src/views/config-sections/mapper-option.view.php:14
+#: src/views/config-sections/mapper-option.view.php:36
 msgid "– Use default virtual page –"
 msgstr "– Użyj domyślnej strony wirtualnej –"
 
-#: src/views/config-sections/mapper-option.view.php:24
+#: src/views/config-sections/mapper-option.view.php:46
 msgid "Select a WordPress page containing the [inpost_thank_you] shortcode. If not selected, the default virtual page will be used. Use this option if your theme does not support virtual pages (e.g. Sage/Blade themes)."
 msgstr "Wybierz stronę WordPress zawierającą shortcode [inpost_thank_you]. Jeśli nie zostanie wybrana, użyta zostanie domyślna strona wirtualna. Skorzystaj z tej opcji, jeśli Twój motyw nie obsługuje stron wirtualnych (np. motywy Sage/Blade)."
 
@@ -1946,7 +1913,7 @@ msgstr "Nie płac tą metodą płatności."
 msgid "Awaiting payment"
 msgstr "Oczekiwanie na płatność"
 
-#: src/views/config-sections/payment.view.php:136
+#: src/views/config-sections/payment.view.php:124
 msgid "Select this option to enable virtual payment method for woocommerce"
 msgstr "Zaznacz tę opcję, aby włączyć wirtualną metodę płatności dla WooCommerce"
 
@@ -1966,7 +1933,7 @@ msgstr "Wirtualna bramka płatności InPostPay"
 msgid "Virtual payment gateway for InPost services."
 msgstr "Wirtualna bramka płatności dla usług InPost."
 
-#: src/rest/admin/product/HotProducts.php:120
+#: src/rest/admin/product/HotProducts.php:123
 msgid "No products provided."
 msgstr "Nie przekazano żadnych produktów."
 
@@ -2049,10 +2016,77 @@ msgstr "Włącz zbieranie identyfikatorów analitycznych. Więcej informacji na 
 msgid "Enable this option to make this Hot Product behave opposite to the global setting in the InPost Pay app. For example: if globally only the main image is shown, this Hot Product will show the full gallery. If globally the full gallery is shown, this Hot Product will show only the main image. %1$s. To change the global configuration <a href=\"%2$s\" target=\"_blank\">click here</a>."
 msgstr "Włącz tę opcję, aby ten Hot Produkt zachowywał się odwrotnie do globalnego ustawienia w aplikacji InPost Pay. Przykład: jeśli globalnie wyświetlany jest tylko obraz główny, ten Hot Produkt pokaże pełną galerię. Jeśli globalnie wyświetlana jest pełna galeria, ten Hot Produkt pokaże tylko obraz główny. %1$s. Aby zmienić globalną konfigurację <a href=\"%2$s\" target=\"_blank\">kliknij tutaj</a>."
 
-#: src/views/config-sections/mapper-option.view.php:205
+#: src/views/config-sections/mapper-option.view.php:211
 msgid "Early basket update response (bypass shutdown hook)"
 msgstr "Wczesna odpowiedź aktualizacji koszyka (pominięcie hooka shutdown)"
 
-#: src/views/config-sections/mapper-option.view.php:213
+#: src/views/config-sections/mapper-option.view.php:219
 msgid "Enable this option if the mobile app experiences issues with basket updates returning empty responses. This mode bypasses the shutdown hook mechanism for basket update requests from the app, returning responses immediately. This helps with caching plugins or server configurations that flush responses early. Only affects basket updates from the mobile app."
 msgstr "Włącz tę opcję, jeśli aplikacja mobilna ma problemy z aktualizacją koszyka zwracającą pustą odpowiedź. Ten tryb pomija mechanizm hooka shutdown dla żądań aktualizacji koszyka z aplikacji i zwraca odpowiedź natychmiast. Pomaga to w przypadku wtyczek cache lub konfiguracji serwera, które wysyłają odpowiedź zbyt wcześnie. Dotyczy wyłącznie aktualizacji koszyka z aplikacji mobilnej."
+
+#: src/views/config-sections/environment.view.php:37
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: src/views/config-sections/mapper-option.view.php:69
+msgid "Enable this option to refresh the page after cart changes. This may be required depending on how your theme handles cart messages (e.g. if the \"product added to cart\" notice only appears after a refresh)."
+msgstr "Włącz tę opcję, aby odświeżać stronę po zmianach w koszyku. Może to być wymagane w zależności od sposobu, w jaki motyw obsługuje komunikaty koszyka (np. jeśli komunikat \"produkt dodany do koszyka\" pojawia się dopiero po odświeżeniu strony)."
+
+#: src/views/config-sections/payment.view.php:66
+msgid "Cash on delivery payment will be available only if you have a signed agreement with InPost to provide this service in your store"
+msgstr "Płatność za pobraniem będzie dostępna tylko wtedy, gdy posiadasz podpisaną umowę z InPost na świadczenie tej usługi w swoim sklepie."
+
+#: src/views/config-sections/statuses.view.php:77
+msgid "Please verify if the order status dictionary matches what is actually presented to customers. At any time, you can change the names of the displayed statuses"
+msgstr "Sprawdź, czy słownik statusów zamówień odpowiada temu, co jest faktycznie prezentowane klientom. W każdej chwili możesz zmienić nazwy wyświetlanych statusów."
+
+#: src/views/config-sections/suggested-products.view.php:31
+msgid "To display suggested products, you must fill out the Related Products section in the WooCommerce product configuration. 1. Go to edit the product in your store. 2. In the Product Data panel, select the \"Related products\" section. 3. Fill in the \"up-sell\" or \"cross-sell\" sections - products from both sections will be visible in the application."
+msgstr "Aby wyświetlać sugerowane produkty, musisz uzupełnić sekcję Powiązane produkty w konfiguracji produktu WooCommerce. 1. Przejdź do edycji produktu w swoim sklepie. 2. W panelu Dane produktu wybierz sekcję \"Powiązane produkty\". 3. Uzupełnij sekcje \"up-sell\" lub \"cross-sell\" – produkty z obu sekcji będą widoczne w aplikacji."
+
+#: src/views/config-sections/minicart-gui.view.php:59
+msgid "After minicart contents"
+msgstr "Po zawartości minicart"
+
+#: src/views/config-sections/minicart-gui.view.php:60
+msgid "At total"
+msgstr "Przy sumie"
+
+#: src/views/config-sections/minicart-gui.view.php:61
+msgid "Before buttons"
+msgstr "Przed przyciskami"
+
+#: src/views/config-sections/minicart-gui.view.php:62
+msgid "After buttons"
+msgstr "Po przyciskach"
+
+#: src/views/config-sections/minicart-gui.view.php:63
+msgid "After minicart"
+msgstr "Po minicart"
+
+#: src/rest/merchant/basket/Add/AddProductHandler.php:99
+msgid "An unexpected error occurred."
+msgstr "Wystąpił nieoczekiwany błąd."
+
+#: src/rest/merchant/basket/Add/AddProductHandler.php:336
+#: src/rest/merchant/basket/Add/AddProductHandler.php:340
+msgid "Failed to generate basket binding API key."
+msgstr "Nie udało się wygenerować klucza API powiązania koszyka."
+
+#: src/rest/merchant/basket/Add/AddProductHandler.php:364
+msgid "Basket binding entity not found in repository."
+msgstr "Nie znaleziono encji powiązania koszyka w repozytorium."
+
+#: src/rest/merchant/basket/Add/AddProductHandler.php:370
+msgid "Basket already has an order."
+msgstr "Koszyk ma już przypisane zamówienie."
+
+#: src/rest/merchant/basket/Add/AddProductHandler.php:299
+msgid "Product could not be added to cart."
+msgstr "Nie udało się dodać produktu do koszyka."
+
+#. translators: %s: Product URL.
+#: src/rest/merchant/basket/Add/AddProductHandler.php:294
+#, php-format
+msgid "WooCommerce rejected add to cart. Product page: %s"
+msgstr "WooCommerce odrzucił dodanie do koszyka. Strona produktu: %s"

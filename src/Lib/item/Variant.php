@@ -70,5 +70,4 @@ class Variant extends Item implements JsonSerializable {
 
 		return $this;
 	}
-
 }

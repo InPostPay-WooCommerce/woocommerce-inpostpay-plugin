@@ -19,8 +19,8 @@ class EANHelper {
 	}
 
 	public static function prepareEan( \WC_Product $product ): string {
-		static $cache = [];
-		$id = (int) $product->get_id();
+		static $cache = array();
+		$id           = (int) $product->get_id();
 
 		if ( isset( $cache[ $id ] ) ) {
 			return $cache[ $id ];

@@ -32,15 +32,15 @@ final class ApmShippingMethod extends AbstractShippingMethodField implements Apm
 
 	public function get_label(): string {
 		return __(
-			"Pricing and shipping availability from Parcel Machine Map with:",
-			"inpost-pay"
+			'Pricing and shipping availability from Parcel Machine Map with:',
+			'inpost-pay'
 		);
 	}
 
 	public function get_tooltip(): string {
 		return __(
-			"Determines which shipping method is to be associated",
-			"inpost-pay"
+			'Determines which shipping method is to be associated',
+			'inpost-pay'
 		);
 	}
 }

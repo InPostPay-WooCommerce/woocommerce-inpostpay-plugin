@@ -16,7 +16,7 @@ class Delivery extends Item implements JsonSerializable {
 	protected array $delivery_options;
 	protected Price $delivery_price;
 
-//	protected $free_delivery_minimum_gross_price;
+	// protected $free_delivery_minimum_gross_price;
 
 	public function jsonSerialize(): array {
 		return $this->autoSerialize();

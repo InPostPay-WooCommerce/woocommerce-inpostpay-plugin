@@ -11,9 +11,9 @@ interface Price_Repository_Interface {
 	/**
 	 * @return Price_Model[]
 	 */
-	public function get_all_prices_arr(int $product_id): ?array;
+	public function get_all_prices_arr( int $product_id ): ?array;
 
-	public function get_last_price(int $product_id): ?Price_Model;
+	public function get_last_price( int $product_id ): ?Price_Model;
 
-	public function get_lowest_price($product_id, DateTime $discount_date_time): ?Price_Model;
+	public function get_lowest_price( $product_id, DateTime $discount_date_time ): ?Price_Model;
 }

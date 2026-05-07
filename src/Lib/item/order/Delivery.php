@@ -12,7 +12,7 @@ class Delivery extends Item implements \JsonSerializable {
 
 	protected string $delivery_type;
 	protected array $delivery_price;
-//	protected $delivery_date;
+	// protected $delivery_date;
 	protected array $delivery_options;
 	protected string $mail;
 	protected Phone $phone;

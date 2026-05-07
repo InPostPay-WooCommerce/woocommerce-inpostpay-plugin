@@ -5,25 +5,25 @@ namespace Ilabs\Inpost_Pay\Lib\Attribution;
 class Attribution {
 
 	private ?string $source_type = null;
-	private ?string $referrer = null;
+	private ?string $referrer    = null;
 
 
-	private ?string $utm_campaign = null;
-	private ?string $utm_source = null;
-	private ?string $utm_medium = null;
-	private ?string $utm_content = null;
-	private ?string $utm_id = null;
-	private ?string $utm_term = null;
-	private ?string $utm_source_platform = null;
-	private ?string $utm_creative_format = null;
+	private ?string $utm_campaign         = null;
+	private ?string $utm_source           = null;
+	private ?string $utm_medium           = null;
+	private ?string $utm_content          = null;
+	private ?string $utm_id               = null;
+	private ?string $utm_term             = null;
+	private ?string $utm_source_platform  = null;
+	private ?string $utm_creative_format  = null;
 	private ?string $utm_marketing_tactic = null;
 
 
-	private ?string $session_entry = null;
+	private ?string $session_entry      = null;
 	private ?string $session_start_time = null;
-	private ?string $session_pages = null;
-	private ?string $session_count = null;
-	private ?string $user_agent = null;
+	private ?string $session_pages      = null;
+	private ?string $session_count      = null;
+	private ?string $user_agent         = null;
 
 	public function get_source_type(): ?string {
 		return $this->source_type;
@@ -187,24 +187,22 @@ class Attribution {
 
 	public function to_array(): array {
 		return array(
-			'source_type' => $this->source_type,
-			'referrer' => $this->referrer,
-			'utm_campaign' => $this->utm_campaign,
-			'utm_source' => $this->utm_source,
-			'utm_medium' => $this->utm_medium,
-			'utm_content' => $this->utm_content,
-			'utm_id' => $this->utm_id,
-			'utm_term' => $this->utm_term,
-			'utm_source_platform' => $this->utm_source_platform,
-			'utm_creative_format' => $this->utm_creative_format,
+			'source_type'          => $this->source_type,
+			'referrer'             => $this->referrer,
+			'utm_campaign'         => $this->utm_campaign,
+			'utm_source'           => $this->utm_source,
+			'utm_medium'           => $this->utm_medium,
+			'utm_content'          => $this->utm_content,
+			'utm_id'               => $this->utm_id,
+			'utm_term'             => $this->utm_term,
+			'utm_source_platform'  => $this->utm_source_platform,
+			'utm_creative_format'  => $this->utm_creative_format,
 			'utm_marketing_tactic' => $this->utm_marketing_tactic,
-			'session_entry' => $this->session_entry,
-			'session_start_time' => $this->session_start_time,
-			'session_pages' => $this->session_pages,
-			'session_count' => $this->session_count,
-			'user_agent' => $this->user_agent,
+			'session_entry'        => $this->session_entry,
+			'session_start_time'   => $this->session_start_time,
+			'session_pages'        => $this->session_pages,
+			'session_count'        => $this->session_count,
+			'user_agent'           => $this->user_agent,
 		);
 	}
-
-
 }

@@ -39,10 +39,10 @@ class CodApmGroup extends AbstractGroup {
 	 * @throws OptionNameRequired
 	 */
 	public function getFields(): array {
-		return [
+		return array(
 			$this->getPriceField(),
 			$this->getShippingMethodField(),
-		];
+		);
 	}
 
 	public function getDeliveryOptionCode(): string {
@@ -86,7 +86,7 @@ class CodApmGroup extends AbstractGroup {
 	}
 
 	public function getIsActiveFieldId(): string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_apm_active_' . $this->get_zone_id();
 		}
 
@@ -94,7 +94,7 @@ class CodApmGroup extends AbstractGroup {
 	}
 
 	public function getOptionCostMappingApproachId(): ?string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_apm_opt_mapping_approach_' . $this->get_zone_id();
 		}
 

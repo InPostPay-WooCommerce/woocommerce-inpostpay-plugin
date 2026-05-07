@@ -1,12 +1,9 @@
 <?php
-
-declare( strict_types=1 );
-
 /**
  * Plugin Name: InPost Pay
  * Plugin URI:
  * Description:
- * Version: 2.0.7
+ * Version: 2.0.8
  * Tested up to: 6.9
  * Requires PHP: 7.4
  * Author: iLabs LTD
@@ -15,15 +12,23 @@ declare( strict_types=1 );
  * Domain Path: /lang/
  *
  * Copyright 2026 iLabs LTD
+ *
+ * @package InPost Pay
+ * @author iLabs
  */
 
+declare( strict_types=1 );
+
 use Ilabs\Inpost_Pay\Container\ServiceContainer;
+use function Ilabs\Inpost_Pay\inpost_pay;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/src/ShutdownHandler.php';
+Ilabs\Inpost_Pay\ShutdownHandler::register( __FILE__ );
 const WOOCOMMERCE_INPOST_PAY_PLUGIN_FILE = __FILE__;
 
 $headers = get_file_data(
@@ -43,7 +48,7 @@ $headers = get_file_data(
 	'plugin'
 );
 
-$config = [
+$config = array(
 	'__FILE__'                => __FILE__,
 	'name'                    => 'Inpost Pay',
 	'slug'                    => 'inpost_pay',
@@ -51,9 +56,9 @@ $config = [
 	'text_domain'             => 'inpost-pay',
 	'min_php_int'             => 70400,
 	'min_php'                 => 7.4,
-	'required_plugins'        => ['woocommerce'],
-	'required_php_extensions' => ['curl'],
-];
+	'required_plugins'        => array( 'woocommerce' ),
+	'required_php_extensions' => array( 'curl' ),
+);
 
 require_once __DIR__ . '/system.php';
 
@@ -65,10 +70,12 @@ if ( ( new __Inpost_Pay_System( $config ) )->evaluate_system() ) {
 	$container = new ServiceContainer();
 	$container->initialize_defaults( $config, $headers );
 
-	function inpost_pay(): Ilabs\Inpost_Pay\Plugin {
-		return new Ilabs\Inpost_Pay\Plugin();
-	}
-
 	inpost_pay_container( $container );
-	inpost_pay()->execute( $config );
+
+	try {
+		inpost_pay()->execute( $config );
+	} catch ( \Throwable $e ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		error_log( 'InPost Pay bootstrap error: ' . $e->getMessage() );
+	}
 }

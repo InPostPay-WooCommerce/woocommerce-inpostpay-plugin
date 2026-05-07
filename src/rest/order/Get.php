@@ -37,10 +37,10 @@ class Get extends Base {
 				exit;
 
 			} catch ( \Exception $e ) {
-				$error = [
+				$error = array(
 					'error_code'    => 'ORDER_READ_FAILURE',
-					'error_message' => 'ORDER NOT FOUND'
-				];
+					'error_message' => 'ORDER NOT FOUND',
+				);
 
 				if ( ! get_option( 'izi_custom_response_enabled', true ) ) {
 					http_response_code( 404 );

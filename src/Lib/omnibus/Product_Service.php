@@ -4,10 +4,11 @@ namespace Ilabs\Inpost_Pay\Lib\omnibus;
 
 use WC_Product;
 use WC_Tax;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Product_Service {
 
-	static $prevent_duplicates = [];
+	static $prevent_duplicates = array();
 
 	public function handle_product_update(
 		int $product_id
@@ -27,18 +28,20 @@ class Product_Service {
 
 		$new_omnibus_price = ( new Price_Model_Factory() )
 			->create(
-				[
-					Price_Model::ARRAY_PRICE_KEY_0          => $omnibus_price_from_request,
-					Price_Model::ARRAY_DATETIME_KEY_1       => date( 'Y-m-d H:i:s' ),
-					Price_Model::ARRAY_IS_ON_SALE_KEY_2     => $product->is_on_sale(),
+				array(
+					Price_Model::ARRAY_PRICE_KEY_0      => $omnibus_price_from_request,
+					Price_Model::ARRAY_DATETIME_KEY_1   => date( 'Y-m-d H:i:s' ),
+					Price_Model::ARRAY_IS_ON_SALE_KEY_2 => $product->is_on_sale(),
 					Price_Model::ARRAY_IS_PURCHASABLE_KEY_3 => ( new Product_Helper() )->is_purchasable( $product ) ? 1 : 0,
-				] );
-
+				)
+			);
 
 		$lowest_Price_Cache_Repository = new Lowest_Price_Cache_Post_Meta_Repository();
 
-		$lowest_Price_Cache_Repository->update( $new_omnibus_price,
-			$product_id );
+		$lowest_Price_Cache_Repository->update(
+			$new_omnibus_price,
+			$product_id
+		);
 
 		self::$prevent_duplicates[] = $product_id;
 	}
@@ -63,8 +66,10 @@ class Product_Service {
 	): ?bool {
 		$price_repository = new Price_Post_Meta_Repository();
 
-		return $price_repository->is_price_lower_than_last_price( $price,
-			$product_id );
+		return $price_repository->is_price_lower_than_last_price(
+			$price,
+			$product_id
+		);
 	}
 
 	public function should_show_omnibus_note( WC_Product $product ): bool {
@@ -76,10 +81,8 @@ class Product_Service {
 			->get_omnibus()
 			->get_option_show_on_none_discount_products() ) {
 			return true;
-		} else {
-			if ( ! $product->is_on_sale() ) {
+		} elseif ( ! $product->is_on_sale() ) {
 				return false;
-			}
 		}
 
 		return true;

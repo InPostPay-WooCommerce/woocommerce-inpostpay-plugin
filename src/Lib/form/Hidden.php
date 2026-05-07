@@ -8,21 +8,21 @@ use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 
 class Hidden extends AbstractFormField {
 
-	private array $configOptions = [
+	private array $configOptions = array(
 
-		'name'        => [
-			'required' => true
-		],
-		'class'       => [
+		'name'  => array(
+			'required' => true,
+		),
+		'class' => array(
 			'required' => false,
-			'default'  => 'checkbox'
-		],
-	];
+			'default'  => 'checkbox',
+		),
+	);
 	private string $value;
 
 	/**
 	 * @param string $value
-	 * @param array $config
+	 * @param array  $config
 	 *
 	 * @throws NotAllowedConfigOptionException
 	 * @throws RequiredConfigOptionException
@@ -49,14 +49,13 @@ class Hidden extends AbstractFormField {
 	 */
 	public function print_hidden(): void {
 
-		echo sprintf(
+		printf(
 			'<input type="hidden" name="%s" id="%s" class="%s" %s>',
 			$this->get_field_name(),
 			$this->get_config_option( 'name' )->get_value(),
 			$this->get_config_option( 'class' )->get_value(),
 			$this->value
 		);
-
 	}
 
 	/**
@@ -65,6 +64,4 @@ class Hidden extends AbstractFormField {
 	public function get_field_name() {
 		return $this->get_config_option( 'name' )->get_value();
 	}
-
-
 }

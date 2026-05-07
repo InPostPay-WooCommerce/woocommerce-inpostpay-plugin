@@ -15,14 +15,13 @@ class RenderBlock extends Base {
 			$request
 		) {
 			if ( esc_attr( get_option( 'izi_show_checkout' ) ) ) {
-				$attributes = $request->get_param('attributes');
+				$attributes = $request->get_param( 'attributes' );
 				ob_start();
 				BlockRender::render_inpost_button( $attributes );
-				header('Content-Type:text/html; charset=UTF-8');
+				header( 'Content-Type:text/html; charset=UTF-8' );
 				die( ob_get_clean() );
 			}
 			die;
 		};
 	}
-
 }

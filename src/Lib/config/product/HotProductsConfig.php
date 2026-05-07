@@ -20,18 +20,20 @@ final class HotProductsConfig extends AbstractArrayOption implements HotProducts
 		);
 	}
 
-	public function register( array $args = [] ): void {
-		parent::register( [
-			'type'    => 'string',
-			'default' => self::IZI_HOT_PRODUCTS_DEFAULT,
-		] );
+	public function register( array $args = array() ): void {
+		parent::register(
+			array(
+				'type'    => 'string',
+				'default' => self::IZI_HOT_PRODUCTS_DEFAULT,
+			)
+		);
 	}
 
 	public function get( $default = false ): array {
 		$hot_products = parent::get( self::IZI_HOT_PRODUCTS_DEFAULT );
 
 		if ( ! is_array( $hot_products ) ) {
-			$hot_products = json_decode( $hot_products, true ) ?? [];
+			$hot_products = json_decode( $hot_products, true ) ?? array();
 		}
 
 		return $hot_products;
@@ -46,7 +48,6 @@ final class HotProductsConfig extends AbstractArrayOption implements HotProducts
 			}
 		}
 
-
 		parent::update( json_encode( array_unique( $value ) ) );
 
 		return true;
@@ -58,13 +59,14 @@ final class HotProductsConfig extends AbstractArrayOption implements HotProducts
 	 * @throws NotAllowedConfigOptionException
 	 */
 	public function get_form_field(): FormFieldInterface {
-		return new Hidden( json_encode( $this->get() ), [
-			'label'       => $this->get_label(),
-			'name'        => $this->get_field_name(),
-			'label_class' => 'label-gray',
-			'class'       => 'mobileToggle'
-		] );
+		return new Hidden(
+			json_encode( $this->get() ),
+			array(
+				'label'       => $this->get_label(),
+				'name'        => $this->get_field_name(),
+				'label_class' => 'label-gray',
+				'class'       => 'mobileToggle',
+			)
+		);
 	}
-
-
 }

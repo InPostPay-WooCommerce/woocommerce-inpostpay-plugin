@@ -1,87 +1,78 @@
 <?php
-
 /**
- * @var $zone_id int|null
+ * Transport method courier config section view.
+ *
+ * @package InPost_Pay
  */
 
-$codCourierSettingsGroup = inpost_pay()
+use function Ilabs\Inpost_Pay\inpost_pay;
+
+/**
+ * Zone ID.
+ *
+ * @var int|null $zone_id
+ */
+
+$cod_courier_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
 	->getCodCourierSettingsGroup();
 
-$courierSettingsGroup = inpost_pay()
+$courier_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
 	->getCourierSettingsGroup();
 
-$courierCodGroupIsActiveField = inpost_pay()
+$courier_cod_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodCourierSettingsGroup()->getIsActiveField();
+	->getCodCourierSettingsGroup()
+	->getIsActiveField();
 
-$courierCodOptionCostMappingApproachObj = inpost_pay()
+$courier_cod_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodCourierSettingsGroup()->getOptionCostMappingApproachObj();
+	->getCodCourierSettingsGroup()
+	->getOptionCostMappingApproachObj();
 
-$courierCodOptionCostMappingApproachCheckedValFee    = $courierCodOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_FEE;
-$courierCodOptionCostMappingApproachCheckedValMethod = $courierCodOptionCostMappingApproachObj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
-$courierCodOptionCostMappingApproachVal              = $courierCodOptionCostMappingApproachObj->get();
+$courier_cod_option_cost_mapping_approach_checked_val_fee    =
+	$courier_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
+$courier_cod_option_cost_mapping_approach_checked_val_method =
+	$courier_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
+$courier_cod_option_cost_mapping_approach_val                = $courier_cod_option_cost_mapping_approach_obj->get();
 ?>
 
 <div class="consent-item">
 	<h2 class="izi-transport-price-heading-secondary">
-		<?php _e(
-			"Courier:",
-			"inpost-pay"
-		); ?>
+		<?php esc_html_e( 'Courier:', 'inpost-pay' ); ?>
 	</h2>
-
 
 	<div class="input-wrapper">
 		<div class="form-group">
 			<label class="mb-05">
-				<?php _e(
-					"Carrier mapping",
-					"inpost-pay"
-				); ?>
+				<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 			</label>
 			<div class="input-tooltip">
 				<div>
-					<select
-						name="<?php echo esc_attr( $courierSettingsGroup->getShippingMethodField()
-																		->get_field_name() ) ?>">
-						<option>
-							<?php _e(
-								"Select",
-								"inpost-pay"
-							); ?>
+					<select name="<?php echo esc_attr( $courier_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+						<option value="0">
+							<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 						</option>
 						<?php
-						$selectedOption = esc_attr(
-							$courierSettingsGroup->getShippingMethodField()
-												 ->get()
-						);
-						foreach (
-							$availableShippingMethods
-							as $value => $label
-						) {
-							$selected =
-								$value == $selectedOption
-									? "selected"
-									: "";
-							echo "<option {$selected} value='{$value}'>{$label}</option>";
+						$selected_option = (string) $courier_settings_group->getShippingMethodField()->get();
+
+						foreach ( $available_shipping_methods as $value => $label ) {
+							$selected = ( $value === $selected_option ) ? 'selected' : '';
+							echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 						}
 						?>
 					</select>
 				</div>
 				<div class="input-tooltip-wrapper">
-					<img src="<?php echo plugin_dir_url(
-											 __FILE__
-										 ) .
-										 "../../../assets/img/tooltip.svg"; ?>"
-						 alt="">
+					<img
+						src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+						alt=""
+					>
 					<div class="input-tooltip-box">
-						<p><?php _e(
-								"Determines which shipping method is to be associated",
-								"inpost-pay"
-							); ?></p>
+						<p>
+							<?php esc_html_e( 'Determines which shipping method is to be associated', 'inpost-pay' ); ?>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -90,116 +81,113 @@ $courierCodOptionCostMappingApproachVal              = $courierCodOptionCostMapp
 
 	<div class="izi-group-courier-cod izi-transport-group">
 		<div class="izi-group-checkbox-wrapper izi-transport-group-opacity">
-			<input type="checkbox"
-				   id="<?php esc_attr_e( $courierCodGroupIsActiveField->get_field_name() ); ?>"
-				   name="<?php esc_attr_e( $courierCodGroupIsActiveField->get_field_name() ); ?>"
-				   value="1" <?= $courierCodGroupIsActiveField->get_bool( true )
-				? "checked"
-				: "" ?>>
+			<input
+				type="checkbox"
+				id="<?php echo esc_attr( $courier_cod_group_is_active_field->get_field_name() ); ?>"
+				name="<?php echo esc_attr( $courier_cod_group_is_active_field->get_field_name() ); ?>"
+				value="1"
+				<?php checked( $courier_cod_group_is_active_field->get_bool( true ) ); ?>
+			>
 
 			<label
 				class="mr-0 pr-0 text-bold"
-				for="<?php esc_attr_e( $courierCodGroupIsActiveField->get_field_name() ); ?>"><?php esc_attr_e( $courierCodGroupIsActiveField->get_label() ); ?></label>
+				for="<?php echo esc_attr( $courier_cod_group_is_active_field->get_field_name() ); ?>"
+			>
+				<?php echo esc_html( $courier_cod_group_is_active_field->get_label() ); ?>
+			</label>
+
 			<div class="input-tooltip-wrapper">
-				<img src="<?php echo plugin_dir_url(
-										 __FILE__
-									 ) .
-									 "../../../assets/img/tooltip.svg"; ?>"
-					 alt="">
+				<img
+					src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+					alt=""
+				>
 				<div class="input-tooltip-box">
-					<p><?php esc_attr_e( $courierCodGroupIsActiveField->get_tooltip() ); ?></p>
+					<p><?php echo esc_html( $courier_cod_group_is_active_field->get_tooltip() ); ?></p>
 				</div>
 			</div>
 		</div>
+
 		<div class="izi-group-subgroup">
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $courierCodOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $courierCodOptionCostMappingApproachCheckedValMethod ?>"<?php if ( $courierCodOptionCostMappingApproachCheckedValMethod === $courierCodOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $courier_cod_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $courier_cod_option_cost_mapping_approach_checked_val_method ); ?>"
+						<?php checked( $courier_cod_option_cost_mapping_approach_checked_val_method, $courier_cod_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
 						<label>
-							<?php _e(
-								"Carrier mapping",
-								"inpost-pay"
-							); ?>
+							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select
-								name="<?php echo esc_attr( $codCourierSettingsGroup->getShippingMethodField()
-																				   ->get_field_name() ) ?>">
-								<option>
-									<?php _e(
-										"Select",
-										"inpost-pay"
-									); ?>
+							<select name="<?php echo esc_attr( $cod_courier_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+								<option value="0">
+									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selectedOption = esc_attr(
-									$codCourierSettingsGroup->getShippingMethodField()
-															->get()
-								);
-								foreach (
-									$availableShippingMethods
-									as $value => $label
-								) {
-									$selected =
-										$value == $selectedOption
-											? "selected"
-											: "";
-									echo "<option {$selected} value='{$value}'>{$label}</option>";
+								$selected_option = (string) $cod_courier_settings_group->getShippingMethodField()->get();
+
+								foreach ( $available_shipping_methods as $value => $label ) {
+									$selected = ( $value === $selected_option ) ? 'selected' : '';
+									echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( $value ) . '">' . esc_html( $label ) . '</option>';
 								}
 								?>
 							</select>
 							<div class="input-tooltip-wrapper">
-								<img src="<?php echo plugin_dir_url(
-														 __FILE__
-													 ) .
-													 "../../../assets/img/tooltip.svg"; ?>"
-									 alt="">
+								<img
+									src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+									alt=""
+								>
 								<div class="input-tooltip-box">
-									<p><?php _e(
-											"Determines which shipping method is to be associated",
-											"inpost-pay"
-										); ?></p>
+									<p>
+										<?php esc_html_e( 'Determines which shipping method is to be associated', 'inpost-pay' ); ?>
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="input-wrapper">
 				<div class="izi-transport-form-group">
-					<input type="radio"
-						   class="izi-group-subgroup-radio"
-						   name="<?php echo esc_attr( $courierCodOptionCostMappingApproachObj->get_field_name() ) ?>"
-						   value="<?php echo $courierCodOptionCostMappingApproachCheckedValFee ?>"<?php if ( $courierCodOptionCostMappingApproachCheckedValFee === $courierCodOptionCostMappingApproachVal ): ?> CHECKED<?php endif; ?> >
+					<input
+						type="radio"
+						class="izi-group-subgroup-radio"
+						name="<?php echo esc_attr( $courier_cod_option_cost_mapping_approach_obj->get_field_name() ); ?>"
+						value="<?php echo esc_attr( $courier_cod_option_cost_mapping_approach_checked_val_fee ); ?>"
+						<?php checked( $courier_cod_option_cost_mapping_approach_checked_val_fee, $courier_cod_option_cost_mapping_approach_val ); ?>
+					>
 					<div class="izi-transport-form-subgroup">
 						<label>
-							<?php _e( "Added fee", "inpost-pay" ); ?>
+							<?php esc_html_e( 'Added fee', 'inpost-pay' ); ?>
 						</label>
 						<div class="izi-transport-form-subgroup">
 							<div class="input-tooltip izi-transport-form-group">
-								<input type="number"
-									   step="any"
-									   inputmode="decimal"
-									   name="<?php echo esc_attr( $codCourierSettingsGroup->getPriceField()
-																						  ->get_field_name() ) ?>"
-									   value="<?= esc_attr( str_replace( ',', '.', (string) $codCourierSettingsGroup->getPriceField()
-																													->get() ) ) ?>">
+								<input
+									type="number"
+									step="any"
+									inputmode="decimal"
+									name="<?php echo esc_attr( $cod_courier_settings_group->getPriceField()->get_field_name() ); ?>"
+									value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_courier_settings_group->getPriceField()->get() ) ); ?>"
+								>
 
 								<div class="input-tooltip-wrapper">
-									<img src="<?php echo plugin_dir_url(
-															 __FILE__
-														 ) .
-														 "../../../assets/img/tooltip.svg"; ?>"
-										 alt="">
+									<img
+										src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+										alt=""
+									>
 									<div class="input-tooltip-box">
-										<p><?php _e(
-												"Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.",
-												"inpost-pay"
-											); ?></p>
+										<p>
+											<?php
+											esc_html_e(
+												'Additional fee amount field for this shipping option. The amount entered is net and tax will be added depending on tax settings.',
+												'inpost-pay'
+											);
+											?>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -208,7 +196,5 @@ $courierCodOptionCostMappingApproachVal              = $courierCodOptionCostMapp
 				</div>
 			</div>
 		</div>
-
 	</div>
-
 </div>

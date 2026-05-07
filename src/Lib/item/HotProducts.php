@@ -8,14 +8,14 @@ use Ilabs\Inpost_Pay\Lib\Item;
 use Ilabs\Inpost_Pay\Lib\helpers\JsonSerializationHelper;
 use JsonSerializable;
 
-class HotProducts extends Item implements JsonSerializable
-{
+class HotProducts extends Item implements JsonSerializable {
+
 	use JsonSerializationHelper;
 
-	protected int $page_size = 10;
+	protected int $page_size   = 10;
 	protected int $total_items = 0;
-	protected int $page_index = 1;
-	protected array $content = [];
+	protected int $page_index  = 1;
+	protected array $content   = array();
 
 	public function jsonSerialize(): array {
 		return $this->autoSerialize();

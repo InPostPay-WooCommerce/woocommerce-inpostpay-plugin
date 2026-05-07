@@ -13,6 +13,7 @@ declare( strict_types=1 );
 namespace Ilabs\Inpost_Pay\Lib;
 
 use Ilabs\Inpost_Pay\Logger;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 /**
  * Fetcher class for handling HTTP requests.
@@ -99,7 +100,7 @@ class Fetcher {
 		$httpcode = curl_getinfo( $this->curl, CURLINFO_HTTP_CODE );
 		curl_close( $this->curl );
 
-		return array( json_decode( $output ), $httpcode );
+		return array( is_string( $output ) ? json_decode( $output ) : null, $httpcode );
 	}
 
 	/**

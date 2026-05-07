@@ -8,7 +8,7 @@ class LangHelper {
 
 	private static function getPolylangLanguageCode(): ?string {
 		if ( function_exists( 'pll_current_language' )
-		     && function_exists( 'pll_default_language' ) ) {
+			&& function_exists( 'pll_default_language' ) ) {
 			$language = \pll_current_language( 'slug' );
 
 			if ( $language === false ) {
@@ -29,17 +29,15 @@ class LangHelper {
 		}
 
 		return null;
-
 	}
 
-	private static function getWidgetLangAttrByLangCode( string $code
-	): string {
-		$languagesAttributes = [
+	private static function getWidgetLangAttrByLangCode( string $code ): string {
+		$languagesAttributes = array(
 			'pl'    => 'pl',
 			'en'    => 'en',
 			'pl_PL' => 'pl',
 			'en_EN' => 'en',
-		];
+		);
 
 		if ( key_exists( $code, $languagesAttributes ) ) {
 			return $languagesAttributes[ $code ];

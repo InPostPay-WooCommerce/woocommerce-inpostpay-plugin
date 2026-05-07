@@ -24,7 +24,6 @@ class ConfigOption {
 		} else {
 			$this->required = false;
 		}
-
 	}
 
 	public function is_required(): bool {
@@ -57,6 +56,4 @@ class ConfigOption {
 	public function set_value( $value ): void {
 		$this->value = $value;
 	}
-
-
 }

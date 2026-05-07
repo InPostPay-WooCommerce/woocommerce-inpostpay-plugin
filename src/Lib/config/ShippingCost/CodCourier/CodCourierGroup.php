@@ -39,10 +39,10 @@ class CodCourierGroup extends AbstractGroup {
 	 * @throws OptionNameRequired
 	 */
 	public function getFields(): array {
-		return [
+		return array(
 			$this->getPriceField(),
 			$this->getShippingMethodField(),
-		];
+		);
 	}
 
 	public function getDeliveryOptionCode(): string {
@@ -78,7 +78,7 @@ class CodCourierGroup extends AbstractGroup {
 	}
 
 	public function getIsActiveFieldId(): string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_courier_active_' . $this->get_zone_id();
 		}
 
@@ -90,12 +90,14 @@ class CodCourierGroup extends AbstractGroup {
 	}
 
 	protected function getIsActiveFieldTooltip(): string {
-		return __( 'Determines if the Cash on Delivery (COD) is active',
-			'inpost-pay' );
+		return __(
+			'Determines if the Cash on Delivery (COD) is active',
+			'inpost-pay'
+		);
 	}
 
 	public function getOptionCostMappingApproachId(): ?string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_courier_opt_mapping_approach_' . $this->get_zone_id();
 		}
 

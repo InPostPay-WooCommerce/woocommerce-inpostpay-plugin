@@ -11,5 +11,5 @@ interface AuthenticationInterface {
 	 * @throws EmptyCredentialsForOrderAuthenticationException
 	 * @throws UserNotFoundException
 	 */
-	public function authenticate(Credentials $credentials): ?\WP_User;
+	public function authenticate( Credentials $credentials ): ?\WP_User;
 }

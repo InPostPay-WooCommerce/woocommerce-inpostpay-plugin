@@ -18,7 +18,7 @@ class DeliveryOptionHelper {
 	private ?array $optionPrice;
 	private bool $fixedCost = false;
 	private bool $available = false;
-	private float $fee = 0;
+	private float $fee      = 0;
 
 	private string $mappedShippingMethod = '';
 	private AbstractOption $mappedShippingMethodField;
@@ -46,7 +46,7 @@ class DeliveryOptionHelper {
 		$optionCostMappingApproach = $this->optionGroup->getOptionCostMappingApproach();
 
 		$isOptionCostMappingApproachFee = $optionCostMappingApproach === OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_FEE;
-		//todo rename
+		// todo rename
 
 		if ( $isOptionCostMappingApproachFee ) {
 			$priceField = $this->optionGroup->getPriceField();
@@ -73,7 +73,6 @@ class DeliveryOptionHelper {
 				}
 			}
 		}
-
 	}
 
 	public function calculateFee( bool $checkShippingAvailability ) {
@@ -87,13 +86,17 @@ class DeliveryOptionHelper {
 
 	private function calculateByFixedPrice() {
 
-		$optionPrice = wc_format_decimal( $this->fee,
-			2 );
+		$optionPrice = wc_format_decimal(
+			$this->fee,
+			2
+		);
 		$optionPrice = abs( ( floatval( $optionPrice ) ) );
 
 		if ( $optionPrice > 0 ) {
-			$taxes = WC_Tax::calc_tax( $optionPrice,
-				WC_Tax::get_shipping_tax_rates() );
+			$taxes = WC_Tax::calc_tax(
+				$optionPrice,
+				WC_Tax::get_shipping_tax_rates()
+			);
 			$tax   = array_sum( $taxes );
 
 			$shippingMethod = $this->wooDeliveryPrice->getCachedShippingMethods()[ $this->baseGroup->getDeliveryTypeCode() ];
@@ -144,7 +147,6 @@ class DeliveryOptionHelper {
 		$optionTax   = $deliveryParameters->tax;
 		$baseTax     = floatval( $this->baseDeliveryPrice['tax'] );
 
-
 		$optionNetMinusBaseNet = $optionNet - $baseNet;
 
 		if ( $optionNetMinusBaseNet <= 0 ) {
@@ -162,8 +164,10 @@ class DeliveryOptionHelper {
 	}
 
 	private function normalizePrice( float $price ): float {
-		$price = wc_format_decimal( $price,
-			2 );
+		$price = wc_format_decimal(
+			$price,
+			2
+		);
 
 		return abs( ( floatval( $price ) ) );
 	}
@@ -204,8 +208,7 @@ class DeliveryOptionHelper {
 		return $this->mappedShippingMethod;
 	}
 
-	public function setParentDeliveryPrice( array $parentDeliveryPrice
-	): void {
+	public function setParentDeliveryPrice( array $parentDeliveryPrice ): void {
 		$this->parentDeliveryPrice = $parentDeliveryPrice;
 	}
 
@@ -230,7 +233,7 @@ class DeliveryOptionHelper {
 	}
 
 	/**
-	 * @param GroupInterface $baseGroup
+	 * @param GroupInterface   $baseGroup
 	 * @param GroupInterface[]
 	 *
 	 * @return GroupInterface
@@ -239,28 +242,28 @@ class DeliveryOptionHelper {
 		GroupInterface $baseGroup,
 		array $optionsGroups
 	): GroupInterface {
-		//no options
+		// no options
 		if ( empty( $optionsGroups ) ) {
 			return $baseGroup;
 		}
 
-		//one option
+		// one option
 		if ( count( $optionsGroups ) === 1 ) {
 			if ( $optionsGroups[0]->getOptionCostMappingApproach()
-			     !== OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD ) {
-				return $baseGroup;//$transportMethodField not used
+				!== OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD ) {
+				return $baseGroup;// $transportMethodField not used
 			}
 
 			$transportMethodField = $optionsGroups[0]->getShippingMethodField();
 			if ( $transportMethodField ) {
-				$method = $transportMethodField->get();//update WcOrder with this shipping method if option has mapped method not price fee
+				$method = $transportMethodField->get();// update WcOrder with this shipping method if option has mapped method not price fee
 				if ( is_string( $method ) && $method !== '0' ) {
 					return $optionsGroups[0];
 				}
 			}
 		}
 
-		//pww+cod
+		// pww+cod
 		return $baseGroup;
 	}
 }

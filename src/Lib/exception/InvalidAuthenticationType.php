@@ -7,6 +7,6 @@ class InvalidAuthenticationType extends \Exception {
 
 	public function __construct( $type ) {
 
-		parent::__construct('Invalid authentication type: '.$type);
+		parent::__construct( 'Invalid authentication type: ' . $type );
 	}
 }

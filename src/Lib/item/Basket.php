@@ -103,7 +103,7 @@ class Basket extends Item implements JsonSerializable {
 	}
 
 	public function get_promotions_available(): array {
-		return $this->promotions_available ?? [];
+		return $this->promotions_available ?? array();
 	}
 
 	public function set_promotions_available( array $promotions_available ): self {

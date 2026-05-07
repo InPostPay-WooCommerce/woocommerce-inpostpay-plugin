@@ -44,7 +44,7 @@ class FlexibleShippingHelper {
 	 *
 	 * @var array<string, bool>
 	 */
-	private array $cache = [];
+	private array $cache = array();
 
 	/**
 	 * Checks if the given shipping method is a Flexible Shipping method.
@@ -90,13 +90,13 @@ class FlexibleShippingHelper {
 			return false;
 		}
 
-		$coupon_based_values = [
+		$coupon_based_values = array(
 			'coupon',
 			'order_amount_or_coupon',
 			'order_amount_and_coupon',
-		];
+		);
 
-		$result = in_array( $free_shipping_requires, $coupon_based_values, true );
+		$result                    = in_array( $free_shipping_requires, $coupon_based_values, true );
 		$this->cache[ $cache_key ] = $result;
 
 		return $result;
@@ -133,13 +133,13 @@ class FlexibleShippingHelper {
 	 * @return array Array with method details.
 	 */
 	public function get_method_info( WC_Shipping_Method $method ): array {
-		return [
-			'is_flexible_shipping'           => $this->is_flexible_shipping( $method ),
-			'method_id'                      => $method->id,
-			'instance_id'                    => $method->instance_id,
-			'free_shipping_requires'         => $this->get_free_shipping_requires( $method ),
-			'supports_coupon_free_shipping'  => $this->supports_coupon_free_shipping( $method ),
-		];
+		return array(
+			'is_flexible_shipping'          => $this->is_flexible_shipping( $method ),
+			'method_id'                     => $method->id,
+			'instance_id'                   => $method->instance_id,
+			'free_shipping_requires'        => $this->get_free_shipping_requires( $method ),
+			'supports_coupon_free_shipping' => $this->supports_coupon_free_shipping( $method ),
+		);
 	}
 
 	/**
@@ -150,6 +150,6 @@ class FlexibleShippingHelper {
 	 * @return void
 	 */
 	public function clear_cache(): void {
-		$this->cache = [];
+		$this->cache = array();
 	}
 }

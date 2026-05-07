@@ -53,25 +53,22 @@ class TokenCache {
 		static $recursion_depth = 0;
 
 		if ( $recursion_depth > 1 ) {
-			Logger::log( 'TOKEN: Recursion limit reached, preventing infinite loop' );
 			$recursion_depth = 0;
 			return null;
 		}
 
-		$recursion_depth++;
+		++$recursion_depth;
 
 		$data = $this->cache->get( $this->cache_key );
 
 		if ( ! $data || ! isset( $data['token'], $data['expiration'] ) ) {
-			Logger::log( 'TOKEN: No cached token data' );
 			if ( ! $renew ) {
-				Logger::log( 'TOKEN: try to renew token' );
 				$this->renewToken();
 				$token = $this->getCachedToken( true );
-				$recursion_depth--;
+				--$recursion_depth;
 				return $token;
 			}
-			$recursion_depth--;
+			--$recursion_depth;
 			return null;
 		}
 
@@ -81,19 +78,17 @@ class TokenCache {
 		$expires_at = $created_at + $expiration;
 
 		if ( $created_at <= 0 || $expiration <= 0 || $expires_at <= ( time() + $leeway ) ) {
-			Logger::log( 'TOKEN: Cached token expired' );
 			if ( ! $renew ) {
-				Logger::log( 'TOKEN: try to renew token' );
 				$this->renewToken();
 				$token = $this->getCachedToken( true );
-				$recursion_depth--;
+				--$recursion_depth;
 				return $token;
 			}
-			$recursion_depth--;
+			--$recursion_depth;
 			return null;
 		}
 
-		$recursion_depth--;
+		--$recursion_depth;
 		return $data['token'];
 	}
 

@@ -44,7 +44,6 @@ class Logger {
 	 * @return void
 	 */
 	public function __construct() {
-
 	}
 
 	/**
@@ -59,9 +58,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[ERROR: %s]',
-			( is_array( $data ) || is_object( $data ) ) ? print_r( $data, true ) : $data
-		) );
+		self::write(
+			sprintf(
+				'[ERROR: %s]',
+				( is_array( $data ) || is_object( $data ) ) ? print_r( $data, true ) : $data
+			)
+		);
 	}
 
 	/**
@@ -76,9 +78,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[general: %s]',
-			( is_array( $data ) || is_object( $data ) ) ? print_r( $data, true ) : $data
-		) );
+		self::write(
+			sprintf(
+				'[general: %s]',
+				( is_array( $data ) || is_object( $data ) ) ? print_r( $data, true ) : $data
+			)
+		);
 	}
 
 
@@ -100,15 +105,16 @@ class Logger {
 			debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 5 );
 			$trace = ob_get_contents();
 			ob_end_clean();
-			self::write( sprintf( '[debug: %s][trace: %s]',
-				$data,
-				$trace
-			) );
+			self::write(
+				sprintf(
+					'[debug: %s][trace: %s]',
+					$data,
+					$trace
+				)
+			);
 		} else {
 			self::write( $data );
 		}
-
-
 	}
 
 	/**
@@ -123,9 +129,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[spam: %s]',
-			print_r( $data, true )
-		) );
+		self::write(
+			sprintf(
+				'[spam: %s]',
+				print_r( $data, true )
+			)
+		);
 	}
 
 	/**
@@ -141,10 +150,13 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[response_get: %s][info: %s]',
-			var_export( $data, true ),
-			$info
-		) );
+		self::write(
+			sprintf(
+				'[response_get: %s][info: %s]',
+				var_export( $data, true ),
+				$info
+			)
+		);
 	}
 
 	/**
@@ -152,7 +164,7 @@ class Logger {
 	 * @param string $type
 	 * @param $withCode
 	 * @param $raw
-	 * @param mixed $data
+	 * @param mixed  $data
 	 *
 	 * @throws Exception
 	 */
@@ -171,17 +183,19 @@ class Logger {
 		debug_print_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 5 );
 		$trace = ob_get_contents();
 		ob_end_clean();
-		self::write( sprintf(
-			'[Connection] [request] [url: %s] [type: %s] [withCode: %s] [raw: %s] [data: %s] [backtrace: %s]',
-			filter_var( $command, FILTER_VALIDATE_URL )
+		self::write(
+			sprintf(
+				'[Connection] [request] [url: %s] [type: %s] [withCode: %s] [raw: %s] [data: %s] [backtrace: %s]',
+				filter_var( $command, FILTER_VALIDATE_URL )
 				? $command
 				: rtrim( InPostIzi::getApiUrl(), '/' ) . '/' . ltrim( $command, '/' ),
-			$type,
-			print_r( $withCode, true ),
-			var_export( $raw, true ),
-			var_export( $data, true ),
-			var_export( $trace, true )
-		) );
+				$type,
+				print_r( $withCode, true ),
+				var_export( $raw, true ),
+				var_export( $data, true ),
+				var_export( $trace, true )
+			)
+		);
 	}
 
 	/**
@@ -197,9 +211,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[data_event: %s]',
-			print_r( $data, true )
-		) );
+		self::write(
+			sprintf(
+				'[data_event: %s]',
+				print_r( $data, true )
+			)
+		);
 	}
 
 	/**
@@ -215,9 +232,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[order_event: %s]',
-			print_r( $data, true )
-		) );
+		self::write(
+			sprintf(
+				'[order_event: %s]',
+				print_r( $data, true )
+			)
+		);
 	}
 
 	/**
@@ -233,9 +253,12 @@ class Logger {
 			return;
 		}
 
-		self::write( sprintf( '[basket_event: %s]',
-			print_r( $data, true )
-		) );
+		self::write(
+			sprintf(
+				'[basket_event: %s]',
+				print_r( $data, true )
+			)
+		);
 	}
 
 	/**
@@ -249,10 +272,11 @@ class Logger {
 		$headers = headers_list();
 
 		self::write(
-			sprintf( '[headers_sent: %s]',
+			sprintf(
+				'[headers_sent: %s]',
 				print_r( $headers, true )
-			) );
-
+			)
+		);
 	}
 
 	/**
@@ -263,7 +287,6 @@ class Logger {
 		$logger = inpost_pay()->get_woocommerce_logger();
 		$data   = sprintf( '[ID: %s] %s', self::getSessionCustomerId(), $data );
 		$logger->log_debug( $data );
-
 	}
 
 	/**
@@ -308,10 +331,13 @@ class Logger {
 	 * @throws Exception
 	 */
 	public static function rawData( $data, $header = '' ): void {
-		self::write( sprintf( '[header: %s][raw: %s]',
-			$header,
-			print_r( $data, true )
-		) );
+		self::write(
+			sprintf(
+				'[header: %s][raw: %s]',
+				$header,
+				print_r( $data, true )
+			)
+		);
 	}
 
 	/**

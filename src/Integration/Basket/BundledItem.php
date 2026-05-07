@@ -15,10 +15,10 @@ class BundledItem {
 	private WC_Cart $cart;
 
 	/**
-	 * @param array $rawCartItemData
-	 * @param int $parentProductId
+	 * @param array                   $rawCartItemData
+	 * @param int                     $parentProductId
 	 * @param CartItemFilterInterface $filter
-	 * @param WC_Cart $cart
+	 * @param WC_Cart                 $cart
 	 */
 	public function __construct(
 		array $rawCartItemData,

@@ -5,10 +5,12 @@ namespace Ilabs\Inpost_Pay\rest\basket;
 use Ilabs\Inpost_Pay\Lib\BasketIdentification;
 use Ilabs\Inpost_Pay\Lib\InPostIzi;
 use Ilabs\Inpost_Pay\Logger;
+use Ilabs\Inpost_Pay\LoggerTrace;
 use Ilabs\Inpost_Pay\models\CartSessionService;
 use Ilabs\Inpost_Pay\rest\Base;
 use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasket;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Confirmation extends Base {
 	private CartSessionService $cart_session;
@@ -32,7 +34,14 @@ class Confirmation extends Base {
 			$id      = $request->get_param( 'id' );
 
 			if ( null === $this->cart_session->get_entity_by_cart_id( $id ) ) {
-				Logger::log( 'No cart session found for ID: ' . $id );
+				Logger::log(
+					sprintf(
+						'[DIAG][P3] confirmation entity MISSING basket_id=%s now=%s',
+						$id,
+						gmdate( 'Y-m-d H:i:s' )
+					)
+				);
+				Logger::log( LoggerTrace::compact_backtrace() );
 				wp_send_json_error(
 					array(
 						'error_code'    => 'BASKET_NOT_FOUND',

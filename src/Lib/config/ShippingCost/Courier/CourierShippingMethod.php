@@ -8,7 +8,7 @@ use Ilabs\Inpost_Pay\Lib\config\ShippingCost\GroupInterface;
 use Ilabs\Inpost_Pay\Lib\config\ShippingCost\ShippingMappingFieldInterface;
 use Ilabs\Inpost_Pay\Lib\form\exception\OptionNameRequired;
 
-final class CourierShippingMethod extends AbstractShippingMethodField implements CourierMethodGroupField{
+final class CourierShippingMethod extends AbstractShippingMethodField implements CourierMethodGroupField {
 
 	/**
 	 * @throws OptionNameRequired
@@ -21,7 +21,7 @@ final class CourierShippingMethod extends AbstractShippingMethodField implements
 		return GroupInterface::DELIVERY_OPTION_CODE_NONE;
 	}
 
-	public function __construct( ?int $zone_id = null) {
+	public function __construct( ?int $zone_id = null ) {
 
 		parent::__construct( 'izi_shipping_method_courier', $zone_id );
 	}
@@ -32,15 +32,15 @@ final class CourierShippingMethod extends AbstractShippingMethodField implements
 
 	public function get_label(): string {
 		return __(
-			"Prices and courier shipping availability map with:",
-			"inpost-pay"
+			'Prices and courier shipping availability map with:',
+			'inpost-pay'
 		);
 	}
 
 	public function get_tooltip(): string {
 		return __(
-			"Determines which shipping method is to be associated",
-			"inpost-pay"
+			'Determines which shipping method is to be associated',
+			'inpost-pay'
 		);
 	}
 }

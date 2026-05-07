@@ -12,15 +12,17 @@ class VisibleInAppCheckboxField implements FieldInterface {
 	public function render( int $coupon_id ): void {
 		$visible = get_post_meta( $coupon_id, Coupon::META_VISIBLE_IN_APP, true );
 
-		woocommerce_wp_checkbox( [
-			'id'          => Coupon::META_VISIBLE_IN_APP,
-			'name'        => Coupon::META_VISIBLE_IN_APP,
-			'label'       => __( 'Make available in InPost Pay app', 'inpost-pay' ),
-			'description' => __( 'Check this option if the coupon should be available in the InPost Pay app (max 5 active).', 'inpost-pay' ),
-			'cbvalue'     => 'yes',
-			'checked'     => ( $visible === 'yes' ),
-			'desc_tip'    => false,
-		] );
+		woocommerce_wp_checkbox(
+			array(
+				'id'          => Coupon::META_VISIBLE_IN_APP,
+				'name'        => Coupon::META_VISIBLE_IN_APP,
+				'label'       => __( 'Make available in InPost Pay app', 'inpost-pay' ),
+				'description' => __( 'Check this option if the coupon should be available in the InPost Pay app (max 5 active).', 'inpost-pay' ),
+				'cbvalue'     => 'yes',
+				'checked'     => ( $visible === 'yes' ),
+				'desc_tip'    => false,
+			)
+		);
 	}
 
 	public function save( int $post_id ): void {
@@ -44,7 +46,7 @@ class VisibleInAppCheckboxField implements FieldInterface {
 	}
 
 	private function validate( int $post_id ): array {
-		$errors = [];
+		$errors = array();
 		$coupon = new WC_Coupon( $post_id );
 
 		if ( trim( strip_tags( $coupon->get_description() ) ) === '' ) {
@@ -55,19 +57,21 @@ class VisibleInAppCheckboxField implements FieldInterface {
 			$errors[] = __( 'Coupon is already expired and cannot be made available in the InPost Pay app.', 'inpost-pay' );
 		}
 
-		$query = new WP_Query( [
-			'post_type'      => 'shop_coupon',
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-			'post__not_in'   => [ $post_id ],
-			'meta_query'     => [
-				[
-					'key'     => Coupon::META_VISIBLE_IN_APP,
-					'value'   => 'yes',
-					'compare' => '=',
-				],
-			],
-		] );
+		$query = new WP_Query(
+			array(
+				'post_type'      => 'shop_coupon',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'post__not_in'   => array( $post_id ),
+				'meta_query'     => array(
+					array(
+						'key'     => Coupon::META_VISIBLE_IN_APP,
+						'value'   => 'yes',
+						'compare' => '=',
+					),
+				),
+			)
+		);
 
 		if ( $query->found_posts >= 5 ) {
 			$errors[] = __( 'You can mark up to 5 coupons as available in the InPost Pay app.', 'inpost-pay' );

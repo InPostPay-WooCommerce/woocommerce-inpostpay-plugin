@@ -5,6 +5,7 @@ namespace Ilabs\Inpost_Pay\rest;
 use Ilabs\Inpost_Pay\InpostPay;
 use Ilabs\Inpost_Pay\Lib\helpers\LSCacheHelper;
 use Ilabs\Inpost_Pay\Logger;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 
 abstract class Base {

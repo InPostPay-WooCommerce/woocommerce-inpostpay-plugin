@@ -10,9 +10,9 @@ use Ilabs\Inpost_Pay\Integration\Currency\Provider\WpmlCurrencyProvider;
 use Ilabs\Inpost_Pay\Integration\Currency\Provider\YayCurrencyProvider;
 
 class CurrencyHelper {
-	public const AVAILABLE_CURRENCIES = [
+	public const AVAILABLE_CURRENCIES = array(
 		'PLN',
-	];
+	);
 
 	private static ?CurrencyProviderInterface $provider = null;
 
@@ -93,7 +93,7 @@ class CurrencyHelper {
 			}
 		}
 
-		return [ get_woocommerce_currency() ];
+		return array( get_woocommerce_currency() );
 	}
 
 	public static function isCurrencyAllowed(): bool {

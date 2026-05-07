@@ -136,9 +136,9 @@ class VirtualPage {
 		$path = $this->get_with_locale_if_exists( 'inpost-pay/thank-you-page', $lang );
 
 		$controller->addPage( new Page( $path ) )
-		           ->setTitle( __( 'Thank you page', 'inpost-pay' ) )
-		           ->setContent( '<inpost-thank-you></inpost-thank-you>' )
-		           ->setTemplate( 'thank-you-page.php' );
+					->setTitle( __( 'Thank you page', 'inpost-pay' ) )
+					->setContent( '<inpost-thank-you></inpost-thank-you>' )
+					->setTemplate( 'thank-you-page.php' );
 	}
 
 	/**

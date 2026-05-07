@@ -8,6 +8,5 @@ interface CartItemFilterInterface {
 
 	public function canAddCartItem( array $cartItemContent ): bool;
 
-	public function resolveParentBundleProductId( array $cartItemContent
-	): ?int;
+	public function resolveParentBundleProductId( array $cartItemContent ): ?int;
 }

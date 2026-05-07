@@ -31,6 +31,7 @@ class FrontDisplayWidget extends FrontBase {
 	 * @var UnavailabilityService|null
 	 */
 	private static ?UnavailabilityService $unavailability_service = null;
+
 	/**
 	 * Cache for cart availability check result
 	 *

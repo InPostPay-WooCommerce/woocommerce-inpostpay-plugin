@@ -86,6 +86,13 @@ class BasketPutService {
 			return;
 		}
 
+		if ( ! $force_unbound && ! $just_store && ! BindingProvider::getBinding() ) {
+			Logger::log( '[basketPut] No binding - skipping PUT' );
+			Logger::log( '[basketPut] Finished' );
+
+			return;
+		}
+
 		Logger::log( '[basketPut] Step 1: Building basket' );
 
 		try {
@@ -110,22 +117,19 @@ class BasketPutService {
 			return;
 		}
 
-		Logger::log( '[basketPut] Step 3: Checking binding' );
-		$has_binding = BindingProvider::getBinding();
-		Logger::log( '[basketPut] Has binding: ' . ( $has_binding ? 'YES' : 'NO' ) );
+		Logger::log( '[basketPut] Step 3: Sending to InPost' );
 
-		if ( $force_unbound || $has_binding ) {
-			Logger::log( 'Send basket to InPost' );
-
-			try {
-				$controller->basket_put( $basket, true );
+		try {
+			$response = $controller->basket_put( $basket, true );
+			if ( is_object( $response ) && isset( $response->error_code ) && 'BASKET_NOT_FOUND' === $response->error_code ) {
+				BindingProvider::unsetBinding();
+				Logger::log( '[basketPut] BASKET_NOT_FOUND on PUT – clearing local binding state.' );
+			} else {
 				Logger::log( '[basketPut] PUT successful' );
-			} catch ( \Throwable $e ) {
-				Logger::log( '[basketPut] PUT failed: ' . $e->getMessage() );
-				Logger::log( '[basketPut] Stack trace: ' . $e->getTraceAsString() );
 			}
-		} else {
-			Logger::log( '[basketPut] No binding - skipping PUT' );
+		} catch ( \Throwable $e ) {
+			Logger::log( '[basketPut] PUT failed: ' . $e->getMessage() );
+			Logger::log( '[basketPut] Stack trace: ' . $e->getTraceAsString() );
 		}
 
 		Logger::log( '[basketPut] Finished' );

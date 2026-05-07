@@ -267,10 +267,12 @@ class UnavailabilityService {
 			$this->get_product_unavailable_cached( $product_id );
 		}
 
-		Logger::log( sprintf(
-			'[UNAVAILABILITY] Preloaded %d products',
-			count( $to_load )
-		) );
+		Logger::log(
+			sprintf(
+				'[UNAVAILABILITY] Preloaded %d products',
+				count( $to_load )
+			)
+		);
 	}
 
 	/**
@@ -309,7 +311,7 @@ class UnavailabilityService {
 				if ( $item['_inpostpay_unavailable'] === true ) {
 					// Check if BOTH delivery methods are unavailable
 					if ( isset( $item['_inpostpay_unavailable_delivery_type'] ) &&
-					     $item['_inpostpay_unavailable_delivery_type'] === UnavailableEntity::BOTH ) {
+						$item['_inpostpay_unavailable_delivery_type'] === UnavailableEntity::BOTH ) {
 						continue;
 					}
 
@@ -327,7 +329,7 @@ class UnavailabilityService {
 			if ( $basket_item_unavailable && $basket_item_unavailable->get_delivery_type() ) {
 				$basket[ $key ]['_inpostpay_unavailable']               = true;
 				$basket[ $key ]['_inpostpay_unavailable_delivery_type'] = $basket_item_unavailable->get_delivery_type();
-				$delivery_type                                          = $basket_item_unavailable->get_delivery_type();
+				$delivery_type = $basket_item_unavailable->get_delivery_type();
 			}
 
 			$unavailable_category_ids = $this->get_category_ids_cached();
@@ -353,7 +355,7 @@ class UnavailabilityService {
 					// If both product and category have restrictions, use the most restrictive (BOTH)
 					if ( $delivery_type !== null ) {
 						if ( $delivery_type === UnavailableEntity::BOTH ||
-						     $category_unavailable->get_delivery_type() === UnavailableEntity::BOTH ) {
+							$category_unavailable->get_delivery_type() === UnavailableEntity::BOTH ) {
 							$delivery_type = UnavailableEntity::BOTH;
 						} elseif ( $delivery_type !== $category_unavailable->get_delivery_type() ) {
 							$delivery_type = UnavailableEntity::BOTH;
@@ -399,7 +401,7 @@ class UnavailabilityService {
 
 		$product_category_ids = wp_get_post_terms( $product_id, 'product_cat', array( 'fields' => 'ids' ) );
 		$all_category_ids     = $this->get_all_category_ids_including_parents( $product_category_ids );
-		Logger::log( 'ALL PRODUCT CATEGORIES: ' . var_export( $all_category_ids, true ) . ' FOR PRODUCT: ' . $product_id . '' );
+		// Logger::log( 'ALL PRODUCT CATEGORIES: ' . var_export( $all_category_ids, true ) . ' FOR PRODUCT: ' . $product_id . '' );
 		$unavailable_category_ids = $this->get_category_ids_cached();
 
 		$flattened_category_ids = array_map(
@@ -412,13 +414,13 @@ class UnavailabilityService {
 		$matching_category_ids = array_intersect( $all_category_ids, $flattened_category_ids );
 
 		$unavailable_delivery_type = null;
-		Logger::log('MATHING: ' . var_export($matching_category_ids,true) . ' FOR PRODUCT: ' . $product_id . '');
+		// Logger::log( 'MATHING: ' . var_export( $matching_category_ids, true ) . ' FOR PRODUCT: ' . $product_id . '' );
 
 		if ( ! empty( $matching_category_ids ) ) {
-			$category_unavailable      = $this->get_category_unavailable_cached( reset( $matching_category_ids ) );
-			Logger::log('DELIVERYTYPE: ' . var_export($category_unavailable,true) . ' FOR PRODUCT: ' . $product_id . '');
+			$category_unavailable = $this->get_category_unavailable_cached( reset( $matching_category_ids ) );
+			// Logger::log( 'DELIVERYTYPE: ' . var_export( $category_unavailable, true ) . ' FOR PRODUCT: ' . $product_id . '' );
 			$unavailable_delivery_type = $category_unavailable ? $category_unavailable->get_delivery_type() : null;
-		Logger::log('UNAVAILABILITY: ' . $unavailable_delivery_type . ' FOR PRODUCT: ' . $product_id . '');
+			Logger::log( 'UNAVAILABILITY: ' . $unavailable_delivery_type . ' FOR PRODUCT: ' . $product_id . '' );
 		}
 
 		/* @var UnavailableEntity|null $product_unavailable **/
@@ -452,11 +454,11 @@ class UnavailabilityService {
 	 * @return void
 	 */
 	public static function clear_cache(): void {
-		self::$product_cache              = array();
-		self::$category_ids_cache         = null;
-		self::$product_entity_cache       = array();
-		self::$category_entity_cache      = array();
-		self::$category_hierarchy_cache   = array();
+		self::$product_cache            = array();
+		self::$category_ids_cache       = null;
+		self::$product_entity_cache     = array();
+		self::$category_entity_cache    = array();
+		self::$category_hierarchy_cache = array();
 		Logger::log( '[UNAVAILABILITY] Cache cleared' );
 	}
 }

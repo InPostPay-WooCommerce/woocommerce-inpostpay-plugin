@@ -59,9 +59,9 @@ class BasketIdentification {
 			$userId               = get_current_user_id();
 			$identificationStored = $cart_session->get_session_by_wc_session_id( (string) $userId );
 
-//			if ( $identificationStored ) {
-//				Logger::log( 'BASKET IDENTIFICATION FROM SESSION: ' . $identificationStored . ' - USER ID' );
-//			}
+			// if ( $identificationStored ) {
+			// Logger::log( 'BASKET IDENTIFICATION FROM SESSION: ' . $identificationStored . ' - USER ID' );
+			// }
 		}
 
 		if ( $identificationStored && 0 !== $cart_session->get_redirected_by_id( $identificationStored ) ) {

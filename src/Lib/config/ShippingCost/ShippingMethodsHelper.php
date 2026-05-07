@@ -14,7 +14,7 @@ class ShippingMethodsHelper {
 	}
 
 	public function getConfiguredShippingMethods(): array {
-		$return = [];
+		$return = array();
 		foreach ( $this->getShippingMethodFields() as $field ) {
 			$val = $field->get();
 			if ( ! empty( $val ) ) {
@@ -26,7 +26,7 @@ class ShippingMethodsHelper {
 	}
 
 	public function getConfiguredShippingMethodsExploded(): array {
-		$return = [];
+		$return = array();
 		foreach ( $this->getConfiguredShippingMethods() as $value ) {
 			$return[] = explode( ':', esc_attr( $value ) )[0];
 		}
@@ -38,17 +38,17 @@ class ShippingMethodsHelper {
 	 * @return AbstractShippingMethodField[]
 	 */
 	public function getShippingMethodFields(): array {
-		return [
+		return array(
 			$this->shippingCostOptions->getApmSettingsGroup()
-			                          ->getShippingMethodField(),
+										->getShippingMethodField(),
 			$this->shippingCostOptions->getCodApmSettingsGroup()
-			                          ->getShippingMethodField(),
+										->getShippingMethodField(),
 			$this->shippingCostOptions->getPwwApmSettingsGroup()
-			                          ->getShippingMethodField(),
+										->getShippingMethodField(),
 			$this->shippingCostOptions->getCourierSettingsGroup()
-			                          ->getShippingMethodField(),
+										->getShippingMethodField(),
 			$this->shippingCostOptions->getCodCourierSettingsGroup()
-			                          ->getShippingMethodField(),
-		];
+										->getShippingMethodField(),
+		);
 	}
 }

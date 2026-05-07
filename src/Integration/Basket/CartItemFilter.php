@@ -21,9 +21,9 @@ class CartItemFilter {
 	 * @return CartItemFilterInterface[]
 	 */
 	public function getCartItemFilterInterfaces(): array {
-		return [
+		return array(
 			new SmartCompositeCartItemFilter(),
 			new ExtendonsCompositeCartItemFilter(),
-		];
+		);
 	}
 }

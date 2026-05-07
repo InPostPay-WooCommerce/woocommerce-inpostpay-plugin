@@ -11,9 +11,9 @@ abstract class AbstractOption implements ConfigInterface {
 
 	private string $option_name;
 
-	private ?string $label = null;
+	private ?string $label       = null;
 	private ?string $description = null;
-	private ?string $tooltip = null;
+	private ?string $tooltip     = null;
 
 	/**
 	 * @param string|null $option_name
@@ -45,7 +45,7 @@ abstract class AbstractOption implements ConfigInterface {
 	 *
 	 * @return void
 	 */
-	public function register( array $args = [] ): void {
+	public function register( array $args = array() ): void {
 		register_setting( self::OPTION_GROUP, $this->option_name, $args );
 	}
 
@@ -54,8 +54,10 @@ abstract class AbstractOption implements ConfigInterface {
 		if ( self::NO_OPTION_IN_DB === $optionValue ) {
 			if ( $this instanceof LegacyOptionInterface ) {
 
-				return get_option( $this->get_legacy_option_id(),
-					$default );
+				return get_option(
+					$this->get_legacy_option_id(),
+					$default
+				);
 			}
 
 			return $default;
@@ -67,7 +69,7 @@ abstract class AbstractOption implements ConfigInterface {
 	public function get_bool( bool $default = false ): bool {
 		$val = (string) $this->get( $default );
 
-		return in_array( $val, [ '1', 'yes', 'true', 'tak' ] );
+		return in_array( $val, array( '1', 'yes', 'true', 'tak' ) );
 	}
 
 	public function update( $value ): bool {

@@ -26,15 +26,16 @@ class TemplateLoaderInpostPay extends TemplateLoader {
 	public function load(): void {
 
 		do_action( 'template_redirect' );
-		$template = $this->inpost_pay_locate_template(array_filter($this->templates), TRUE);
+		$template = $this->inpost_pay_locate_template( array_filter( $this->templates ), true );
 
-		$filtered = apply_filters( 'template_include',
+		$filtered = apply_filters(
+			'template_include',
 			apply_filters( 'virtual_page_template', $template )
 		);
 		if ( empty( $filtered ) || file_exists( $filtered ) ) {
 			$template = $filtered;
 		}
-		if ( ! empty( $template ) &&file_exists( $template ) ) {
+		if ( ! empty( $template ) && file_exists( $template ) ) {
 			require_once $template;
 		}
 	}

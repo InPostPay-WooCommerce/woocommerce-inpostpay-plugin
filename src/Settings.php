@@ -22,6 +22,7 @@ use Ilabs\Inpost_Pay\Lib\config\product\InactiveHotProductsConfig;
 use Ilabs\Inpost_Pay\Lib\config\ShippingCost\ShippingMappingSettingsManager;
 use Ilabs\Inpost_Pay\Lib\config\widget_v2\WidgetV2SizeConfig;
 use Ilabs\Inpost_Pay\Lib\helpers\ShippingZoneHelper;
+use Ilabs\Inpost_Pay\Lib\InPostIzi;
 
 /**
  * Handles the settings and configuration for InPost Pay plugin.
@@ -134,7 +135,14 @@ class Settings {
 				register_setting( 'inpost-izi', 'izi_align_details' );
 
 				register_setting( 'inpost-izi', 'izi_client_id' );
-				register_setting( 'inpost-izi', 'izi_environment' );
+				register_setting(
+					'inpost-izi',
+					'izi_environment',
+					array(
+						'type'              => 'integer',
+						'sanitize_callback' => array( InPostIzi::class, 'sanitize_environment' ),
+					)
+				);
 				register_setting( 'inpost-izi', 'izi_client_secret' );
 				register_setting( 'inpost-izi', 'izi_merchant_payment' );
 				register_setting( 'inpost-izi', 'izi_hide_functionality' );

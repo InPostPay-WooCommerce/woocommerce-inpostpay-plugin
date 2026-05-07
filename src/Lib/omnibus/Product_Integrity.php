@@ -3,6 +3,7 @@
 namespace Ilabs\Inpost_Pay\Lib\omnibus;
 
 use Isolated\Inpost_Pay\Ilabs\Ilabs_Plugin\Alerts;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Product_Integrity {
 
@@ -11,8 +12,11 @@ class Product_Integrity {
 	}
 
 	public function handle_check_integrity( int $product_id ) {
-		$meta_value = get_post_meta( $product_id, $this->get_post_meta_key(),
-			true );
+		$meta_value = get_post_meta(
+			$product_id,
+			$this->get_post_meta_key(),
+			true
+		);
 		if ( empty( $meta_value ) ) {
 			$this->init_integrity_control( $product_id );
 
@@ -29,15 +33,21 @@ class Product_Integrity {
 
 	public function remove_omnibus_metadata( int $product_id ) {
 		delete_post_meta( $product_id, $this->get_post_meta_key() );
-		delete_post_meta( $product_id,
-			( new Price_Post_Meta_Repository() )->get_post_meta_key() );
-		delete_post_meta( $product_id,
-			( new Lowest_Price_Cache_Post_Meta_Repository() )->get_post_meta_key() );
+		delete_post_meta(
+			$product_id,
+			( new Price_Post_Meta_Repository() )->get_post_meta_key()
+		);
+		delete_post_meta(
+			$product_id,
+			( new Lowest_Price_Cache_Post_Meta_Repository() )->get_post_meta_key()
+		);
 	}
 
 	public function init_integrity_control( int $product_id ) {
-		update_post_meta( $product_id, $this->get_post_meta_key(),
-			$product_id );
+		update_post_meta(
+			$product_id,
+			$this->get_post_meta_key(),
+			$product_id
+		);
 	}
-
 }

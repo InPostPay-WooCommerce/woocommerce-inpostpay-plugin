@@ -1,61 +1,79 @@
 <?php
-
 /**
- * @var $zone_id int|null
+ * Transport method switcher config section view.
+ *
+ * @package InPost_Pay
  */
 
-$courierIsActiveField = inpost_pay()
+use function Ilabs\Inpost_Pay\inpost_pay;
+
+/**
+ * Zone ID variable passed to this view.
+ *
+ * @var int|null $zone_id
+ */
+
+$courier_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCourierSettingsGroup()->getIsActiveField();
-$apmIsActiveField     = inpost_pay()
+	->getCourierSettingsGroup()
+	->getIsActiveField();
+
+$apm_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getApmSettingsGroup()->getIsActiveField();
+	->getApmSettingsGroup()
+	->getIsActiveField();
+
+$visible_class = ! $apm_is_active_field->get_bool() && ! $courier_is_active_field->get_bool()
+	? 'izi-section-active'
+	: 'izi-section-inactive';
 ?>
 
 <div class="consent-item">
 	<h2 class="izi-transport-price-heading-secondary">
-		<?php _e(
-			"Select transport methods:",
-			"inpost-pay"
-		); ?>
+		<?php esc_html_e( 'Select transport methods:', 'inpost-pay' ); ?>
 	</h2>
+
 	<div class="izi-transport-switchers">
 		<div class="form-group form-group--row">
-			<p><?php esc_html_e( $courierIsActiveField->get_label() ); ?></p>
+			<p><?php echo esc_html( $courier_is_active_field->get_label() ); ?></p>
 			<div class="toggleWrapper">
-				<input class="mobileToggle" type="checkbox"
-						id="<?php esc_attr_e( $courierIsActiveField->get_field_name() ); ?>"
-						name="<?php esc_attr_e( $courierIsActiveField->get_field_name() ); ?>"
-						value="1" <?= $courierIsActiveField->get_bool( true )
-					? "checked"
-					: "" ?>>
-				<label
-					for="<?php esc_attr_e( $courierIsActiveField->get_field_name() ); ?>"></label>
+				<input
+					class="mobileToggle"
+					type="checkbox"
+					id="<?php echo esc_attr( $courier_is_active_field->get_field_name() ); ?>"
+					name="<?php echo esc_attr( $courier_is_active_field->get_field_name() ); ?>"
+					value="1"
+					<?php checked( $courier_is_active_field->get_bool( true ) ); ?>
+				>
+				<label for="<?php echo esc_attr( $courier_is_active_field->get_field_name() ); ?>"></label>
 			</div>
 		</div>
+
 		<div class="form-group form-group--row">
-			<p><?php esc_html_e( $apmIsActiveField->get_label() ); ?></p>
+			<p><?php echo esc_html( $apm_is_active_field->get_label() ); ?></p>
 			<div class="toggleWrapper">
-				<input class="mobileToggle" type="checkbox"
-						id="<?php esc_attr_e( $apmIsActiveField->get_field_name() ); ?>"
-						name="<?php esc_attr_e( $apmIsActiveField->get_field_name() ); ?>"
-						value="1" <?= $apmIsActiveField->get_bool( true )
-					? "checked"
-					: "" ?>>
-				<label
-					for="<?php esc_attr_e( $apmIsActiveField->get_field_name() ); ?>"></label>
+				<input
+					class="mobileToggle"
+					type="checkbox"
+					id="<?php echo esc_attr( $apm_is_active_field->get_field_name() ); ?>"
+					name="<?php echo esc_attr( $apm_is_active_field->get_field_name() ); ?>"
+					value="1"
+					<?php checked( $apm_is_active_field->get_bool( true ) ); ?>
+				>
+				<label for="<?php echo esc_attr( $apm_is_active_field->get_field_name() ); ?>"></label>
 			</div>
 		</div>
 	</div>
 </div>
 
-<?php $visibleClass = ! $apmIsActiveField->get_bool() && ! $courierIsActiveField->get_bool() ? 'izi-section-active' : 'izi-section-inactive'; ?>
-
-<div
-	class="consent-item izi-no-delivery-method-selected <?php esc_attr_e( $visibleClass ); ?>">
-	<img src="<?php echo plugin_dir_url( __FILE__ ) . "../../../assets/img/alert.svg"; ?>" alt="">
-	<p><?php _e(
+<div class="consent-item izi-no-delivery-method-selected <?php echo esc_attr( $visible_class ); ?>">
+	<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/alert.svg' ); ?>" alt="">
+	<p>
+		<?php
+		esc_html_e(
 			"You haven't selected any active delivery method. The Buyer will be unable to select a delivery method in the app.",
-			"inpost-pay"
-		); ?></p>
+			'inpost-pay'
+		);
+		?>
+	</p>
 </div>

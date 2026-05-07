@@ -32,15 +32,15 @@ final class CodApmPrice extends AbstractPriceField implements LegacyOptionInterf
 
 	public function get_label(): string {
 		return __(
-			"",
-			"inpost-pay"
+			'',
+			'inpost-pay'
 		);
 	}
 
 	public function get_tooltip(): string {
 		return __(
-			"Determines which shipping method is to be associated",
-			"inpost-pay"
+			'Determines which shipping method is to be associated',
+			'inpost-pay'
 		);
 	}
 

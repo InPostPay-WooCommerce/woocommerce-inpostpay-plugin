@@ -10,7 +10,7 @@ use Ilabs\Inpost_Pay\Lib\form\Select;
 
 abstract class AbstractPriceField extends AbstractZoneOption implements ShippingMappingFieldInterface {
 
-	public function register( array $args = [] ): void {
+	public function register( array $args = array() ): void {
 		parent::register( $args );
 	}
 
@@ -21,15 +21,15 @@ abstract class AbstractPriceField extends AbstractZoneOption implements Shipping
 	 */
 	public function get_form_field(): FormFieldInterface {
 		return new Select(
-			[],
-			[ $this->get() ],
-			[
+			array(),
+			array( $this->get() ),
+			array(
 				'label'        => $this->get_label(),
 				'name'         => $this->get_field_name(),
 				'label_class'  => 'label-gray',
 				'multiple'     => false,
 				'value_as_key' => true,
-			]
+			)
 		);
 	}
 }

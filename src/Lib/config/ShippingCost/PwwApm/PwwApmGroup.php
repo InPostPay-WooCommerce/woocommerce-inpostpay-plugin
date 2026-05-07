@@ -72,14 +72,14 @@ class PwwApmGroup extends AbstractGroup implements AvailabilityGroupInterface {
 	 * @throws OptionNameRequired
 	 */
 	public function getFields(): array {
-		return [
+		return array(
 			$this->getPriceField(),
 			$this->getShippingMethodField(),
 			$this->getAvailableFromHourField(),
 			$this->getAvailableFromDayField(),
 			$this->getAvailableToHourField(),
 			$this->getAvailableToDayField(),
-		];
+		);
 	}
 
 	public function getDeliveryOptionCode(): string {
@@ -103,7 +103,7 @@ class PwwApmGroup extends AbstractGroup implements AvailabilityGroupInterface {
 	}
 
 	public function getIsActiveFieldId(): string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_pww_apm_active_' . $this->get_zone_id();
 		}
 
@@ -115,7 +115,7 @@ class PwwApmGroup extends AbstractGroup implements AvailabilityGroupInterface {
 	}
 
 	public function getOptionCostMappingApproachId(): ?string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_pww_apm_opt_mapping_approach_' . $this->get_zone_id();
 		}
 

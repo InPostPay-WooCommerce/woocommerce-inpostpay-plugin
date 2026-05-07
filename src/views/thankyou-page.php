@@ -17,30 +17,28 @@
  */
 
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 
 ?>
 
 
 
-    <?php
-    global $wp;
-    $order_id  = absint($wp->query_vars['order-received']);
-    $order = wc_get_order($order_id);
+	<?php
+	global $wp;
+	$order_id = absint( $wp->query_vars['order-received'] );
+	$order    = wc_get_order( $order_id );
 
-    if (isset($order) && $order) :
-        do_action('woocommerce_before_thankyou', $order->get_id());
-    ?>
+	if ( isset( $order ) && $order ) :
+		do_action( 'woocommerce_before_thankyou', $order->get_id() );
+		?>
 
-        <?php if ($order->has_status('failed')) : ?>
-        <?php else : ?>
-                <inpost-thank-you></inpost-thank-you>
+		<?php if ( $order->has_status( 'failed' ) ) : ?>
+		<?php else : ?>
+				<inpost-thank-you></inpost-thank-you>
 				<div class="woocommerce-order"></div>
-        <?php endif; ?>
+		<?php endif; ?>
 
-    <?php else : ?>
+	<?php else : ?>
 
-    <?php endif; ?>
-
-
+	<?php endif; ?>

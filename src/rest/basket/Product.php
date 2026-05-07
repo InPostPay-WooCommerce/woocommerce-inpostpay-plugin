@@ -17,6 +17,7 @@ use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasket;
 use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasketCache;
 use WP_REST_Response;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Product extends Base {
 
@@ -49,13 +50,12 @@ class Product extends Base {
 				return ( new BadRequestException() )->response();
 			}
 
-
-			if ( !( $this->product = wc_get_product( $this->product_id ) ) ) {
+			if ( ! ( $this->product = wc_get_product( $this->product_id ) ) ) {
 				return ( new ProductNotFoundException() )->response();
 			}
 
 			try {
-				$availability = ( new AvailabilityProductFactory )->create( $this->product );
+				$availability = ( new AvailabilityProductFactory() )->create( $this->product );
 			} catch ( ProductIsEmptyException $e ) {
 				return ( new ProductNotFoundException() )->response();
 			}
@@ -64,7 +64,7 @@ class Product extends Base {
 				return ( new ProductOutOfStockException() )->response();
 			}
 
-			if ( property_exists( $data, 'basket_id' ) && !empty( $data->basket_id ) ) {
+			if ( property_exists( $data, 'basket_id' ) && ! empty( $data->basket_id ) ) {
 				if ( ! $this->cart_session->get_object_by_id( $data->basket_id ) ) {
 					return ( new BasketNotFoundException() )->response();
 				}
@@ -81,7 +81,7 @@ class Product extends Base {
 
 	private function addToExistingBasket( $data ) {
 
-		Logger::log('ADD_TO_EXISTING_BASKET');
+		Logger::log( 'ADD_TO_EXISTING_BASKET' );
 		WooCommerceBasketCache::restore( $data->basket_id, false );
 		try {
 			WC()->cart->add_to_cart( $this->product_id, 1 );
@@ -90,7 +90,6 @@ class Product extends Base {
 		}
 
 		return $this->responseBasket();
-
 	}
 
 	private function addToNewBasket( $data ) {
@@ -99,7 +98,6 @@ class Product extends Base {
 		$this->basket_id = BasketIdentification::get();
 
 		$this->cart_session->initiate_wc_cart();
-
 
 		WC()->cart->empty_cart();
 		try {
@@ -111,7 +109,6 @@ class Product extends Base {
 		$this->cart_session->store_current();
 
 		return $this->responseBasket();
-
 	}
 
 	private function responseBasket() {
@@ -123,13 +120,12 @@ class Product extends Base {
 		$response = new WP_REST_Response(
 			$basket->toArray(),
 			200,
-			[]
+			array()
 		);
 
 		$current_plugin_version = inpost_pay()->get_plugin_version();
 		$response->header( 'inpay-plugin-version', $current_plugin_version );
 
 		return rest_ensure_response( $response );
-
 	}
 }

@@ -31,7 +31,7 @@ final class CartHooksExecutor {
 	 */
 	public function __construct() {
 		$this->config        = new CartHooksConfig();
-		$this->enabled_hooks = (array) $this->config->get( [] );
+		$this->enabled_hooks = (array) $this->config->get( array() );
 	}
 
 	public function add_callable_hook( string $hook_key, callable $callback ): void {

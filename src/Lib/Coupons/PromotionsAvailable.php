@@ -10,7 +10,7 @@ use function Ilabs\Inpost_Pay\inpost_pay_container;
 
 class PromotionsAvailable {
 
-	private const FETCH_LIMIT = 500;
+	private const FETCH_LIMIT  = 500;
 	private const RETURN_LIMIT = 5;
 
 	public function get_coupons(): array {
@@ -89,7 +89,6 @@ class PromotionsAvailable {
 				if ( ! empty( $products ) ) {
 					$continue = false;
 
-
 					if ( $coupon->get_exclude_sale_items() ) {
 						if ( ! $coupon->is_type( wc_get_product_coupon_types() ) ) {
 							foreach ( $products as $product ) {
@@ -116,14 +115,14 @@ class PromotionsAvailable {
 					if ( count( $coupon->get_excluded_product_ids() ) > 0 ) {
 						foreach ( $products as $product ) {
 							if ( in_array(
-								     $product->get_id(),
-								     $coupon->get_excluded_product_ids(),
-								     true
-							     ) || in_array(
-								     $product->get_parent_id(),
-								     $coupon->get_excluded_product_ids(),
-								     true
-							     ) ) {
+								$product->get_id(),
+								$coupon->get_excluded_product_ids(),
+								true
+							) || in_array(
+								$product->get_parent_id(),
+								$coupon->get_excluded_product_ids(),
+								true
+							) ) {
 								$continue = true;
 								break;
 							}
@@ -316,19 +315,19 @@ class PromotionsAvailable {
 
 				// Disable coupon if cart subtotal spent lest than minimum amount required.
 				if ( $minimum_amount > 0 && apply_filters(
-						'woocommerce_coupon_validate_minimum_amount',
-						$minimum_amount > $cart_subtotal,
-						$coupon,
-						$cart_subtotal
-					) ) {
+					'woocommerce_coupon_validate_minimum_amount',
+					$minimum_amount > $cart_subtotal,
+					$coupon,
+					$cart_subtotal
+				) ) {
 					continue;
 				}
 
 				if ( $maximum_amount !== '' && apply_filters(
-						'woocommerce_coupon_validate_maximum_amount',
-						$maximum_amount < $cart_subtotal,
-						$coupon
-					) ) {
+					'woocommerce_coupon_validate_maximum_amount',
+					$maximum_amount < $cart_subtotal,
+					$coupon
+				) ) {
 					continue;
 				}
 
@@ -359,7 +358,7 @@ class PromotionsAvailable {
 
 			if ( ! empty( $meta_by_coupon[ $coupon_id ] ) ) {
 				foreach ( $meta_by_coupon[ $coupon_id ] as $key => $value ) {
-					if ( in_array( $key, ['_used_by', '_usage_limit', '_usage_limit_per_user'], true ) ) {
+					if ( in_array( $key, array( '_used_by', '_usage_limit', '_usage_limit_per_user' ), true ) ) {
 						continue;
 					}
 
@@ -382,7 +381,7 @@ class PromotionsAvailable {
 			);
 
 			$url = $meta_by_coupon[ $coupon_id ][ Coupon::META_PROMOTION_URL ]
-			       ?? $coupon->get_meta( Coupon::META_PROMOTION_URL );
+					?? $coupon->get_meta( Coupon::META_PROMOTION_URL );
 
 			if ( $url === '' ) {
 				$url = get_permalink( wc_get_page_id( 'shop' ) );

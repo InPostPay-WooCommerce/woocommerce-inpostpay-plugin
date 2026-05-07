@@ -11,7 +11,6 @@ class OrderAuthentication implements AuthenticationInterface {
 
 
 	public function __construct() {
-
 	}
 
 	/**
@@ -50,18 +49,19 @@ class OrderAuthentication implements AuthenticationInterface {
 
 	protected function get_user_by_phone( $phone ) {
 		// Assuming phone numbers are stored as a user meta field called 'phone'
-		$users = get_users( [
-			'meta_key'   => 'billing_phone',
-			'meta_value' => $phone,
-			'number'     => 1,  // We only need the first match
-		] );
+		$users = get_users(
+			array(
+				'meta_key'   => 'billing_phone',
+				'meta_value' => $phone,
+				'number'     => 1,  // We only need the first match
+			)
+		);
 
 		if ( ! empty( $users ) ) {
 			return $users[0];
 		}
 
 		return $this->find_user_by_phone_sql( $phone );
-
 	}
 
 
@@ -73,7 +73,8 @@ class OrderAuthentication implements AuthenticationInterface {
 
 		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// Prepare query when HPOS is enabled
-			$query = $wpdb->prepare("
+			$query = $wpdb->prepare(
+				"
                 SELECT DISTINCT om.meta_value AS customer_id
                 FROM {$wpdb->prefix}wc_orders o
                 JOIN {$wpdb->prefix}wc_order_meta om ON o.id = om.order_id
@@ -82,10 +83,13 @@ class OrderAuthentication implements AuthenticationInterface {
                 AND om.meta_key = '_customer_user'
                 AND bm.meta_key = '_billing_phone'
                 AND REPLACE(REPLACE(bm.meta_value, '-', ''), ' ', '') LIKE %s
-            ", '%' . $wpdb->esc_like($normalized_phone) . '%');
+            ",
+				'%' . $wpdb->esc_like( $normalized_phone ) . '%'
+			);
 		} else {
 			// Prepare the query
-			$query = $wpdb->prepare("
+			$query = $wpdb->prepare(
+				"
 				SELECT pm1.meta_value AS customer_id
 				FROM {$wpdb->prefix}postmeta pm1
 				JOIN {$wpdb->prefix}posts p ON p.ID = pm1.post_id
@@ -98,9 +102,10 @@ class OrderAuthentication implements AuthenticationInterface {
 					WHERE meta_key = '_billing_phone'
 					AND REPLACE(REPLACE(meta_value, '-', ''), ' ', '') LIKE %s
 				)
-			", '%' . $wpdb->esc_like($normalized_phone) . '%');
+			",
+				'%' . $wpdb->esc_like( $normalized_phone ) . '%'
+			);
 		}
-
 
 		// Execute the query
 		$customer_ids = $wpdb->get_col( $query );

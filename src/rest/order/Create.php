@@ -4,6 +4,7 @@ namespace Ilabs\Inpost_Pay\rest\order;
 
 use Exception;
 use Ilabs\Inpost_Pay\hooks\admin\AdminOrderUpdate;
+use Ilabs\Inpost_Pay\Integration\Basket\Availability\WpcBundleAvailabilityIntegration;
 use Ilabs\Inpost_Pay\Integration\BLPaczka\BLPaczka_Integration;
 use Ilabs\Inpost_Pay\Integration\Shipping\ShippingMethodIntegrationFactory;
 use Ilabs\Inpost_Pay\Lib\Analytics\Analytics;
@@ -18,7 +19,7 @@ use Ilabs\Inpost_Pay\Lib\exception\EmptyCredentialsForOrderAuthenticationExcepti
 use Ilabs\Inpost_Pay\Lib\exception\InvalidAuthenticationType;
 use Ilabs\Inpost_Pay\Lib\exception\JsonDecodeException;
 use Ilabs\Inpost_Pay\Lib\exception\UserNotFoundException;
-use Ilabs\Inpost_Pay\Lib\helpers\CookieHelper;
+use Ilabs\Inpost_Pay\Lib\helpers\CacheHelper;
 use Ilabs\Inpost_Pay\Lib\helpers\DigitalProduct;
 use Ilabs\Inpost_Pay\Lib\InPostIzi;
 use Ilabs\Inpost_Pay\Lib\item\Woo_Delivery_Price;
@@ -44,6 +45,7 @@ use WP_REST_Response;
 use WP_User;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
 use function WC;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Create extends Base {
 
@@ -73,7 +75,7 @@ class Create extends Base {
 			$this->check_signature( $request );
 			AdminOrderUpdate::$block = true;
 			$data                    = $request->get_body();
-			$response_raw       = $this->handleRequest( $data );
+			$response_raw            = $this->handleRequest( $data );
 
 			// if some unexpected error is occured in line 138 - set response code 409.
 			if ( is_wp_error( $response_raw ) || ! empty( $response_raw['error'] ) ) {
@@ -298,6 +300,7 @@ class Create extends Base {
 	 */
 	private function prepareOrderCreation( object $parsedData ): void {
 		WooCommerceBasketCache::restore( $parsedData->order_details->basket_id, true );
+		WpcBundleAvailabilityIntegration::maybe_delete_wpc_products();
 	}
 
 	/**
@@ -410,6 +413,17 @@ class Create extends Base {
 			}
 			$this->handle_methods_before_checkout();
 
+			wc_clear_notices();
+			WC()->cart->check_cart_items();
+			$cart_errors = wc_get_notices( 'error' );
+			if ( ! empty( $cart_errors ) ) {
+				$error_messages = array_column( $cart_errors, 'notice' );
+				$error_message  = implode( ' ', $error_messages );
+				Logger::log( '[CREATE_ORDER] Stock validation failed: ' . $error_message );
+
+				return array( 'error' => 'Stock validation failed: ' . $error_message );
+			}
+
 			$checkout = WC()->checkout();
 
 			$order_id = $checkout->create_order(
@@ -486,7 +500,7 @@ class Create extends Base {
 				self::$block_order_save_hook = true;
 				$hook_applied                = true;
 
-				Logger::log('[ORDER_SAVE] DELIVERY PRICE: ' . var_export( $delivery_price, true ) );
+				Logger::log( '[ORDER_SAVE] DELIVERY PRICE: ' . var_export( $delivery_price, true ) );
 
 				$custom_shipping_cost_net   = $delivery_price->get_base_total() + $delivery_price->get_options_total();
 				$custom_shipping_tax        = WooDeliveryPrice::normalizePrice( $delivery_price->get_base_total_vat() + $delivery_price->get_options_total_vat() );
@@ -614,7 +628,7 @@ class Create extends Base {
 
 		} finally {
 			wp_suspend_cache_invalidation( false );
-			wp_cache_flush();
+			CacheHelper::disable_wp_cache();
 			wp_defer_term_counting( false );
 			remove_filter( 'action_scheduler_queue_runner_concurrent_batches', '__return_zero' );
 			remove_filter( 'woocommerce_analytics_report_menu_items', '__return_empty_array' );
@@ -643,7 +657,8 @@ class Create extends Base {
 	 */
 	public function getBasketFromCache( object $data ): void {
 		$basket = $this->cart_session->get_cart_cache_by_id( $data->order_details->basket_id );
-		$basket = str_replace( '\/',
+		$basket = str_replace(
+			'\/',
 			'/',
 			mb_convert_encoding( $basket, 'UTF-8' )
 		);
@@ -688,7 +703,7 @@ class Create extends Base {
 		// Logger::log( '[CREATE_ORDER] basket_delivery_from_cache: ' . var_export( $basket_delivery_from_cache, true ) );
 
 		$delivery_tax_statuses = $this->cart_session->get_cart_delivery_cache_by_id( $data->order_details->basket_id );
-//		Logger::log( '[CREATE_ORDER] deliveryTaxStatuses fetched: ' . var_export( $deliveryTaxStatuses, true ) );
+		// Logger::log( '[CREATE_ORDER] deliveryTaxStatuses fetched: ' . var_export( $deliveryTaxStatuses, true ) );
 
 		foreach ( $delivery_codes as $deliveryCode ) {
 			$found = $shipping_cost_settings->findGroup( $data->delivery->delivery_type, $deliveryCode );
@@ -700,8 +715,8 @@ class Create extends Base {
 
 		if ( is_null( $base_group ) ) {
 			// Logger::log( '[CREATE_ORDER] base_group is NULL, falling back to digital product' );
-			$delivery_method            = DigitalProduct::DELIVERY_TYPE_DIGITAL;
-			$delivery_cost[]            = array(
+			$delivery_method             = DigitalProduct::DELIVERY_TYPE_DIGITAL;
+			$delivery_cost[]             = array(
 				'delivery_name'         => $delivery_method,
 				'delivery_code_value'   => $delivery_method,
 				'delivery_option_price' => array(
@@ -711,7 +726,7 @@ class Create extends Base {
 					'vat'      => WooDeliveryPrice::normalizePrice( 0 ),
 				),
 			);
-			$order_group                = $delivery_method;
+			$order_group                 = $delivery_method;
 			$shipping_method_integration = null;
 		} else {
 			$order_group = DeliveryOptionHelper::getOrderFinalDeliveryGroup( $base_group, $option_sub_groups );
@@ -768,33 +783,35 @@ class Create extends Base {
 		GroupInterface $orderGroup
 	): array {
 		$baseGroupIsOrderGroup = $baseGroup->getGroupId() === $orderGroup->getGroupId();
-		$result                = [];
-		$baseTotal             = [];
+		$result                = array();
+		$baseTotal             = array();
 
 		foreach ( $basketDelivery as $basketDeliveryStdClass ) {
 			if ( $basketDeliveryStdClass->delivery_type === $baseGroup->getDeliveryTypeCode() ) {
-				$baseTotal = [
+				$baseTotal = array(
 					'net'      => $basketDeliveryStdClass->delivery_price->net,
 					'full_net' => $basketDeliveryStdClass->delivery_price->full_net,
 					'gross'    => WooDeliveryPrice::normalizePrice( $basketDeliveryStdClass->delivery_price->gross ),
 					'vat'      => WooDeliveryPrice::normalizePrice( $basketDeliveryStdClass->delivery_price->vat ),
-				];
+				);
 
 				foreach ( $basketDeliveryStdClass->delivery_options as $basketDeliveryOptionStdClass ) {
-					if ( in_array( $basketDeliveryOptionStdClass->delivery_code_value,
-						$selectedDeliveryCodes ) ) {
+					if ( in_array(
+						$basketDeliveryOptionStdClass->delivery_code_value,
+						$selectedDeliveryCodes
+					) ) {
 						$optionPrice = $basketDeliveryOptionStdClass->delivery_option_price;
 
-						$result[] = [
+						$result[] = array(
 							'delivery_name'         => $basketDeliveryOptionStdClass->delivery_name,
 							'delivery_code_value'   => $basketDeliveryOptionStdClass->delivery_code_value,
-							'delivery_option_price' => [
+							'delivery_option_price' => array(
 								'net'      => $optionPrice->net,
 								'full_net' => $optionPrice->full_net,
 								'gross'    => WooDeliveryPrice::normalizePrice( $optionPrice->gross ),
 								'vat'      => WooDeliveryPrice::normalizePrice( $optionPrice->vat ),
-							],
-						];
+							),
+						);
 
 					}
 				}
@@ -802,11 +819,10 @@ class Create extends Base {
 			}
 		}
 
-
-		return [
+		return array(
 			'delivery_options'    => $result,
 			'base_delivery_price' => $baseTotal,
-		];
+		);
 	}
 
 	/**
@@ -1057,7 +1073,7 @@ class Create extends Base {
 	 *
 	 * @param string $country Country code.
 	 * @param string $state State code.
-	 * @param float $vat_rate VAT rate.
+	 * @param float  $vat_rate VAT rate.
 	 *
 	 * @return int|null Matching shipping tax rate ID or null if not found.
 	 */
@@ -1499,7 +1515,7 @@ class Create extends Base {
 		}
 		wc_setcookie( 'woocommerce_items_in_cart', 0 );
 		wc_setcookie( 'woocommerce_cart_hash', '' );
-		do_action( 'inpost_pay_order_created', $finalOrderId, $parsedData );
+		do_action( 'inpost_pay_order_created', $realOrderId, $parsedData );
 
 		// Logger::debug( '[SESSION] After order: ' . var_export([
 		// 'customer_id' => WC()->session->get_customer_id(),

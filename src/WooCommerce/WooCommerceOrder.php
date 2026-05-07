@@ -46,7 +46,7 @@ class WooCommerceOrder extends IziJsonResponse {
 	public static function getOrder( $orderId, $order = null ): Order {
 		$wooCommerceOrder = new self( $orderId, $order );
 		$order            = new Order();
-		CacheHelper::disableWPCache();
+		CacheHelper::disable_wp_cache();
 
 		if ( ! $wooCommerceOrder->getOrderObject() ) {
 			throw new CantGetOrderObjectException( $orderId );

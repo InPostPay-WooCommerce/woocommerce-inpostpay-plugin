@@ -9,17 +9,22 @@ class Price_Model_Factory {
 
 	public function create( array $data ): ?Price_Model {
 		if ( isset( $data[ Price_Model::ARRAY_PRICE_KEY_0 ] )
-		     && isset( $data[ Price_Model::ARRAY_DATETIME_KEY_1 ] )
-		     && isset( $data[ Price_Model::ARRAY_IS_ON_SALE_KEY_2 ] )
+			&& isset( $data[ Price_Model::ARRAY_DATETIME_KEY_1 ] )
+			&& isset( $data[ Price_Model::ARRAY_IS_ON_SALE_KEY_2 ] )
 		) {
 			try {
-				$price = floatval( wc_format_decimal( $data[ Price_Model::ARRAY_PRICE_KEY_0 ],
-					2 ) );
+				$price = floatval(
+					wc_format_decimal(
+						$data[ Price_Model::ARRAY_PRICE_KEY_0 ],
+						2
+					)
+				);
 
-				$date_time = $this->create_date_time( $data[ Price_Model::ARRAY_DATETIME_KEY_1 ] );
+				$date_time      = $this->create_date_time( $data[ Price_Model::ARRAY_DATETIME_KEY_1 ] );
 				$is_purchasable = $this->get_is_purchasable_from_data( $data );
 
-				return new Price_Model( $price,
+				return new Price_Model(
+					$price,
 					$date_time,
 					$data[ Price_Model::ARRAY_IS_ON_SALE_KEY_2 ],
 					$is_purchasable

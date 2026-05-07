@@ -25,7 +25,6 @@ class HPOSHelper {
 			$this->order    = WC_Order_Factory::get_order( $order );
 			$this->order_id = $order;
 		}
-
 	}
 
 	public function get_meta( $key, $single = true ) {

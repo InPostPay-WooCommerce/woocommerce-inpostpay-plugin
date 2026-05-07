@@ -31,9 +31,8 @@ abstract class AbstractArrayOption extends AbstractOption {
 		if ( is_array( $arr ) ) {
 			$arr[] = $value;
 		} else {
-			$arr = [ $value ];
+			$arr = array( $value );
 		}
 		update_option( $this->get_field_name(), $arr );
 	}
-
 }

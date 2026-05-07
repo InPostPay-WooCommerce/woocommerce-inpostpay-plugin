@@ -17,6 +17,7 @@ use Ilabs\Inpost_Pay\Lib\helpers\DigitalProduct;
 use Ilabs\Inpost_Pay\Lib\Utils\DeliveryAvailabilityTracker;
 use Ilabs\Inpost_Pay\Logger;
 use WC_Product;
+use function Ilabs\Inpost_Pay\inpost_pay;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
 
 /**
@@ -125,9 +126,24 @@ class ProductDeliveryChecker {
 			);
 		}
 
+		/**
+		 * Get from DI container.
+		 *
+		 * @var UnavailabilityService $unavailability_service
+		 */
+		$unavailability_service                 = inpost_pay_container()->get( UnavailabilityService::SERVICE_KEY );
+		$unavailable_delivery_types_for_product = $unavailability_service->unavailable_delivery_types_for_product( $product );
+
 		$delivery_restriction = self::handle_need_shipping( $product, $is_related_product, $tracker );
 
 		if ( ! empty( $delivery_restriction ) ) {
+			if ( UnavailableEntity::BOTH === $unavailable_delivery_types_for_product ) {
+				$delivery_restriction[0]['if_delivery_available'] = false;
+				if ( $tracker ) {
+					$tracker->add_global_decision( 'unavailability_service', 'Product excluded from all delivery types (BOTH)' );
+				}
+			}
+
 			if ( $tracker ) {
 				$tracker->set_final_result( $delivery_restriction );
 				$tracker->log_summary();
@@ -137,6 +153,10 @@ class ProductDeliveryChecker {
 		}
 
 		[ $mapped_courier_methods, $mapped_apm_methods ] = ShippingMethodMapper::get_mapped_shipping_methods();
+
+//		Logger::log( '[METHODS_DIAG] zone_id=' . ShippingZoneResolver::get_zone_id()
+//			. ' mapped_courier=' . implode( ',', $mapped_courier_methods )
+//			. ' mapped_apm=' . implode( ',', $mapped_apm_methods ) );
 
 		$available_types = ShippingRatesResolver::get_available_methods_for_product(
 			$product,
@@ -243,14 +263,6 @@ class ProductDeliveryChecker {
 			}
 		}
 
-		/**
-		 * Get from DI container.
-		 *
-		 * @var UnavailabilityService $unavailability_service
-		 */
-		$unavailability_service                 = inpost_pay_container()->get( UnavailabilityService::SERVICE_KEY );
-		$unavailable_delivery_types_for_product = $unavailability_service->unavailable_delivery_types_for_product( $product );
-
 		if ( UnavailableEntity::BOTH === $unavailable_delivery_types_for_product ) {
 			foreach ( $delivery_availability as $type => $available ) {
 				$delivery_availability[ $type ] = false;
@@ -323,7 +335,7 @@ class ProductDeliveryChecker {
 			return null;
 		}
 
-		Logger::log('RELATED PRODUCT: ' . var_export($is_related_product,true));
+		Logger::log( 'RELATED PRODUCT: ' . var_export( $is_related_product, true ) );
 
 		if ( $is_related_product ) {
 			$related_product_price = (float) $product->get_price();
@@ -426,7 +438,7 @@ class ProductDeliveryChecker {
 	// --- Private helpers ---
 
 	/**
-	 * Handles products that do not require physical shipping (virtual or downloadable).
+	 * Handles products that do not require physical shipping (virtual).
 	 *
 	 * Returns a digital delivery response array for such products, or an empty
 	 * array if the product requires physical shipping.
@@ -442,14 +454,11 @@ class ProductDeliveryChecker {
 		bool $is_related_product,
 		?DeliveryAvailabilityTracker $tracker
 	): array {
-		if ( $product && ( $product->is_virtual() || $product->is_downloadable() ) ) {
+		if ( $product && ! $product->needs_shipping() ) {
 			if ( $tracker ) {
 				$tracker->add_global_decision(
 					'product_type_check',
-					sprintf(
-						'Product is %s - no physical shipping needed',
-						$product->is_virtual() ? 'virtual' : 'downloadable'
-					)
+					'Product is virtual - no physical shipping needed'
 				);
 			}
 			$response = array(

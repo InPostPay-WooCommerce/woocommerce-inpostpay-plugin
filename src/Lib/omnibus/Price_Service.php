@@ -40,9 +40,7 @@ class Price_Service {
 			if ( $price_obj->get_price_float() < $lowest_price_obj->get_price_float() ) {
 				$lowest_price_obj = $price_obj;
 			}
-
 		}
-
 
 		return $lowest_price_obj;
 	}
@@ -76,7 +74,7 @@ class Price_Service {
 			}
 
 			if ( $price_obj->get_date_time() <= $discount_date_minus_31_days ) {
-				//If we are here, then we know that the product WAS NOT available for purchase in the last 31 days
+				// If we are here, then we know that the product WAS NOT available for purchase in the last 31 days
 				$return = true;
 				break;
 			}

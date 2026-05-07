@@ -49,16 +49,19 @@ final class ProductAttributeSplitter {
 	 * @return ProductAttribute[] Processed array, potentially with more elements.
 	 */
 	public function process( array $attributes ): array {
-		$result = [];
+		$result = array();
 
 		foreach ( $attributes as $attribute ) {
 			$name  = rtrim( $attribute->attribute_name, ': ' );
 			$value = $attribute->attribute_value;
 
 			$options = array_map( 'trim', explode( $this->separator, $value ) );
-			$options = array_filter( $options, static function ( $opt ) {
-				return '' !== $opt;
-			} );
+			$options = array_filter(
+				$options,
+				static function ( $opt ) {
+					return '' !== $opt;
+				}
+			);
 
 			if ( count( $options ) <= 1 ) {
 				$result[] = new ProductAttribute( $name, html_entity_decode( $value, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );

@@ -8,32 +8,32 @@ use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 
 class Select extends AbstractFormField {
 
-	private array $options = [];
-	private array $available_options = [];
+	private array $options           = array();
+	private array $available_options = array();
 
-	private array $selected_options = [];
+	private array $selected_options = array();
 
-	private array $configOptions = [
-		'label'    => [
-			'required' => true
-		],
-		'label_class' => [
+	private array $configOptions = array(
+		'label'        => array(
+			'required' => true,
+		),
+		'label_class'  => array(
 			'default'  => 'label',
-			'required' => false
-		],
-		'name'     => [
-			'required' => true
-		],
-		'class'    => [
 			'required' => false,
-			'default'  => 'select'
-		],
-		'value_as_key' => [
+		),
+		'name'         => array(
+			'required' => true,
+		),
+		'class'        => array(
 			'required' => false,
-			'default'  => false
-		],
-		'multiple' => false
-	];
+			'default'  => 'select',
+		),
+		'value_as_key' => array(
+			'required' => false,
+			'default'  => false,
+		),
+		'multiple'     => false,
+	);
 
 	/**
 	 * @param array $available_options
@@ -53,7 +53,7 @@ class Select extends AbstractFormField {
 		$this->selected_options  = $selected_options;
 
 		parent::__construct( $this->configOptions, $config );
-		$this->map_options($this->get_config_option('value_as_key')->get_value());
+		$this->map_options( $this->get_config_option( 'value_as_key' )->get_value() );
 	}
 
 	/**
@@ -71,12 +71,12 @@ class Select extends AbstractFormField {
 		return $this->selected_options;
 	}
 
-	private function map_options($value_as_key = false) {
+	private function map_options( $value_as_key = false ) {
 		foreach ( $this->available_options as $key => $value ) {
-			if ( in_array( $value_as_key? $value : $key, $this->selected_options ) ) {
-				$this->options[ $value_as_key? $value : $key ] = new SelectOption( $value, true );
+			if ( in_array( $value_as_key ? $value : $key, $this->selected_options ) ) {
+				$this->options[ $value_as_key ? $value : $key ] = new SelectOption( $value, true );
 			} else {
-				$this->options[ $value_as_key? $value : $key ] = new SelectOption( $value, false );
+				$this->options[ $value_as_key ? $value : $key ] = new SelectOption( $value, false );
 			}
 		}
 	}
@@ -97,7 +97,7 @@ class Select extends AbstractFormField {
 
 		$multiple_val = $this->get_config_option( 'multiple' )->get_value();
 
-		echo sprintf(
+		printf(
 			'<select name="%s" id="%s" class="%s" %s>',
 			$this->get_field_name(),
 			$this->get_config_option( 'name' )->get_value(),
@@ -106,7 +106,7 @@ class Select extends AbstractFormField {
 		);
 
 		foreach ( $this->get_options() as $option ) {
-			echo sprintf(
+			printf(
 				'<option value="%s" %s >%s</option>',
 				$option->get_name(),
 				$option->print_selected(),
@@ -122,11 +122,9 @@ class Select extends AbstractFormField {
 	 */
 	private function get_field_name() {
 		$name = $this->get_config_option( 'name' )->get_value();
-		if ($this->get_config_option( 'multiple' )->get_value()) {
+		if ( $this->get_config_option( 'multiple' )->get_value() ) {
 			$name .= '[]';
 		}
 		return $name;
 	}
-
-
 }

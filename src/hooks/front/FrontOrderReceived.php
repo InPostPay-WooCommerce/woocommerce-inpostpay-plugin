@@ -9,6 +9,7 @@
 namespace Ilabs\Inpost_Pay\hooks\front;
 
 use Ilabs\Inpost_Pay\Lib\BasketIdentification;
+use Ilabs\Inpost_Pay\Lib\BindingProvider;
 use Ilabs\Inpost_Pay\InpostPay;
 use Ilabs\Inpost_Pay\Lib\helpers\HPOSHelper;
 use Ilabs\Inpost_Pay\Lib\helpers\LSCacheHelper;
@@ -40,8 +41,23 @@ class FrontOrderReceived extends FrontBase {
 	 */
 	public function text( $fields, $order ) {
 		if ( is_order_received_page() ) {
+			$basket_id = BasketIdentification::get();
+			$is_bound  = BindingProvider::getBinding();
+
+			Logger::log(
+				sprintf(
+					'[OrderReceived] basket_id=%s is_bound=%s',
+					$basket_id ?: '(empty)',
+					$is_bound ? 'true' : 'false'
+				)
+			);
+
 			BasketIdentification::drop();
-			InpostPay::get_instance()->get_lib()->get_controller()->basket_binding_delete();
+
+			if ( ! empty( $basket_id ) && $is_bound ) {
+				Logger::log( '[OrderReceived] Sending DELETE binding.' );
+				InpostPay::get_instance()->get_lib()->get_controller()->basket_binding_delete();
+			}
 		}
 
 		return $fields;

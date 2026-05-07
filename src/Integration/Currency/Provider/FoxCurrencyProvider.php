@@ -33,7 +33,7 @@ class FoxCurrencyProvider implements CurrencyProviderInterface {
 			return array_keys( $WOOCS->get_currencies() );
 		}
 
-		return [ get_woocommerce_currency() ];
+		return array( get_woocommerce_currency() );
 	}
 
 	public function getDefaultCurrency(): ?string {

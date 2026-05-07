@@ -98,7 +98,7 @@ class InpostPay {
 			return;
 		}
 
-		InPostIzi::setEnvironment( esc_attr( get_option( 'izi_environment' ) ) ?? InPostIzi::ENVIRONMENT_DEVELOP );
+		InPostIzi::setEnvironment( InPostIzi::sanitize_environment( get_option( 'izi_environment' ) ) );
 		InPostIzi::set_client_secret( esc_attr( get_option( 'izi_client_secret' ) ) );
 		InPostIzi::set_client_id( esc_attr( get_option( 'izi_client_id' ) ) );
 		InPostIzi::setLoggerClass( Logger::class );
@@ -436,6 +436,7 @@ class InpostPay {
 	 * If they are, sets `izi_is_authorized` option to true.
 	 */
 	public static function activate(): void {
+		set_transient( 'izi_inpost_pay_activating', true, 30 );
 		register_setting(
 			'inpost-izi',
 			'izi_db_version',
@@ -525,6 +526,7 @@ class InpostPay {
 			array(
 				'ajaxurl'                        => \WC_Ajax::get_endpoint( 'wc_ajax_inpost_add_product' ),
 				'merchant_basket_delete_binding' => \WC_Ajax::get_endpoint( 'merchant_basket_delete_binding' ),
+				'inpost_pay_bind'                => \WC_Ajax::get_endpoint( 'inpost_pay_bind' ),
 				'inpost_pay_binding'             => \WC_Ajax::get_endpoint( 'inpost_pay_binding' ),
 				'basket_binding_api_key'         => \WC_Ajax::get_endpoint( 'inpost_basket_binding_api_key_get' ),
 				'home_url'                       => home_url( '/', 'absolute' ),

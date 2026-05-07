@@ -136,7 +136,6 @@ class CookieHelper {
 	 * @return array<string, mixed>|null Parsed cookie data or null on failure.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	public static function parse( string $cookieHeader ): ?array {
 		if ( empty( $cookieHeader ) ) {
@@ -253,6 +252,7 @@ class CookieHelper {
 					'expires'  => $expiration,
 					'secure'   => true,
 					'httponly' => false,
+					'samesite' => 'None',
 					'domain'   => wp_parse_url( home_url(), PHP_URL_HOST ),
 					'path'     => '/',
 				)
@@ -277,6 +277,7 @@ class CookieHelper {
 					'expires'  => Woo_Commerce_Session_Helper::get_session_expiration_time(),
 					'secure'   => true,
 					'httponly' => false,
+					'samesite' => 'None',
 					'domain'   => wp_parse_url( home_url(), PHP_URL_HOST ),
 					'path'     => '/',
 				)

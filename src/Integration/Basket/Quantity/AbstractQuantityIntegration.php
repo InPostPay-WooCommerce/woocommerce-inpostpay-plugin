@@ -26,11 +26,10 @@ abstract class AbstractQuantityIntegration implements QuantityIntegrationInterfa
 	public function __construct( WC_Product $product ) {
 		$this->product = $product;
 
-		$this->quantity = $this->get_product()->get_stock_quantity();
-		$this->min_quantity = $this->get_product()->get_min_purchase_quantity();
-		$this->max_quantity = $this->get_product()->get_max_purchase_quantity();
+		$this->quantity      = $this->get_product()->get_stock_quantity();
+		$this->min_quantity  = $this->get_product()->get_min_purchase_quantity();
+		$this->max_quantity  = $this->get_product()->get_max_purchase_quantity();
 		$this->step_quantity = 1;
-
 	}
 
 
@@ -61,6 +60,4 @@ abstract class AbstractQuantityIntegration implements QuantityIntegrationInterfa
 	protected function get_product(): ?WC_Product {
 		return $this->product;
 	}
-
-
 }

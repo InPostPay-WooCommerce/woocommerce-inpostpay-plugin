@@ -9,7 +9,6 @@
 namespace Ilabs\Inpost_Pay\Lib;
 
 use Ilabs\Inpost_Pay\Exception\SessionNotInitializedException;
-use Ilabs\Inpost_Pay\Lib\helpers\CookieHelper;
 use Ilabs\Inpost_Pay\Lib\helpers\Woo_Commerce_Session_Helper;
 
 /**
@@ -33,7 +32,7 @@ class Storage {
 	 * All methods here just read/write to WC()->session if it exists.
 	 */
 	public function __construct() {
-		if (Woo_Commerce_Session_Helper::has_session_cookie() && !WC()->session) {
+		if ( Woo_Commerce_Session_Helper::has_session_cookie() && ! WC()->session ) {
 			WC()->session = new \WC_Session_Handler();
 			WC()->session->init();
 		}

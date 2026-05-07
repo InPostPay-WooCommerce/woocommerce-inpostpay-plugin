@@ -9,6 +9,7 @@ use Ilabs\Inpost_Pay\Lib\config\ShippingCost\GroupInterface;
 use Ilabs\Inpost_Pay\Lib\config\ShippingCost\ShippingMappingFieldInterface;
 use Ilabs\Inpost_Pay\Lib\form\AbstractOption;
 use Ilabs\Inpost_Pay\Lib\form\exception\OptionNameRequired;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class CourierGroup extends AbstractGroup {
 
@@ -31,9 +32,9 @@ class CourierGroup extends AbstractGroup {
 	 * @throws OptionNameRequired
 	 */
 	public function getFields(): array {
-		return [
+		return array(
 			$this->getShippingMethodField(),
-		];
+		);
 	}
 
 	public function getDeliveryOptionCode(): string {
@@ -45,16 +46,16 @@ class CourierGroup extends AbstractGroup {
 	}
 
 	public function getApiDeliveryOptionsMap(): ?array {
-		return [
+		return array(
 			GroupInterface::DELIVERY_OPTION_CODE_COD
 			=> $this->getDeliveryOptionName( GroupInterface::DELIVERY_OPTION_CODE_COD ),
-		];
+		);
 	}
 
 	public function getOptionSubGroups( ?int $zone_id = null ): ?array {
-		return [
+		return array(
 			inpost_pay()->shipping_cost_settings( $zone_id )->getCodCourierSettingsGroup(),
-		];
+		);
 	}
 
 	public function getAvailableFromDayField(): ?AbstractOption {
@@ -78,7 +79,7 @@ class CourierGroup extends AbstractGroup {
 	}
 
 	public function getIsActiveFieldId(): string {
-		if ($this->get_zone_id() !== null) {
+		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_courier_active_' . $this->get_zone_id();
 		}
 

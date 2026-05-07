@@ -144,10 +144,10 @@ final class PpomCartHelper {
 	 */
 	private static function can_rehydrate_cart(): bool {
 		return function_exists( 'WC' )
-		       && WC()
-		       && WC()->cart
-		       && method_exists( WC()->cart, 'set_session' )
-		       && method_exists( WC()->cart, 'get_cart_from_session' );
+				&& WC()
+				&& WC()->cart
+				&& method_exists( WC()->cart, 'set_session' )
+				&& method_exists( WC()->cart, 'get_cart_from_session' );
 	}
 
 	/**

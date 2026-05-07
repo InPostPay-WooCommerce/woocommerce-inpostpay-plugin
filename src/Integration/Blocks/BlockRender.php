@@ -12,13 +12,13 @@ class BlockRender {
 			$attributes = json_decode( $attributes, true );
 		}
 
-		$defaults = [
+		$defaults = array(
 			'variant'      => 'primary',
 			'bindingPlace' => 'PRODUCT_CARD',
 			'background'   => 'bright',
 			'frameStyle'   => 'none',
 			'language'     => substr( get_locale(), 0, 2 ),
-		];
+		);
 
 		$attributes = array_merge( $defaults, $attributes );
 

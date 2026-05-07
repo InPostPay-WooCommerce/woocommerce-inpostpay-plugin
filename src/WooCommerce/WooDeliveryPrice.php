@@ -23,22 +23,23 @@ use WC_Shipping_Method;
 use WC_Shipping_Rate;
 use WC_Shipping_Zones;
 use WC_Tax;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class WooDeliveryPrice {
 
-	private array $cachedShippingRates = [
-		'rates'                => [],
+	private array $cachedShippingRates = array(
+		'rates'                => array(),
 		'shipping_package_key' => '',
-	];
+	);
 
-	private array $cachedShippingPackages = [];
-	private array $cachedCartItems = [];
-	private array $isTaxable = [];
+	private array $cachedShippingPackages = array();
+	private array $cachedCartItems        = array();
+	private array $isTaxable              = array();
 
 	/**
 	 * @var WC_Shipping_Method[]
 	 */
-	private array $cachedShippingMethods = [];
+	private array $cachedShippingMethods = array();
 	private bool $checkShippingAvailability;
 	private ShippingMappingSettingsManager $shippingCostSettingsManager;
 	private bool $freeDeliveryFound = false;
@@ -55,9 +56,9 @@ class WooDeliveryPrice {
 		$this->cachedShippingPackages = $this->findShippingPackages();
 		$this->cachedShippingRates    = $this->findShippingRates();
 		$this->cachedCartItems        = $this->findCartItems();
-		$options                      = [];
+		$options                      = array();
 
-		$baseGroups   = [];
+		$baseGroups   = array();
 		$baseGroups[] = $this->shippingCostSettingsManager->getApmSettingsGroup();
 		$baseGroups[] = $this->shippingCostSettingsManager->getCourierSettingsGroup();
 
@@ -119,7 +120,7 @@ class WooDeliveryPrice {
 
 			$groupsWithOptions = $baseGroup->getOptionSubGroups( $this->zone_id );
 
-			$deliveryOptions = [];
+			$deliveryOptions = array();
 
 			if ( is_array( $groupsWithOptions ) && ! empty( $groupsWithOptions ) ) {
 				foreach ( $groupsWithOptions as $optionGroup ) {
@@ -147,7 +148,6 @@ class WooDeliveryPrice {
 						$baseGroup,
 						$parameters
 					);
-
 
 					if ( ! $mappedOption ) {
 						continue;
@@ -184,22 +184,22 @@ class WooDeliveryPrice {
 			return \WC()->cart->get_cart();
 		}
 
-		return [];
+		return array();
 	}
 
 	private function findShippingRates(): array {
-		$result = [
-			'rates'                => [],
+		$result = array(
+			'rates'                => array(),
 			'shipping_package_key' => '',
-		];
+		);
 
 		if ( ! empty( $this->cachedShippingPackages ) ) {
 			$rates = $this->calculateRatesForZone( $this->zone_id, $this->cachedShippingPackages );
 			if ( ! empty( $rates ) ) {
-				return [
+				return array(
 					'rates'                => $rates,
 					'shipping_package_key' => 0,
-				];
+				);
 			}
 		}
 
@@ -213,7 +213,7 @@ class WooDeliveryPrice {
 		$zone             = \WC_Shipping_Zones::get_zone( $zone_id );
 		$shipping_methods = $zone->get_shipping_methods( true );
 
-		$rates = [];
+		$rates = array();
 
 		foreach ( $shipping_methods as $method ) {
 			if ( ! $method->is_enabled() ) {
@@ -236,10 +236,10 @@ class WooDeliveryPrice {
 	/**
 	 * Gets delivery parameters for a specific shipping method.
 	 *
-	 * @param string $deliveryType Delivery type code.
+	 * @param string         $deliveryType Delivery type code.
 	 * @param AbstractOption $transportMethodField Transport method field.
 	 * @param GroupInterface $group Settings group.
-	 * @param bool|null $checkShippingAvailability Whether to check availability.
+	 * @param bool|null      $checkShippingAvailability Whether to check availability.
 	 *
 	 * @return \stdClass|null Delivery parameters object or null if not available.
 	 * TODO: Replace with typed DeliveryParameters object.
@@ -253,13 +253,13 @@ class WooDeliveryPrice {
 		$method = $transportMethodField->get();
 		Logger::log( "CACHED DELIVERY METHOD: $method" );
 
-		$response = [
+		$response = array(
 			'available' => false,
 			'net'       => 0,
 			'tax'       => 0,
 			'gross'     => 0,
-			'log'       => [],
-		];
+			'log'       => array(),
+		);
 
 		if ( null === $checkShippingAvailability ) {
 			$checkShippingAvailability = $this->checkShippingAvailability;
@@ -378,10 +378,10 @@ class WooDeliveryPrice {
 					$this->cacheDeliveryMethodTaxableStatus( $group, $isTaxable );
 
 					$rate_meta_data = $found_rate->get_meta_data();
-					if (isset($rate_meta_data['izi_full_cost'])) {
-						$rateCost             = $rate_meta_data['izi_full_cost'];
+					if ( isset( $rate_meta_data['izi_full_cost'] ) ) {
+						$rateCost = $rate_meta_data['izi_full_cost'];
 					} else {
-						$rateCost             = $found_rate->get_cost();
+						$rateCost = $found_rate->get_cost();
 					}
 					$addVatToShippingCost = $isTaxable;
 
@@ -403,7 +403,7 @@ class WooDeliveryPrice {
 
 					if ( ! $addVatToShippingCost ) {
 						$response['gross'] = $response['net'];
-						$response['net']   -= $response['tax'];
+						$response['net']  -= $response['tax'];
 					} else {
 						$response['gross'] = $response['net'] + $response['tax'];
 					}
@@ -515,11 +515,11 @@ class WooDeliveryPrice {
 			$this,
 			$optionSubGroup,
 			$baseGroup,
-			[
+			array(
 				'net'   => $baseDeliveryPrice->net,
 				'gross' => $baseDeliveryPrice->gross,
 				'tax'   => $baseDeliveryPrice->tax,
-			]
+			)
 		);
 
 		if ( false === $deliveryOptionHelper->isAvailable() ) {
@@ -542,7 +542,6 @@ class WooDeliveryPrice {
 		$price->set_net( $deliveryOptionHelper->getOptionPrice()['net'] );
 		$price->set_vat( wc_format_decimal( $deliveryOptionHelper->getOptionPrice()['tax'], 2 ) );
 
-
 		$option->set_delivery_option_price( $price );
 
 		return $option;
@@ -559,7 +558,7 @@ class WooDeliveryPrice {
 			return true;
 		}
 
-		$configuredMethods = [ $methodBase ];
+		$configuredMethods = array( $methodBase );
 		$allowedMethods    = get_post_meta( $id, 'woo_inpost_shipping_methods_allowed', true );
 
 		if ( ! empty( $allowedMethods ) && is_array( $allowedMethods ) ) {
@@ -609,7 +608,7 @@ class WooDeliveryPrice {
 	 */
 	private function check_free_shipping_eligibility( \WC_Shipping_Free_Shipping $shipping_method ): bool {
 		$has_met_min_amount = false;
-		if ( in_array( $shipping_method->requires, [ 'min_amount', 'either', 'both' ], true ) ) {
+		if ( in_array( $shipping_method->requires, array( 'min_amount', 'either', 'both' ), true ) ) {
 			$total = WC()->cart->get_displayed_subtotal();
 
 			if ( 'no' === $shipping_method->ignore_discounts ) {

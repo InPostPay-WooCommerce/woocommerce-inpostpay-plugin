@@ -54,38 +54,38 @@ if ( ! isset( $HPOSHelper ) || ! $HPOSHelper instanceof HPOSHelper ) {
 		</td>
 	</tr>
 
-	<?php if ( $send_method === 'parcel_machine' ): ?>
+	<?php if ( $send_method === 'parcel_machine' ) : ?>
 		<tr class="izi_row">
 			<td><?php _e( 'Parcel locker:', 'inpost-pay' ); ?></td>
-			<td><?= esc_html( (string) $HPOSHelper->get_meta( 'delivery_point', true ) ); ?></td>
+			<td><?php echo esc_html( (string) $HPOSHelper->get_meta( 'delivery_point', true ) ); ?></td>
 		</tr>
 	<?php endif; ?>
 
-	<?php if ( $HPOSHelper->get_meta( 'izi_payment_type' ) ): ?>
+	<?php if ( $HPOSHelper->get_meta( 'izi_payment_type' ) ) : ?>
 		<tr class="izi_row">
 			<td><?php _e( 'Payment type:', 'inpost-pay' ); ?></td>
-			<td><?= esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_type', true ) ); ?></td>
+			<td><?php echo esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_type', true ) ); ?></td>
 		</tr>
 	<?php endif; ?>
 
-	<?php if ( $HPOSHelper->get_meta( 'izi_payment_id' ) ): ?>
+	<?php if ( $HPOSHelper->get_meta( 'izi_payment_id' ) ) : ?>
 		<tr class="izi_row">
 			<td><?php _e( 'Payment ID:', 'inpost-pay' ); ?></td>
-			<td><?= esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_id', true ) ); ?></td>
+			<td><?php echo esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_id', true ) ); ?></td>
 		</tr>
 	<?php endif; ?>
 
-	<?php if ( $HPOSHelper->get_meta( 'izi_payment_reference' ) ): ?>
+	<?php if ( $HPOSHelper->get_meta( 'izi_payment_reference' ) ) : ?>
 		<tr class="izi_row">
 			<td><?php _e( 'Payment Reference:', 'inpost-pay' ); ?></td>
-			<td><?= esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_reference', true ) ); ?></td>
+			<td><?php echo esc_html( (string) $HPOSHelper->get_meta( 'izi_payment_reference', true ) ); ?></td>
 		</tr>
 	<?php endif; ?>
 
-	<?php if ( $HPOSHelper->get_meta( 'inpost_pay_digital_delivery_email' ) ): ?>
+	<?php if ( $HPOSHelper->get_meta( 'inpost_pay_digital_delivery_email' ) ) : ?>
 		<tr class="izi_row">
 			<td><?php _e( 'Digital delivery email:', 'inpost-pay' ); ?></td>
-			<td><?= esc_html( (string) $HPOSHelper->get_meta( 'inpost_pay_digital_delivery_email', true ) ); ?></td>
+			<td><?php echo esc_html( (string) $HPOSHelper->get_meta( 'inpost_pay_digital_delivery_email', true ) ); ?></td>
 		</tr>
 	<?php endif; ?>
 	</tbody>

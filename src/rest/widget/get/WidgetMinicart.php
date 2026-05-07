@@ -15,7 +15,7 @@ class WidgetMinicart extends Base {
 		) {
 			$isBlock = $request->get_param( 'isBlock' );
 
-			if (  $isBlock === 'true' || esc_attr( get_option( 'izi_show_minicart' ) ) ) {
+			if ( $isBlock === 'true' || esc_attr( get_option( 'izi_show_minicart' ) ) ) {
 
 				if ( ! Woo_Commerce_Session_Helper::has_session_cookie() ) {
 					die;
@@ -28,7 +28,7 @@ class WidgetMinicart extends Base {
 
 				ob_start();
 				( new FrontDisplayWidget() )->displayMinicart();
-				header('Content-Type:text/html; charset=UTF-8');
+				header( 'Content-Type:text/html; charset=UTF-8' );
 				die( ob_get_clean() );
 			}
 			die;

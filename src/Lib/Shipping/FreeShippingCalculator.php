@@ -79,7 +79,7 @@ class FreeShippingCalculator {
 		}
 
 		$free_shipping_threshold = (float) ( $method->instance_settings['free_shipping_cost'] ?? 0 );
-		Logger::log("Method $method_id - free_shipping_cost setting: " . var_export($method->instance_settings['free_shipping_cost'] ?? 'NOT_SET', true));
+		Logger::log( "Method $method_id - free_shipping_cost setting: " . var_export( $method->instance_settings['free_shipping_cost'] ?? 'NOT_SET', true ) );
 
 		if ( $free_shipping_threshold <= 0 ) {
 			return array( 'threshold' => null );
@@ -146,7 +146,7 @@ class FreeShippingCalculator {
 				case 0 === strpos( $method_id, 'free_shipping' ):
 					if ( PHP_FLOAT_MAX !== $lowest_threshold && $potential_cart_total >= $lowest_threshold ) {
 						$free_methods[ $type ] = true;
-						Logger::log("Free shipping method triggered for type: $type");
+						Logger::log( "Free shipping method triggered for type: $type" );
 					}
 					break;
 				case 0 === strpos( $method_id, 'easypack_' ):
@@ -163,7 +163,7 @@ class FreeShippingCalculator {
 							$free_methods[ $type ] = true;
 						}
 					} else {
-						Logger::log("No threshold found for method: $method_id");
+						Logger::log( "No threshold found for method: $method_id" );
 					}
 					break;
 			}
@@ -174,10 +174,10 @@ class FreeShippingCalculator {
 		// Availability per type is handled downstream in get_delivery_related_products().
 		$native_threshold = self::get_lowest_free_shipping_threshold();
 		if ( null !== $native_threshold ) {
-			$base_cart_total  = self::get_cart_total();
-			$potential_total  = $base_cart_total + $related_product_price;
-			$was_free         = $base_cart_total >= $native_threshold;
-			$will_be_free     = $potential_total >= $native_threshold;
+			$base_cart_total = self::get_cart_total();
+			$potential_total = $base_cart_total + $related_product_price;
+			$was_free        = $base_cart_total >= $native_threshold;
+			$will_be_free    = $potential_total >= $native_threshold;
 
 			if ( ! $was_free && $will_be_free ) {
 				foreach ( $free_methods as $type => $is_free ) {

@@ -26,7 +26,6 @@ abstract class AbstractAvailabilityIntegration implements AvailabilityIntegratio
 		if ( $this->isEmpty() ) {
 			throw new ProductIsEmptyException( $cart_item );
 		}
-
 	}
 
 	/**

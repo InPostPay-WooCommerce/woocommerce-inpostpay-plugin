@@ -13,7 +13,7 @@ class YayCurrencyProvider implements CurrencyProviderInterface {
 
 	public function getCurrentCurrency(): ?string {
 		if ( class_exists( 'Yay_Currency\Helpers\YayCurrencyHelper' ) &&
-		     method_exists( 'Yay_Currency\Helpers\YayCurrencyHelper', 'get_current_currency' ) ) {
+			method_exists( 'Yay_Currency\Helpers\YayCurrencyHelper', 'get_current_currency' ) ) {
 
 			$current_currency = \Yay_Currency\Helpers\YayCurrencyHelper::get_current_currency();
 			if ( is_array( $current_currency ) && isset( $current_currency['currency'] ) && is_string( $current_currency['currency'] ) ) {
@@ -31,7 +31,7 @@ class YayCurrencyProvider implements CurrencyProviderInterface {
 			method_exists( 'Yay_Currency\Helpers\Helper', 'get_currencies_post_type' )
 		) {
 			$posts = \Yay_Currency\Helpers\Helper::get_currencies_post_type();
-			$codes = [];
+			$codes = array();
 
 			if ( is_array( $posts ) ) {
 				foreach ( $posts as $post ) {
@@ -46,7 +46,7 @@ class YayCurrencyProvider implements CurrencyProviderInterface {
 			}
 		}
 
-		return [ $this->getDefaultCurrency() ];
+		return array( $this->getDefaultCurrency() );
 	}
 
 	public function getDefaultCurrency(): string {

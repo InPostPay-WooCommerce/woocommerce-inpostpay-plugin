@@ -18,6 +18,7 @@ use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasketCache;
 use WC_Product;
 use WP_REST_Response;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class Update extends Base {
 
@@ -28,7 +29,7 @@ class Update extends Base {
 	public const EVENT_TYPE_RELATED_PRODUCTS = 'RELATED_PRODUCTS';
 
 
-	protected bool $hasCoupons = false;
+	protected bool $hasCoupons  = false;
 	protected bool $couponError = false;
 
 	private CartSessionService $cart_session;
@@ -51,13 +52,15 @@ class Update extends Base {
 			$this->check_signature( $request );
 			add_filter( 'woocommerce_persistent_cart_enabled', '__return_false', 99 );
 
-			$id   = $request->get_param( 'id' );
-			Logger::log('Update basket for id: ' . $id . '');
+			$id = $request->get_param( 'id' );
+			Logger::log( 'Update basket for id: ' . $id . '' );
 			$data = $request->get_body();
 			InPostIzi::blockPut();
-			$date = date( "Y-m-d H:i:s" );
-			Logger::basketEvent( $data,
-				"Event dla koszyka {$id} z {$date} {$_SERVER['REQUEST_URI']}" );
+			$date = date( 'Y-m-d H:i:s' );
+			Logger::basketEvent(
+				$data,
+				"Event dla koszyka {$id} z {$date} {$_SERVER['REQUEST_URI']}"
+			);
 			$data = json_decode( $data );
 
 			WooCommerceBasketCache::restore( $id, false );
@@ -67,12 +70,14 @@ class Update extends Base {
 				case self::EVENT_TYPE_PRODUCTS_QUANTITY:
 					foreach ( $data->quantity_event_data as $eventData ) {
 						$quantity = $eventData->quantity->quantity;
-						$this->updateQuantity( $eventData->product_id,
-							$quantity );
+						$this->updateQuantity(
+							$eventData->product_id,
+							$quantity
+						);
 					}
 					break;
 				case self::EVENT_TYPE_PROMO_CODES:
-					$couponList       = [];
+					$couponList       = array();
 					$this->hasCoupons = true;
 					foreach ( $data->promo_codes_event_data as $eventData ) {
 						$couponList[] = $eventData->promo_code_value;
@@ -86,7 +91,6 @@ class Update extends Base {
 					foreach ( $data->promo_codes_event_data as $eventData ) {
 						$this->applyCode( $eventData->promo_code_value );
 					}
-
 
 					WooCommerceBasket::$couponError = $this->couponError;
 					break;
@@ -127,30 +131,43 @@ class Update extends Base {
 					break;
 			}
 
-			add_filter( 'option_woocommerce_flexible_shipping_single_2_settings', static function ( $value ) {
-				static $cached = null;
-				if ( $cached !== null ) {
-					return $cached;
-				}
-				$cached = $value;
+			add_filter(
+				'option_woocommerce_flexible_shipping_single_2_settings',
+				static function ( $value ) {
+					static $cached = null;
+					if ( $cached !== null ) {
+						return $cached;
+					}
+					$cached = $value;
 
-				return $value;
-			} );
+					return $value;
+				}
+			);
 
 			$cart                = WC()->cart;
 			$cart->cart_contents = apply_filters( 'woocommerce_cart_contents_changed', $cart->cart_contents );
 			$responseData        = null;
 
-			$should_recalculate_full = in_array( $data->event_type, [
-				self::EVENT_TYPE_PROMO_CODES,
-				self::EVENT_TYPE_RELATED_PRODUCTS,
-			], true );
+			$should_recalculate_full = in_array(
+				$data->event_type,
+				array(
+					self::EVENT_TYPE_PROMO_CODES,
+					self::EVENT_TYPE_RELATED_PRODUCTS,
+				),
+				true
+			);
 
 			if ( $should_recalculate_full ) {
 				$cart->calculate_shipping();
 				$cart->calculate_fees();
 			}
 			$cart->calculate_totals();
+
+			// When InPost empties the cart, reset the hash so the next shop-side
+			// add-to-cart always triggers a PUT (handles qty=1 re-add edge case).
+			if ( \WC()->session && \WC()->cart->is_empty() ) {
+				\WC()->session->set( 'inpost_cart_hash', null );
+			}
 
 			$early_response_enabled = get_option( 'izi_early_update_response_enabled', false );
 
@@ -169,23 +186,26 @@ class Update extends Base {
 						\wc_get_logger()->debug( print_r( $responseData, true ), array( 'source' => 'inpost-pay-basket-update' ) );
 					}
 
-					add_action( 'shutdown', function () use ( $id, $basketObject, $mapper ) {
-						$basketArray = $mapper->map( $basketObject );
-						$basket      = json_encode( $basketArray );
+					add_action(
+						'shutdown',
+						function () use ( $id, $basketObject, $mapper ) {
+							$basketArray = $mapper->map( $basketObject );
+							$basket      = json_encode( $basketArray );
 
-						$this->cart_session->set_cart_cache_by_id( $id, $basket );
-						$this->cart_session->set_wc_cart_snapshot( $id );
-						$this->cart_session->set_cart_coupons_by_id( $id, '1' );
-						Logger::rawData( $basket, 'BASKET FROM UPDATE' );
-						InPostIzi::getStorage()->sessionClose();
+							$this->cart_session->set_cart_cache_by_id( $id, $basket );
+							$this->cart_session->set_wc_cart_snapshot( $id );
+							$this->cart_session->set_cart_coupons_by_id( $id, '1' );
+							Logger::rawData( $basket, 'BASKET FROM UPDATE' );
+							InPostIzi::getStorage()->sessionClose();
 
-						if ( ! get_option( 'izi_custom_response_enabled', true ) ) {
-							die( mb_convert_encoding( $basket, 'UTF-8' ) );
-						}
+							if ( ! get_option( 'izi_custom_response_enabled', true ) ) {
+								die( mb_convert_encoding( $basket, 'UTF-8' ) );
+							}
 
-						wp_send_json( json_decode( $basket, true ) );
-
-					}, PHP_INT_MAX - 1 );
+							wp_send_json( json_decode( $basket, true ) );
+						},
+						PHP_INT_MAX - 1
+					);
 
 				} else {
 					if ( function_exists( 'wc_get_logger' ) ) {
@@ -194,21 +214,24 @@ class Update extends Base {
 						\wc_get_logger()->debug( print_r( $responseData, true ), array( 'source' => 'inpost-pay-basket-update' ) );
 					}
 
-					add_action( 'shutdown', function () use ( $id ) {
-						$basket = WooCommerceBasket::getBasket( false, $id )->encode();
-						$this->cart_session->set_cart_cache_by_id( $id, $basket );
-						$this->cart_session->set_wc_cart_snapshot( $id );
-						$this->cart_session->set_cart_coupons_by_id( $id, '1' );
-						Logger::rawData( $basket, 'BASKET FROM UPDATE' );
-						InPostIzi::getStorage()->sessionClose();
+					add_action(
+						'shutdown',
+						function () use ( $id ) {
+							$basket = WooCommerceBasket::getBasket( false, $id )->encode();
+							$this->cart_session->set_cart_cache_by_id( $id, $basket );
+							$this->cart_session->set_wc_cart_snapshot( $id );
+							$this->cart_session->set_cart_coupons_by_id( $id, '1' );
+							Logger::rawData( $basket, 'BASKET FROM UPDATE' );
+							InPostIzi::getStorage()->sessionClose();
 
-						if ( ! get_option( 'izi_custom_response_enabled', true ) ) {
-							die( mb_convert_encoding( $basket, 'UTF-8' ) );
-						}
+							if ( ! get_option( 'izi_custom_response_enabled', true ) ) {
+								die( mb_convert_encoding( $basket, 'UTF-8' ) );
+							}
 
-						wp_send_json( json_decode( $basket, true ) );
-
-					}, PHP_INT_MAX - 1 );
+							wp_send_json( json_decode( $basket, true ) );
+						},
+						PHP_INT_MAX - 1
+					);
 				}
 			}
 
@@ -230,13 +253,22 @@ class Update extends Base {
 			$response = new WP_REST_Response(
 				$responseData,
 				200,
-				[]
+				array()
 			);
 
 			$current_plugin_version = inpost_pay()->get_plugin_version();
 			$response->header( 'inpay-plugin-version', $current_plugin_version );
 
 			remove_filter( 'woocommerce_persistent_cart_enabled', '__return_false', 99 );
+
+			// When InPost empties the cart, WooCommerce stores cart=null in the session.
+			// On the next page load, get_cart_from_session() sees null and merges from
+			// persistent cart (user_meta), which still holds the old items because our
+			// woocommerce_persistent_cart_enabled=false filter blocked persistent_cart_update()
+			// during this request. Clear user_meta now so the page reload shows an empty cart.
+			if ( get_current_user_id() && \WC()->cart && \WC()->cart->is_empty() ) {
+				delete_user_meta( get_current_user_id(), '_woocommerce_persistent_cart_' . get_current_blog_id() );
+			}
 
 			return rest_ensure_response( $response );
 		};
@@ -262,7 +294,8 @@ class Update extends Base {
 					return;
 				}
 
-				/*if ( ! $cartItemFilter->canAddCartItem( $cart_item ) ) {
+				/*
+				if ( ! $cartItemFilter->canAddCartItem( $cart_item ) ) {
 					$wooco_parent_id              = $cart_item['wooco_parent_id'];
 					foreach ( $items as $cart_item_key_2 => $item_2 ) {
 						if ( ( $item_2['product_id'] ) == $wooco_parent_id ) {
@@ -297,7 +330,8 @@ class Update extends Base {
 
 				return;
 			}
-			/*if ( ! $cartItemFilter->canAddCartItem( $item ) ) {
+			/*
+			if ( ! $cartItemFilter->canAddCartItem( $item ) ) {
 				$wooco_parent_id              = $item['wooco_parent_id'];
 				foreach ( $items as $cart_item_key_2 => $item_2 ) {
 					if ( ( $item_2['product_id'] ) == $wooco_parent_id ) {
@@ -315,11 +349,9 @@ class Update extends Base {
 					} else {
 						\WC()->cart->set_quantity( $cart_item_key, $quantity );
 					}
-
 				}
 			}
 		}
-
 	}
 
 	protected function applyCode( $code ) {
@@ -328,7 +360,6 @@ class Update extends Base {
 		}
 
 		$couponObject = new \WC_Coupon( $code );
-
 
 		if ( ! $couponObject ) {
 			$this->couponError = true;
@@ -346,11 +377,14 @@ class Update extends Base {
 				$this->couponError = true;
 			} else {
 				wc_clear_notices();
-				wc_add_notice( __( 'Coupon added using InPost Pay',
-					'woocommerce' ), 'success' );
+				wc_add_notice(
+					__(
+						'Coupon added using InPost Pay',
+						'woocommerce'
+					),
+					'success'
+				);
 			}
-
-
 		} else {
 			$this->couponError = true;
 		}

@@ -180,6 +180,14 @@ class Plugin extends Abstract_Ilabs_Plugin {
 				$this->get_plugin_version()
 			);
 			wp_enqueue_script( 'inpostpay-admin-hotproducts' );
+			wp_localize_script(
+				'inpostpay-admin-hotproducts',
+				'inpostPayApi',
+				array(
+					'nonce'    => wp_create_nonce( 'wp_rest' ),
+					'rest_url' => rest_url(),
+				)
+			);
 		}
 
 		if ( $current_screen && strpos( $current_screen->id, 'inpost-pay-unavailable-products' ) !== false ) {
@@ -196,6 +204,14 @@ class Plugin extends Abstract_Ilabs_Plugin {
 				$this->get_plugin_version()
 			);
 			wp_enqueue_script( 'inpostpay-admin-unavailable' );
+			wp_localize_script(
+				'inpostpay-admin-unavailable',
+				'inpostPayApi',
+				array(
+					'nonce'    => wp_create_nonce( 'wp_rest' ),
+					'rest_url' => rest_url(),
+				)
+			);
 		}
 
 		if ( $current_screen && strpos( $current_screen->id, 'inpost-pay-unavailable-categories' ) !== false ) {
@@ -212,6 +228,14 @@ class Plugin extends Abstract_Ilabs_Plugin {
 				$this->get_plugin_version()
 			);
 			wp_enqueue_script( 'inpostpay-admin-unavailable-categories' );
+			wp_localize_script(
+				'inpostpay-admin-unavailable-categories',
+				'inpostPayApi',
+				array(
+					'nonce'    => wp_create_nonce( 'wp_rest' ),
+					'rest_url' => rest_url(),
+				)
+			);
 		}
 
 		wp_enqueue_script(

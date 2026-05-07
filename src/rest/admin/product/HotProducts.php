@@ -2,17 +2,15 @@
 
 namespace Ilabs\Inpost_Pay\rest\admin\product;
 
-use Ilabs\Inpost_Pay\hooks\admin\AdminProductUpdate;
+use Ilabs\Inpost_Pay\hooks\admin\AdminHotProductUpdate;
 use Ilabs\Inpost_Pay\Lib\config\product\HotProductsConfig;
 use Ilabs\Inpost_Pay\Lib\helpers\EANHelper;
 use Ilabs\Inpost_Pay\Lib\Product\CustomMeta\HotProductPublishedMeta;
 use Ilabs\Inpost_Pay\Lib\Product\HotProduct;
 use Ilabs\Inpost_Pay\Lib\Utils\HotProductUtils;
-use Ilabs\Inpost_Pay\Logger;
 use Ilabs\Inpost_Pay\rest\Admin;
 use Ilabs\Inpost_Pay\Lib\Api\v1\Products;
 use Ilabs\Inpost_Pay\Lib\helpers\WooProductHelper;
-use RuntimeException;
 use WP_REST_Request;
 use WP_REST_Response;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
@@ -21,19 +19,19 @@ class HotProducts extends Admin {
 
 	protected function describe(): void {
 
-		$this->get['/inpost/v1/izi/hot-product/count'] = function ( WP_REST_Request $request ) {
+		$this->get['/inpost/v1/izi/hot-product/count'] = static function ( WP_REST_Request $request ) {
 
 			$hot_products       = new HotProductsConfig();
 			$hot_products_count = count( $hot_products->get() );
 
-
-			return rest_ensure_response( [
-				'count' => $hot_products_count,
-			] );
-
+			return rest_ensure_response(
+				array(
+					'count' => $hot_products_count,
+				)
+			);
 		};
 
-		$this->get['/inpost/v1/izi/hot-product/list'] = function ( WP_REST_Request $request ) {
+		$this->get['/inpost/v1/izi/hot-product/list'] = static function ( WP_REST_Request $request ) {
 
 			$is_updated = get_transient( 'inpost_pay_product_update_hot_from_api' );
 			if ( ! $is_updated ) {
@@ -44,22 +42,27 @@ class HotProducts extends Admin {
 			$product_ids  = $hot_products->get();
 
 			if ( ! $product_ids ) {
-				return rest_ensure_response( new WP_REST_Response(
-					[ 'error' => __( 'No hot products found.', 'inpost-pay' ) ],
-					200
-				) );
+				return rest_ensure_response(
+					new WP_REST_Response(
+						array( 'error' => __( 'No hot products found.', 'inpost-pay' ) ),
+						200
+					)
+				);
 			}
 
 			$response = HotProductUtils::buildHotProductDataByIds( $product_ids );
 
-			$unpublishedProducts = array_filter( $response, static function ( $item ) {
-				return $item['published'] === false;
-			} );
+			$unpublishedProducts = array_filter(
+				$response,
+				static function ( $item ) {
+					return $item['published'] === false;
+				}
+			);
 
 			if ( count( $unpublishedProducts ) > 0 ) {
 				$izi_product_api = new Products();
 
-				$product_ids = [];
+				$product_ids = array();
 
 				foreach ( $unpublishedProducts as $product ) {
 					$product_ids[] = $product['id'];
@@ -70,7 +73,7 @@ class HotProducts extends Admin {
 				if ( isset( $api_result->content ) ) {
 					foreach ( $api_result->content as $content ) {
 						if ( $content->status === 'ACTIVE' ) {
-							AdminProductUpdate::$IS_START = true;
+							AdminHotProductUpdate::$is_start = true;
 
 							update_post_meta(
 								$content->product_id,
@@ -82,7 +85,6 @@ class HotProducts extends Admin {
 							if ( $index !== false ) {
 								$response[ $index ]['published'] = true;
 							}
-
 						}
 					}
 				}
@@ -91,35 +93,37 @@ class HotProducts extends Admin {
 			return rest_ensure_response( $response );
 		};
 
-		$this->post['/inpost/v1/izi/hot-product/add'] = function ( WP_REST_Request $request ) {
+		$this->post['/inpost/v1/izi/hot-product/add'] = static function ( WP_REST_Request $request ) {
 			$hot_products = new HotProductsConfig();
 
-//			if ( count( $hot_products->get() ) >= HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ) {
-//				return rest_ensure_response( [ 'error' => __( 'You reached the limit of hot products.', 'inpost-pay' ) ] );
-//			}
+			// if ( count( $hot_products->get() ) >= HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ) {
+			// return rest_ensure_response( [ 'error' => __( 'You reached the limit of hot products.', 'inpost-pay' ) ] );
+			// }
 
 			$izi_product_api = new Products();
 
 			if ( $request->has_param( 'product_id' ) ) {
 				$id            = (int) $request->get_param( 'product_id' );
-				$product_ids   = $request->get_param( 'product_ids' ) ?? [];
+				$product_ids   = $request->get_param( 'product_ids' ) ?? array();
 				$product_ids[] = $id;
 				$product_ids   = array_unique( array_map( 'intval', $product_ids ) );
 				$request->set_param( 'product_ids', $product_ids );
 			}
 
-			$valid_product_ids = [];
-			$rejected_ids      = [];
+			$valid_product_ids = array();
+			$rejected_ids      = array();
 
 			if ( $request->has_param( 'product_ids' ) && is_array( $request->get_param( 'product_ids' ) ) ) {
-				$product_ids_param   = $request->get_param( 'product_ids' ) ?? [];
+				$product_ids_param   = $request->get_param( 'product_ids' ) ?? array();
 				$initial_product_ids = array_map( 'intval', $product_ids_param );
 
 				if ( empty( $initial_product_ids ) ) {
-					return rest_ensure_response( new WP_REST_Response(
-						[ 'error' => __( 'No products provided.', 'inpost-pay' ) ],
-						400
-					) );
+					return rest_ensure_response(
+						new WP_REST_Response(
+							array( 'error' => __( 'No products provided.', 'inpost-pay' ) ),
+							400
+						)
+					);
 				}
 
 				/**
@@ -153,34 +157,41 @@ class HotProducts extends Admin {
 					if ( ! empty( $valid_product_ids ) ) {
 						$result = $izi_product_api->post( $valid_product_ids );
 					} else {
-						$result = [ 'products' => [] ];
+						$result = array( 'products' => array() );
 					}
 				} catch ( \RuntimeException $e ) {
 					$rejected_ids      = array_merge( $rejected_ids, $valid_product_ids );
-					$valid_product_ids = [];
-					$result            = [ 'products' => [] ];
+					$valid_product_ids = array();
+					$result            = array( 'products' => array() );
 				}
 
 				if ( isset( $result['error'] ) && ! isset( $result['products'] ) ) {
-					return rest_ensure_response( new WP_REST_Response(
-						[ 'error' => $result['error'], 'error_code' => $result['error_code'] ?? '' ],
-						403
-					) );
+					return rest_ensure_response(
+						new WP_REST_Response(
+							array(
+								'error'      => $result['error'],
+								'error_code' => $result['error_code'] ?? '',
+							),
+							403
+						)
+					);
 				}
 
-				AdminProductUpdate::$IS_START = true;
+				AdminHotProductUpdate::$is_start = true;
 
 				foreach ( $result['products'] as $product_id ) {
 					update_post_meta( $product_id, HotProductPublishedMeta::INPOST_PAY_HOT_PRODUCT_PUBLISHED, 'INACTIVE' );
 				}
 
-				$hot_products_list = array_unique( array_merge( $hot_products_list, $result['products'] ?? [] ) );
+				$hot_products_list = array_unique( array_merge( $hot_products_list, $result['products'] ?? array() ) );
 
 				if ( count( $hot_products_list ) > HotProductsConfig::IZI_HOT_PRODUCTS_LIMIT ) {
-					return rest_ensure_response( new WP_REST_Response(
-						[ 'error' => __( 'You reached the limit of hot products.', 'inpost-pay' ) ],
-						403
-					) );
+					return rest_ensure_response(
+						new WP_REST_Response(
+							array( 'error' => __( 'You reached the limit of hot products.', 'inpost-pay' ) ),
+							403
+						)
+					);
 				}
 
 				$hot_products->update( $hot_products_list );
@@ -189,43 +200,49 @@ class HotProducts extends Admin {
 			$added_products    = HotProductUtils::buildHotProductDataByIds( $valid_product_ids );
 			$rejected_products = HotProductUtils::buildHotProductDataByIds( $rejected_ids );
 
-//			Logger::log('[HOTPRODUCT_DEBUG] Added products: ' . var_export( $added_products, true ) . '');
-//			Logger::log('[HOTPRODUCT_DEBUG] Rejected products: ' . var_export( $rejected_products, true ) . '');
+			// Logger::log('[HOTPRODUCT_DEBUG] Added products: ' . var_export( $added_products, true ) . '');
+			// Logger::log('[HOTPRODUCT_DEBUG] Rejected products: ' . var_export( $rejected_products, true ) . '');
 
-			return rest_ensure_response( [
-				'added'    => [
-					'message'  => __( 'Highlight products', 'inpost-pay' ),
-					'products' => $added_products,
-				],
-				'rejected' => [
-					'message'  => __( 'Products that could not be highlighted', 'inpost-pay' ),
-					'products' => $rejected_products,
-				]
-			] );
+			return rest_ensure_response(
+				array(
+					'added'    => array(
+						'message'  => __( 'Highlight products', 'inpost-pay' ),
+						'products' => $added_products,
+					),
+					'rejected' => array(
+						'message'  => __( 'Products that could not be highlighted', 'inpost-pay' ),
+						'products' => $rejected_products,
+					),
+				)
+			);
 		};
 
-		$this->post['/inpost/v1/izi/hot-product/delete'] = function ( WP_REST_Request $request ) {
+		$this->post['/inpost/v1/izi/hot-product/delete'] = static function ( WP_REST_Request $request ) {
 			$hot_products = new HotProductsConfig();
 
 			$hot_products_list = $hot_products->get();
 
 			if ( ! in_array( $request->get_param( 'product_id' ), $hot_products_list ) ) {
-				return rest_ensure_response( new WP_REST_Response(
-					[ 'error' => __( 'Product not found.', 'inpost-pay' ) ],
-					403
-				) );
+				return rest_ensure_response(
+					new WP_REST_Response(
+						array( 'error' => __( 'Product not found.', 'inpost-pay' ) ),
+						403
+					)
+				);
 			}
 
-			$hot_products_list = array_values( array_diff( $hot_products_list, [ $request->get_param( 'product_id' ) ] ) );
+			$hot_products_list = array_values( array_diff( $hot_products_list, array( $request->get_param( 'product_id' ) ) ) );
 
 			$izi_product_api = new Products();
 
 			$product_id = (int) $request->get_param( 'product_id' );
 			if ( ! $izi_product_api->delete( $product_id ) ) {
-				return rest_ensure_response( new WP_REST_Response(
-					[ 'error' => __( 'Product not removed.', 'inpost-pay' ) ],
-					403
-				) );
+				return rest_ensure_response(
+					new WP_REST_Response(
+						array( 'error' => __( 'Product not removed.', 'inpost-pay' ) ),
+						403
+					)
+				);
 			}
 
 			delete_post_meta( $product_id, 'hot_product_start_date' );
@@ -233,22 +250,25 @@ class HotProducts extends Admin {
 
 			$hot_products->update( $hot_products_list );
 
-			return rest_ensure_response( [ 'message' => __( 'Product removed.', 'inpost-pay' ) ] );
+			return rest_ensure_response( array( 'message' => __( 'Product removed.', 'inpost-pay' ) ) );
 		};
 
-		$this->post['/inpost/v1/izi/hot-product/delete_all'] = function ( WP_REST_Request $request ) {
+		$this->post['/inpost/v1/izi/hot-product/delete_all'] = static function ( WP_REST_Request $request ) {
 			$hot_products      = new HotProductsConfig();
 			$hot_products_list = $hot_products->get();
 			$izi_product_api   = new Products();
 
-			$not_deleted_products = [];
+			$not_deleted_products = array();
 
 			$api_result = $izi_product_api->get( 0, 1000 );
 			$remote_ids = isset( $api_result->content )
-				? array_map( static function ( $c ) {
-					return (int) $c->product_id;
-				}, $api_result->content )
-				: [];
+				? array_map(
+					static function ( $c ) {
+						return (int) $c->product_id;
+					},
+					$api_result->content
+				)
+				: array();
 
 			foreach ( $hot_products_list as $product_id ) {
 				$pid = (int) $product_id;
@@ -264,14 +284,14 @@ class HotProducts extends Admin {
 				delete_post_meta( $pid, HotProductPublishedMeta::INPOST_PAY_HOT_PRODUCT_PUBLISHED );
 
 				if ( ! $deleted_remote ) {
-					$not_deleted_products[] = [
+					$not_deleted_products[] = array(
 						'id'   => $pid,
 						'name' => get_the_title( $pid ),
-					];
+					);
 				}
 			}
 
-			$hot_products->update( [] );
+			$hot_products->update( array() );
 			delete_transient( 'inpost_pay_product_update_hot_from_api' );
 
 			$response['message'] = __( 'Products removed.', 'inpost-pay' );
@@ -283,19 +303,21 @@ class HotProducts extends Admin {
 			return rest_ensure_response( $response );
 		};
 
-		$this->post['/inpost/v1/izi/hot-product/set-availability'] = function ( WP_REST_Request $request ) {
+		$this->post['/inpost/v1/izi/hot-product/set-availability'] = static function ( WP_REST_Request $request ) {
 
 			$entries = $request->get_json_params();
 
 			if ( ! is_array( $entries ) || empty( $entries ) ) {
-				return rest_ensure_response( new WP_REST_Response(
-					[ 'error' => __( 'No availability data provided.', 'inpost-pay' ) ],
-					400
-				) );
+				return rest_ensure_response(
+					new WP_REST_Response(
+						array( 'error' => __( 'No availability data provided.', 'inpost-pay' ) ),
+						400
+					)
+				);
 			}
 
-			$rejected     = [];
-			$updated      = [];
+			$rejected     = array();
+			$updated      = array();
 			$products_api = new Products();
 
 			foreach ( $entries as $entry ) {
@@ -326,10 +348,10 @@ class HotProducts extends Admin {
 
 					$response  = $products_api->put( $product );
 					$status    = HotProductUtils::handlePutResponse( $response );
-					$updated[] = [
+					$updated[] = array(
 						'id'     => $product_id,
-						'status' => $status
-					];
+						'status' => $status,
+					);
 				} catch ( \Exception $e ) {
 					$rejected[] = $product_id;
 				}
@@ -341,11 +363,13 @@ class HotProducts extends Admin {
 				$message = __( 'Availability dates updated for some products. Some failed to update.', 'inpost-pay' );
 			}
 
-			return rest_ensure_response( [
-				'message'  => $message,
-				'updated'  => $updated,
-				'rejected' => $rejected,
-			] );
+			return rest_ensure_response(
+				array(
+					'message'  => $message,
+					'updated'  => $updated,
+					'rejected' => $rejected,
+				)
+			);
 		};
 	}
 }

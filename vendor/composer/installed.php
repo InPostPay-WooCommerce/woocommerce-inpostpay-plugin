@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'inspirelabs/rehabilito-integration',
-        'pretty_version' => 'v2.0.7',
-        'version' => '2.0.7.0',
-        'reference' => '8941e8a9b55486bf6a81ed4618ab1e1c34da0861',
+        'pretty_version' => 'v2.0.8',
+        'version' => '2.0.8.0',
+        'reference' => '2232bde087f3b14d1a96a4984f082855e109cef9',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'inspirelabs/rehabilito-integration' => array(
-            'pretty_version' => 'v2.0.7',
-            'version' => '2.0.7.0',
-            'reference' => '8941e8a9b55486bf6a81ed4618ab1e1c34da0861',
+            'pretty_version' => 'v2.0.8',
+            'version' => '2.0.8.0',
+            'reference' => '2232bde087f3b14d1a96a4984f082855e109cef9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -16,7 +16,7 @@ class OrderAttribution {
 
 	private string $cart_id;
 
-	private array $session = [];
+	private array $session = array();
 
 	private Attribution $attribution;
 
@@ -50,7 +50,6 @@ class OrderAttribution {
 			throw new CantCreateAttribution( 'Empty session data' );
 		}
 
-
 		$this->get_utm();
 
 		if ( ( new AttributionOverridesConfig() )->is_enabled() ) {
@@ -82,7 +81,6 @@ class OrderAttribution {
 
 			if ( $sbjs_current['typ'] === 'utm' ) {
 
-
 				if ( isset( $sbjs_current['cmp'] ) ) {
 					$this->attribution->set_utm_campaign( $sbjs_current['cmp'] );
 				}
@@ -110,7 +108,6 @@ class OrderAttribution {
 				if ( isset( $sbjs_current['tct'] ) ) {
 					$this->attribution->set_utm_marketing_tactic( $sbjs_current['tct'] );
 				}
-
 			}
 		}
 
@@ -132,7 +129,7 @@ class OrderAttribution {
 			}
 		}
 
-		if ( isset ( $this->session['sbjs_udata'] ) ) {
+		if ( isset( $this->session['sbjs_udata'] ) ) {
 			$sbjs_udata = $this->parse_string_to_array( $this->session['sbjs_udata'] );
 
 			if ( isset( $sbjs_udata['vst'] ) ) {
@@ -142,15 +139,12 @@ class OrderAttribution {
 				$this->attribution->set_user_agent( $sbjs_udata['uag'] );
 			}
 		}
-
-
 	}
 
 	private function override_utm_by_inpost(): void {
 
 		$this->attribution->set_source_type( 'utm' );
 		$this->attribution->set_utm_source( 'InPost Pay' );
-
 
 		$this->attribution->set_utm_campaign( 'API' );
 
@@ -161,18 +155,16 @@ class OrderAttribution {
 		$this->attribution->set_utm_source_platform( '' );
 		$this->attribution->set_utm_creative_format( '' );
 		$this->attribution->set_utm_marketing_tactic( '' );
-
-
 	}
 
 	private function parse_string_to_array( $string ): array {
 		$pairs = explode( '|||', $string );
 
-		$result = [];
+		$result = array();
 
 		foreach ( $pairs as $pair ) {
 			[ $key, $value ] = explode( '=', $pair );
-			$result[ $key ] = ( $value === '(none)' ) ? null : $value;
+			$result[ $key ]  = ( $value === '(none)' ) ? null : $value;
 		}
 
 		return $result;
@@ -183,6 +175,4 @@ class OrderAttribution {
 
 		return $custom_feature === 'yes';
 	}
-
-
 }

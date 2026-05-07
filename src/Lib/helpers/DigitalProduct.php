@@ -15,7 +15,7 @@ class DigitalProduct {
 	 * If there are, we set a flag in the cart session. This flag is used later to determine
 	 * if we should redirect to the Basket or Checkout page.
 	 */
-	public static function handleDigitalProduct() : void {
+	public static function handleDigitalProduct(): void {
 		// Guard: Don't access cart/session if not initialized
 		if ( ! WC()->session || ! WC()->cart ) {
 			return;
@@ -26,7 +26,7 @@ class DigitalProduct {
 		foreach ( WC()->cart->get_cart() as $item ) {
 			$product = $item['data'];
 
-			if ( $product->is_virtual() || $product->is_downloadable() ) {
+			if ( ! $product->needs_shipping() ) {
 				$has_digital = true;
 				break;
 			}
@@ -40,7 +40,7 @@ class DigitalProduct {
 	 *
 	 * @return bool
 	 */
-	public static function basketHasDigitalProduct() : bool {
+	public static function basketHasDigitalProduct(): bool {
 		// Guard: Don't access session if not initialized
 		if ( ! WC()->session ) {
 			return false;
@@ -67,8 +67,8 @@ class DigitalProduct {
 		if ( ! self::basketHasDigitalProduct() ) {
 			return $methods;
 		}
-		$digital_delivery_method                 = new DigitalDelivery();
-		$methods[]                               = $digital_delivery_method;
+		$digital_delivery_method = new DigitalDelivery();
+		$methods[]               = $digital_delivery_method;
 
 		return $methods;
 	}

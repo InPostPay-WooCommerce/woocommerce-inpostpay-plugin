@@ -35,7 +35,7 @@ abstract class AbstractShippingMethodIntegration {
 
 		$this->order->calculate_totals( false );
 		$orderTotal = floatval( $this->order->get_total() );
-		//$orderTotalMinusIziBasketPrice = $orderTotal - $basketPriceGross;
+		// $orderTotalMinusIziBasketPrice = $orderTotal - $basketPriceGross;
 
 		$this->order->update_taxes();
 		$shipping_tax = floatval( $this->order->get_shipping_tax() );
@@ -45,7 +45,7 @@ abstract class AbstractShippingMethodIntegration {
 			$iziTotal      = $callable( $current_total );
 
 			if ( $iziBasketPriceGross > $orderTotal ) {
-				$newTotal = $iziBasketPriceGross - $orderTotal;
+				$newTotal  = $iziBasketPriceGross - $orderTotal;
 				$newTotal += $current_total;
 
 				// 38 - 28
@@ -59,33 +59,30 @@ abstract class AbstractShippingMethodIntegration {
 				if ( $isOrderGroupTaxed ) {
 					$newTotal += $shipping_tax;
 				}
-
-
 			}
 
 			if ( $orderTotal === $iziBasketPriceGross ) {
 				$newTotal = $current_total;
 			}
 
-
 			$newTotalWithoutTax = $newTotal;
 
-
-			//$new_total -= $shipping_tax;
+			// $new_total -= $shipping_tax;
 
 			$shippingItem->set_total( $newTotal );
 			$shippingItem->apply_changes();
 
-			//$basketDeliveryFromCache = json_decode( $basket )->delivery;
+			// $basketDeliveryFromCache = json_decode( $basket )->delivery;
 
-
-			/*if ( 'taxable' !== $shipping_item->get_tax_status() ) {
+			/*
+			if ( 'taxable' !== $shipping_item->get_tax_status() ) {
 				$shipping_item->set_total( (float) $new_total - (float) $shipping_tax );
 				$shipping_item->save();
 			}*/
 		}
 
-		/*if ( $shipping_tax > 0 && $isTaxed ) {
+		/*
+		if ( $shipping_tax > 0 && $isTaxed ) {
 			$this->order->set_shipping_tax( $shipping_tax );
 		} else {
 			$this->order->set_shipping_tax( 0 );
@@ -93,7 +90,7 @@ abstract class AbstractShippingMethodIntegration {
 
 		$this->order->save();
 
-		//$this->order->update_taxes();
+		// $this->order->update_taxes();
 		$this->order->calculate_totals( false );
 		$this->order->save();
 	}

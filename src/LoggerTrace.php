@@ -80,10 +80,10 @@ class LoggerTrace {
 
 		if ( null === $id ) {
 			$id = 'trace_' . substr(
-					md5( __CLASS__ . microtime( true ) . random_bytes( 8 ) ),
-					0,
-					12
-				);
+				md5( __CLASS__ . microtime( true ) . random_bytes( 8 ) ),
+				0,
+				12
+			);
 		}
 
 		return $id;

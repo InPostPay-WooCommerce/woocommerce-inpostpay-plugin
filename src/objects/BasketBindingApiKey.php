@@ -80,8 +80,8 @@ class BasketBindingApiKey {
 
 			if ( $from_repo ) {
 				$this->basket_binding_api_key = $from_repo;
-//			} else {
-//				Logger::log( "[BasketBindingApiKey] No binding found for cart_id={$cart_id}, will obtain on next get()" );
+				// } else {
+				// Logger::log( "[BasketBindingApiKey] No binding found for cart_id={$cart_id}, will obtain on next get()" );
 			}
 		}
 	}
@@ -146,7 +146,7 @@ class BasketBindingApiKey {
 			return null;
 		}
 
-//		Logger::log( '[BasketBindingApiKey] Obtaining new basket_binding_api_key' );
+		// Logger::log( '[BasketBindingApiKey] Obtaining new basket_binding_api_key' );
 
 		try {
 			$remote   = new Remote();

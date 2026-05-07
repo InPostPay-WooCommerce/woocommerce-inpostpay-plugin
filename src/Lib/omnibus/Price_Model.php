@@ -47,19 +47,19 @@ class Price_Model {
 		bool $is_sale_price,
 		int $is_purchasable
 	) {
-		$this->price     = $price_net;
-		$this->date_time = $date_time;
+		$this->price          = $price_net;
+		$this->date_time      = $date_time;
 		$this->is_on_sale     = $is_sale_price;
 		$this->is_purchasable = $is_purchasable;
 	}
 
 	public function to_array(): array {
-		return [
+		return array(
 			self::ARRAY_PRICE_KEY_0          => $this->price,
 			self::ARRAY_DATETIME_KEY_1       => $this->date_time->format( 'Y-m-d H:i:s' ),
 			self::ARRAY_IS_ON_SALE_KEY_2     => $this->is_on_sale,
 			self::ARRAY_IS_PURCHASABLE_KEY_3 => $this->is_purchasable,
-		];
+		);
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Price_Model {
 
 	public function is_purchasable_status_unknown(): bool {
 		return ( $this->is_purchasable !== self::IS_PURCHASABLE_TRUE
-		         && $this->is_purchasable !== self::IS_PURCHASABLE_FALSE
+				&& $this->is_purchasable !== self::IS_PURCHASABLE_FALSE
 		);
 	}
 }

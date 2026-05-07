@@ -23,7 +23,7 @@ class CurcyCurrencyProvider implements CurrencyProviderInterface {
 		$general = get_option( 'wmc_general' );
 
 		if ( is_array( $general ) ) {
-			$currencies = [];
+			$currencies = array();
 
 			if ( ! empty( $general['default_currency'] ) ) {
 				$currencies[] = strtoupper( $general['default_currency'] );
@@ -38,7 +38,7 @@ class CurcyCurrencyProvider implements CurrencyProviderInterface {
 			return array_unique( $currencies );
 		}
 
-		return [ get_woocommerce_currency() ];
+		return array( get_woocommerce_currency() );
 	}
 
 	public function getDefaultCurrency(): ?string {
@@ -63,5 +63,4 @@ class CurcyCurrencyProvider implements CurrencyProviderInterface {
 
 		return get_woocommerce_currency();
 	}
-
 }

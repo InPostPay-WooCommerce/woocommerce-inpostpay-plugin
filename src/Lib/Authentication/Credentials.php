@@ -32,6 +32,4 @@ class Credentials {
 	public function set_phone_number( ?string $phone_number ): void {
 		$this->phone_number = $phone_number;
 	}
-
-
 }

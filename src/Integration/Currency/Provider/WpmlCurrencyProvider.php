@@ -32,16 +32,16 @@ class WpmlCurrencyProvider implements CurrencyProviderInterface {
 
 	public function getAvailableCurrencies(): array {
 		if ( ! $this->isActive() ) {
-			return [];
+			return array();
 		}
 
 		global $woocommerce_wpml;
 
 		if ( isset( $woocommerce_wpml->multi_currency ) ) {
-			return array_keys( $woocommerce_wpml->multi_currency->get_currency_codes() ?? [] );
+			return array_keys( $woocommerce_wpml->multi_currency->get_currency_codes() ?? array() );
 		}
 
-		return [];
+		return array();
 	}
 
 	public function getDefaultCurrency(): ?string {

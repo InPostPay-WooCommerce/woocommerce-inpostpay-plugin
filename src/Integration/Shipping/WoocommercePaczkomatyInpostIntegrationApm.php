@@ -5,8 +5,7 @@ namespace Ilabs\Inpost_Pay\Integration\Shipping;
 /**
  * @desc WP_Desk
  */
-class WoocommercePaczkomatyInpostIntegrationApm extends AbstractShippingMethodIntegration
-	implements ParcelLockerIntegrationInterface, ShippingMethodIntegrationInterface {
+class WoocommercePaczkomatyInpostIntegrationApm extends AbstractShippingMethodIntegration implements ParcelLockerIntegrationInterface, ShippingMethodIntegrationInterface {
 
 	const FORM_FIELD_PARCEL_LOCKER_ID = 'paczkomat_id';
 

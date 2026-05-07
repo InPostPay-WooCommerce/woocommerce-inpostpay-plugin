@@ -19,7 +19,7 @@ class AccountInfoMapper {
 	}
 
 	public function map(): AccountInfo {
-		$data = [];
+		$data = array();
 		try {
 			$data = unserialize( get_post_meta( $this->originalOrderId, 'inpost_account_info', true ) );
 			if ( empty( $data ) || empty( $data->phone_number ) ) {
@@ -85,5 +85,4 @@ class AccountInfoMapper {
 
 		return $clientAddress;
 	}
-
 }

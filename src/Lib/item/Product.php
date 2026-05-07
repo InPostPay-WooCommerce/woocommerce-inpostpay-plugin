@@ -8,8 +8,8 @@ use Ilabs\Inpost_Pay\Lib\helpers\JsonSerializationHelper;
 use Ilabs\Inpost_Pay\Lib\interfaces\ProductInterface;
 use JsonSerializable;
 
-class Product extends AbstractProduct implements ProductInterface, JsonSerializable
-{
+class Product extends AbstractProduct implements ProductInterface, JsonSerializable {
+
 	use JsonSerializationHelper;
 
 	protected ?array $delivery_product;

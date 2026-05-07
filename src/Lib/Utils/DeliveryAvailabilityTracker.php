@@ -26,7 +26,7 @@ class DeliveryAvailabilityTracker {
 	 *
 	 * @var array
 	 */
-	private array $decisions = [];
+	private array $decisions = array();
 
 	/**
 	 * Whether this is a related product check
@@ -46,7 +46,7 @@ class DeliveryAvailabilityTracker {
 	 * Constructor
 	 *
 	 * @param \WC_Product $product Product to track
-	 * @param bool $is_related_product Whether this is a related product
+	 * @param bool        $is_related_product Whether this is a related product
 	 */
 	public function __construct( \WC_Product $product, bool $is_related_product = false ) {
 		$this->product            = $product;
@@ -58,9 +58,9 @@ class DeliveryAvailabilityTracker {
 	 *
 	 * @param string $checkpoint Decision checkpoint name
 	 * @param string $delivery_type Delivery type (APM/COURIER)
-	 * @param bool $is_available Whether delivery is available
+	 * @param bool   $is_available Whether delivery is available
 	 * @param string $reason Reason for the decision
-	 * @param array $context Additional context data
+	 * @param array  $context Additional context data
 	 *
 	 * @return void
 	 */
@@ -69,16 +69,16 @@ class DeliveryAvailabilityTracker {
 		string $delivery_type,
 		bool $is_available,
 		string $reason,
-		array $context = []
+		array $context = array()
 	): void {
-		$this->decisions[] = [
-			'checkpoint'     => $checkpoint,
-			'delivery_type'  => $delivery_type,
-			'is_available'   => $is_available,
-			'reason'         => $reason,
-			'context'        => $context,
-			'timestamp'      => microtime( true ),
-		];
+		$this->decisions[] = array(
+			'checkpoint'    => $checkpoint,
+			'delivery_type' => $delivery_type,
+			'is_available'  => $is_available,
+			'reason'        => $reason,
+			'context'       => $context,
+			'timestamp'     => microtime( true ),
+		);
 	}
 
 	/**
@@ -86,19 +86,19 @@ class DeliveryAvailabilityTracker {
 	 *
 	 * @param string $checkpoint Decision checkpoint name
 	 * @param string $reason Reason for the decision
-	 * @param array $context Additional context data
+	 * @param array  $context Additional context data
 	 *
 	 * @return void
 	 */
-	public function add_global_decision( string $checkpoint, string $reason, array $context = [] ): void {
-		$this->decisions[] = [
-			'checkpoint'     => $checkpoint,
-			'delivery_type'  => 'ALL',
-			'is_available'   => null,
-			'reason'         => $reason,
-			'context'        => $context,
-			'timestamp'      => microtime( true ),
-		];
+	public function add_global_decision( string $checkpoint, string $reason, array $context = array() ): void {
+		$this->decisions[] = array(
+			'checkpoint'    => $checkpoint,
+			'delivery_type' => 'ALL',
+			'is_available'  => null,
+			'reason'        => $reason,
+			'context'       => $context,
+			'timestamp'     => microtime( true ),
+		);
 	}
 
 	/**
@@ -118,21 +118,27 @@ class DeliveryAvailabilityTracker {
 	 * @return array Summary data
 	 */
 	private function generate_summary(): array {
-		$summary = [
+		$summary = array(
 			'product_id'           => $this->product->get_id(),
 			'product_name'         => $this->product->get_name(),
 			'is_related_product'   => $this->is_related_product,
 			'total_checkpoints'    => count( $this->decisions ),
 			'final_result'         => $this->final_result,
-			'availability_summary' => [],
-			'decisions_timeline'   => [],
-		];
+			'availability_summary' => array(),
+			'decisions_timeline'   => array(),
+		);
 
 		// Group decisions by delivery type
-		$by_type = [
-			'APM'     => [ 'available' => true, 'reasons' => [] ],
-			'COURIER' => [ 'available' => true, 'reasons' => [] ],
-		];
+		$by_type = array(
+			'APM'     => array(
+				'available' => true,
+				'reasons'   => array(),
+			),
+			'COURIER' => array(
+				'available' => true,
+				'reasons'   => array(),
+			),
+		);
 
 		foreach ( $this->decisions as $decision ) {
 			$type = $decision['delivery_type'];
@@ -177,21 +183,25 @@ class DeliveryAvailabilityTracker {
 
 		$summary = $this->generate_summary();
 
-		Logger::log( sprintf(
-			'[DELIVERY_TRACKER] Product: %s (ID: %d)',
-			$summary['product_name'],
-			$summary['product_id']
-		) );
+		Logger::log(
+			sprintf(
+				'[DELIVERY_TRACKER] Product: %s (ID: %d)',
+				$summary['product_name'],
+				$summary['product_id']
+			)
+		);
 
 		// Log availability summary
 		foreach ( $summary['availability_summary'] as $type => $data ) {
 			if ( $data['available'] ) {
 				Logger::log( sprintf( '[DELIVERY_TRACKER] %s: [OK] AVAILABLE', $type ) );
 			} else {
-				Logger::log( sprintf(
-					'[DELIVERY_TRACKER] %s: [NOK] UNAVAILABLE - Reasons:',
-					$type
-				) );
+				Logger::log(
+					sprintf(
+						'[DELIVERY_TRACKER] %s: [NOK] UNAVAILABLE - Reasons:',
+						$type
+					)
+				);
 				foreach ( $data['reasons'] as $reason ) {
 					Logger::log( sprintf( '[DELIVERY_TRACKER]   • %s', $reason ) );
 				}

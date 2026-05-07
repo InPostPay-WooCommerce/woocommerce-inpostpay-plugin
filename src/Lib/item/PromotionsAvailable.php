@@ -16,7 +16,7 @@ class PromotionsAvailable extends Item {
 	public string $description;
 	public string $start_date;
 	public string $end_date;
-//	public int $priority = 0;
+	// public int $priority = 0;
 	public PromotionsAvailableDetails $details;
 
 	public function __construct() {

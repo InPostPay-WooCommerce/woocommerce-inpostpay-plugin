@@ -22,14 +22,13 @@ abstract class AbstractFormField extends AbstractConfig implements FormFieldInte
 		if ( $configOptions ) {
 			$this->set_config( $configOptions );
 		}
-
 	}
 
 	/**
 	 * @throws NotFoundConfigOptionException
 	 */
 	public function print_label(): void {
-		echo sprintf(
+		printf(
 			'<label for="%s" class="%s">%s</label>',
 			$this->get_config_option( 'name' )->get_value(),
 			$this->get_config_option( 'label_class' )->get_value(),
@@ -41,7 +40,7 @@ abstract class AbstractFormField extends AbstractConfig implements FormFieldInte
 	 * @throws NotFoundConfigOptionException
 	 */
 	public function print_label_text(): void {
-		echo __($this->get_config_option( 'label' )->get_value(), 'inpost-pay');
+		echo __( $this->get_config_option( 'label' )->get_value(), 'inpost-pay' );
 	}
 
 	/**
@@ -50,5 +49,4 @@ abstract class AbstractFormField extends AbstractConfig implements FormFieldInte
 	public function get_label_name(): string {
 		return $this->get_config_option( 'name' )->get_value();
 	}
-
 }

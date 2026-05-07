@@ -7,27 +7,27 @@ use WP_REST_Request;
 
 class Categories extends Admin {
 
-	protected function describe() {
+	protected function describe(): void {
 		$this->get['/inpost/v1/izi/product/categories'] = function ( WP_REST_Request $request ) {
-			$args = [
+			$args = array(
 				'taxonomy'   => 'product_cat',
 				'hide_empty' => false,
 				'orderby'    => $request->get_param( 'orderby' ) ?: 'name',
 				'order'      => $request->get_param( 'order' ) ?: 'ASC',
-			];
+			);
 
 			$categories = get_terms( $args );
 			if ( is_wp_error( $categories ) ) {
-				return rest_ensure_response( [ 'error' => 'Błąd pobierania kategorii' ] );
+				return rest_ensure_response( array( 'error' => 'Błąd pobierania kategorii' ) );
 			}
 
-			$response = [];
+			$response = array();
 			foreach ( $categories as $category ) {
-				$response[] = [
+				$response[] = array(
 					'id'   => $category->term_id,
 					'name' => $category->name,
 					'slug' => $category->slug,
-				];
+				);
 
 			}
 

@@ -12,11 +12,12 @@ use Ilabs\Inpost_Pay\WooCommerce\Price\BasketPriceCalculator;
 use Ilabs\Inpost_Pay\WooCommerce\Price\OmnibusPrice;
 use WC_Product;
 use function Ilabs\Inpost_Pay\inpost_pay_container;
+use function Ilabs\Inpost_Pay\inpost_pay;
 
 class ProductMapper {
 	private BasketPriceCalculator $price_calculator;
 	private CartValidator $cart_validator;
-	private array $relatedProductIds = [];
+	private array $relatedProductIds = array();
 
 	public function __construct(
 		BasketPriceCalculator $price_calculator,
@@ -35,7 +36,7 @@ class ProductMapper {
 	 */
 	public function mapProducts( array $cartContents ): array {
 		if ( empty( $cartContents ) ) {
-			return [];
+			return array();
 		}
 
 		$mappedProducts = $this->mapValidCartProducts( $cartContents );
@@ -52,7 +53,7 @@ class ProductMapper {
 	 * @return array The mapped products
 	 */
 	private function mapValidCartProducts( array $cartContents ): array {
-		$mappedProducts = [];
+		$mappedProducts = array();
 
 		foreach ( $cartContents as $cartItem ) {
 			if ( $this->cart_validator->canAddProduct( $cartItem ) ) {
@@ -74,7 +75,7 @@ class ProductMapper {
 		/** @var WC_Product $wcProduct */
 		$wcProduct                = $cartContent['data'];
 		$basketProductTransformer = new BasketProductTransformer( $wcProduct, $cartContent );
-		$product                  = $basketProductTransformer->mapProductData();
+		$product                  = $basketProductTransformer->map_product_data();
 
 		// Collect related product IDs
 		$this->collectRelatedProductIds( $wcProduct );
@@ -82,12 +83,11 @@ class ProductMapper {
 		// Set variation ID
 		$variationId = $this->determineVariationId( $wcProduct, $cartContent );
 
-
 		// Set quantity and prices
-		$product->set_quantity( $basketProductTransformer->readQuantity( $variationId ) );
+		$product->set_quantity( $basketProductTransformer->read_quantity( $variationId ) );
 
-		$basePrice  = $basketProductTransformer->readCartProductBasePrice();
-		$promoPrice = $basketProductTransformer->readCartProductPromoPrice();
+		$basePrice  = $basketProductTransformer->read_cart_product_base_price();
+		$promoPrice = $basketProductTransformer->read_cart_product_promo_price();
 
 		Logger::log( 'BasePriceObject: ' . var_export( $basePrice, true ) );
 		Logger::log( 'PromoPriceObject: ' . var_export( $promoPrice, true ) );
@@ -113,7 +113,7 @@ class ProductMapper {
 	 * Determines the variation ID for a product
 	 *
 	 * @param WC_Product $product The WooCommerce product
-	 * @param array $cartContent The cart content data
+	 * @param array      $cartContent The cart content data
 	 *
 	 * @return int|null The variation ID or null if not applicable
 	 */
@@ -133,8 +133,8 @@ class ProductMapper {
 	 * Adds delivery product to the product if available
 	 *
 	 * @param ProductInterface $product The product to update
-	 * @param WC_Product $wcProduct The WooCommerce product
-	 * @param array $cartContent The cart content data
+	 * @param WC_Product       $wcProduct The WooCommerce product
+	 * @param array            $cartContent The cart content data
 	 */
 	private function addDeliveryProduct( ProductInterface $product, WC_Product $wcProduct, array $cartContent ): void {
 		$deliveryProduct = ProductDeliveryChecker::get_delivery_options(
@@ -152,7 +152,7 @@ class ProductMapper {
 	 * Adds omnibus price information to the product if applicable
 	 *
 	 * @param ProductInterface $product The product to update
-	 * @param array $cartContent The cart content data
+	 * @param array            $cartContent The cart content data
 	 */
 	private function addOmnibusPrice( ProductInterface $product, array $cartContent ): void {
 		$omnibusPrice    = new OmnibusPrice();

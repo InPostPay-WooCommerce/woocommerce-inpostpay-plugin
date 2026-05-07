@@ -15,8 +15,7 @@ class SmartCompositeCartItemFilter extends AbstractCartItemFilter implements Car
 		return true;
 	}
 
-	public function resolveParentBundleProductId( array $cartItemContent
-	): ?int {
+	public function resolveParentBundleProductId( array $cartItemContent ): ?int {
 		if ( isset( $cartItemContent['wooco_parent_id'] ) && (int) $cartItemContent['wooco_parent_id'] > 0 ) {
 
 			return (int) $cartItemContent['wooco_parent_id'];

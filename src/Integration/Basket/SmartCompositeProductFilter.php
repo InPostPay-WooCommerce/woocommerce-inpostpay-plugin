@@ -12,7 +12,7 @@ class SmartCompositeProductFilter implements ProductFilterInterface {
 		WC_Product $product
 	): bool {
 
-		//todo add checking for this plugin
+		// todo add checking for this plugin
 
 		return false;
 	}

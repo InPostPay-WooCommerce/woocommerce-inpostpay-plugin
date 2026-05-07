@@ -9,12 +9,12 @@ use Ilabs\Inpost_Pay\Logger;
 class BasketPriceCalculator {
 	public static bool $totalsCalculatedInThisRequest = false;
 
-	private float $basketBasePriceNet = 0.0;
-	private float $basketBasePriceGross = 0.0;
-	private float $basketBasePriceVat = 0.0;
-	private float $basketPromoPriceNet = 0.0;
+	private float $basketBasePriceNet    = 0.0;
+	private float $basketBasePriceGross  = 0.0;
+	private float $basketBasePriceVat    = 0.0;
+	private float $basketPromoPriceNet   = 0.0;
 	private float $basketPromoPriceGross = 0.0;
-	private float $basketPromoPriceVat = 0.0;
+	private float $basketPromoPriceVat   = 0.0;
 
 	/**
 	 * Accumulates product prices into basket totals

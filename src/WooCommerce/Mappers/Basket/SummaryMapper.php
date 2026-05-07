@@ -14,7 +14,7 @@ use Ilabs\Inpost_Pay\Lib\item\Summary;
 class SummaryMapper {
 	private BasketPriceCalculator $priceCalculator;
 
-	public function __construct(BasketPriceCalculator $priceCalculator) {
+	public function __construct( BasketPriceCalculator $priceCalculator ) {
 		$this->priceCalculator = $priceCalculator;
 	}
 
@@ -37,15 +37,15 @@ class SummaryMapper {
 		// Add notice if coupons are applied
 		if ( WooCommerceBasket::$hasCoupons ) {
 			if ( WooCommerceBasket::$couponError ) {
-				$summary->basket_notice = [
+				$summary->basket_notice = array(
 					'type'        => 'ERROR',
 					'description' => 'Kod jest nieaktywny lub nieprawidłowy',
-				];
+				);
 			} else {
-				$summary->basket_notice = [
+				$summary->basket_notice = array(
 					'type'        => 'ATTENTION',
 					'description' => 'Kod został aktywowany',
-				];
+				);
 			}
 		}
 
@@ -67,7 +67,7 @@ class SummaryMapper {
 	 * @return array The payment type options
 	 */
 	public function readPaymentType(): array {
-		$methods = [];
+		$methods = array();
 
 		if ( (int) esc_attr( get_option( 'izi_payment_aion', 1 ) ) ) {
 			$methods = ( new PaymentMethodsOptions() )->get_payment_methods();

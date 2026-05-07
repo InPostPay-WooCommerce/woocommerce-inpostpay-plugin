@@ -68,10 +68,10 @@ class OrderDetailsMapper {
 		$orderDetails->set_order_final_price(
 			$this->readSummaryOrderFinalPrice(
 				$summary_order_promo_price,
-				[
+				array(
 					'delivery_price'   => $delivery_price,
 					'delivery_options' => $delivery_options,
-				]
+				)
 			)
 		);
 
@@ -80,7 +80,7 @@ class OrderDetailsMapper {
 		);
 
 		$orderDetails->set_basket_id( $basket_id );
-		$orderDetails->set_delivery_references_list( [ $trackingNumber ] );
+		$orderDetails->set_delivery_references_list( array( $trackingNumber ) );
 		$orderDetails->set_currency( $this->order->get_currency() );
 		$orderDetails->set_payment_type( $this->readPaymentType() );
 		$orderDetails->set_order_additional_parameters( $this->mapOrderAdditionalParameters() );
@@ -95,21 +95,25 @@ class OrderDetailsMapper {
 	private function readSummaryOrderPromoPrice(): Price {
 		$price = new Price();
 
-		$price->set_gross( number_format(
-			$this->order->get_total() - $this->order->get_shipping_total() - $this->order->get_shipping_tax(),
-			2,
-			'.',
-			''
-		) );
+		$price->set_gross(
+			number_format(
+				$this->order->get_total() - $this->order->get_shipping_total() - $this->order->get_shipping_tax(),
+				2,
+				'.',
+				''
+			)
+		);
 		$price->set_net(
 			$this->order->get_total() - $this->order->get_total_tax() - $this->order->get_shipping_total()
 		);
-		$price->set_vat( number_format(
-			$this->order->get_total_tax() - $this->order->get_shipping_tax(),
-			2,
-			'.',
-			''
-		) );
+		$price->set_vat(
+			number_format(
+				$this->order->get_total_tax() - $this->order->get_shipping_tax(),
+				2,
+				'.',
+				''
+			)
+		);
 
 		return $price;
 	}
@@ -117,7 +121,7 @@ class OrderDetailsMapper {
 	private function readSummaryOrderFinalPrice( Price $order_base_price, array $delivery_data ): Price {
 		$price = new Price();
 
-		$delivery_price = $delivery_data['delivery_price'] ?? [];
+		$delivery_price = $delivery_data['delivery_price'] ?? array();
 
 		$gross = (float) $order_base_price->get_gross() + (float) ( $delivery_price['gross'] ?? 0 );
 		$net   = (float) $order_base_price->get_net() + (float) ( $delivery_price['net'] ?? 0 );
@@ -154,7 +158,7 @@ class OrderDetailsMapper {
 	}
 
 	private function mapOrderAdditionalParameters(): array {
-		$order_additional_parameters = [];
+		$order_additional_parameters  = array();
 		$order_additional_parameters += ( new Analytics() )->get_as_order_additional_parameters( $this->order );
 
 		return $order_additional_parameters;
@@ -189,5 +193,4 @@ class OrderDetailsMapper {
 
 		return $order_alias_entity ? $order_alias_entity->get_order_id() : (int) $order_id;
 	}
-
 }

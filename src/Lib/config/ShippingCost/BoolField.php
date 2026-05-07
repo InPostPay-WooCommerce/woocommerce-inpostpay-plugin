@@ -34,13 +34,15 @@ final class BoolField extends AbstractOption {
 	}
 
 	public function init(): void {
-		parent::register( [
-			'type'    => 'bool',
-			'default' => $this->default,
-		] );
+		parent::register(
+			array(
+				'type'    => 'bool',
+				'default' => $this->default,
+			)
+		);
 	}
 
-	public function get_label(): string {//
+	public function get_label(): string {
 		return $this->label;
 	}
 
@@ -51,15 +53,15 @@ final class BoolField extends AbstractOption {
 	public function get_form_field(): FormFieldInterface {
 
 		return new Select(
-			[],
-			[ $this->get() ],
-			[
+			array(),
+			array( $this->get() ),
+			array(
 				'label'        => $this->get_label(),
 				'name'         => $this->get_field_name(),
 				'label_class'  => 'label-gray',
 				'multiple'     => false,
 				'value_as_key' => true,
-			]
+			)
 		);
 	}
 }

@@ -159,6 +159,15 @@ class CartSessionService implements CartSessionInterface {
 
 		$this->repository->save( $entity );
 		$this->entity_cache[ $cart_id ] = $entity;
+
+		Logger::log(
+			sprintf(
+				'[DIAG][P3] store_current basket_id=%s expiry=%s (%s)',
+				$cart_id,
+				$entity->get_session_expiry(),
+				gmdate( 'Y-m-d H:i:s', $entity->get_session_expiry() )
+			)
+		);
 	}
 
 	/**
@@ -406,7 +415,7 @@ class CartSessionService implements CartSessionInterface {
 	 *
 	 * @return void
 	 */
-	//TODO: Add param for set customer session cookie
+	// TODO: Add param for set customer session cookie
 	public function initiate_wc_cart(): void {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			return;
