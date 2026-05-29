@@ -5,6 +5,8 @@
  * @package Ilabs\Inpost_Pay\Lib\config\payment
  */
 
+declare( strict_types=1 );
+
 namespace Ilabs\Inpost_Pay\Lib\config\payment;
 
 use Ilabs\Inpost_Pay\EntityLayer\Cache\PersistentCache;

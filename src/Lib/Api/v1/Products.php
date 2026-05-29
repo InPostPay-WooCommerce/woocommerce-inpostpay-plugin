@@ -3,10 +3,9 @@
 namespace Ilabs\Inpost_Pay\Lib\Api\v1;
 
 use Ilabs\Inpost_Pay\Lib\Connection;
+use Ilabs\Inpost_Pay\Lib\helpers\WooProductHelper;
 use Ilabs\Inpost_Pay\Lib\item\HotProducts;
 use Ilabs\Inpost_Pay\Lib\Transformers\HotProductTransformer;
-use Ilabs\Inpost_Pay\Logger;
-use Ilabs\Inpost_Pay\Lib\helpers\WooProductHelper;
 use JsonException;
 use RuntimeException;
 use WC_Product;
@@ -148,11 +147,11 @@ class Products extends Connection {
 	 * @param bool       $with_gallery Whether to include gallery images.
 	 * @param array      $gallery_ids Array of gallery image IDs.
 	 *
-	 * @return object v1/izi/product/{product_id} response.
+	 * @return ?object v1/izi/product/{product_id} response, or null on failure.
 	 * @throws RuntimeException If product is not found.
 	 * @throws JsonException
 	 */
-	public function put( WC_Product $product, bool $with_gallery = false, array $gallery_ids = array() ): object {
+	public function put( WC_Product $product, bool $with_gallery = false, array $gallery_ids = array() ): ?object {
 
 		if ( $with_gallery ) {
 			$global_main_image_only_raw = get_option( 'izi_main_image_only', false );

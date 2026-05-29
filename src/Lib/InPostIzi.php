@@ -447,9 +447,9 @@ class InPostIzi {
 		}
 
 		if ( $is_elementor ) {
-			$variation_css .= ' ' . ( new WidgetV2SizeConfig() )->getArrayAsString();
+			$variation_css .= ' ' . ( new WidgetV2SizeConfig() )->get_array_as_string();
 		} else {
-			$variation_css .= ' ' . ( new WidgetV2SizeConfig() )->getArrayAsString();
+			$variation_css .= ' ' . ( new WidgetV2SizeConfig() )->get_array_as_string();
 		}
 
 		$binding_place_attr = esc_attr( $binding_place );

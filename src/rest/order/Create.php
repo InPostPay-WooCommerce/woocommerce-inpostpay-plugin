@@ -75,7 +75,35 @@ class Create extends Base {
 			$this->check_signature( $request );
 			AdminOrderUpdate::$block = true;
 			$data                    = $request->get_body();
-			$response_raw            = $this->handleRequest( $data );
+
+			$rogue_buffer_enabled = (bool) get_option( 'izi_rogue_output_buffer_enabled', false );
+			$buffer_level         = ob_get_level();
+
+			if ( $rogue_buffer_enabled ) {
+				ob_start();
+			}
+
+			try {
+				$response_raw = $this->handleRequest( $data );
+			} finally {
+				if ( $rogue_buffer_enabled ) {
+					$unexpected_output = '';
+
+					while ( ob_get_level() > $buffer_level ) {
+						$buffer_content = ob_get_clean();
+
+						if ( is_string( $buffer_content ) ) {
+							$unexpected_output = $buffer_content . $unexpected_output;
+						}
+					}
+
+					if ( '' !== trim( $unexpected_output ) ) {
+						Logger::log(
+							'Unexpected output detected during /inpost/v1/izi/order: ' . mb_substr( $unexpected_output, 0, 2000 )
+						);
+					}
+				}
+			}
 
 			// if some unexpected error is occured in line 138 - set response code 409.
 			if ( is_wp_error( $response_raw ) || ! empty( $response_raw['error'] ) ) {
@@ -569,8 +597,7 @@ class Create extends Base {
 							$shipping_item->save();
 						}
 					} else {
-						Logger::log( '[ORDER TAX] No tax rate matched – fallback to gross value' );
-						$shipping_item->set_total( $custom_shipping_cost_gross );
+						Logger::log( '[ORDER TAX] No tax rate matched – fallback, leaving net value, calculate_taxes() will handle VAT' );
 						$shipping_item->save();
 					}
 				}
@@ -694,7 +721,7 @@ class Create extends Base {
 			// Logger::log( '[CREATE_ORDER] delivery codes: ' . implode( ',', $delivery_codes ) );
 		}
 
-		$base_group = $shipping_cost_settings->findGroup( $data->delivery->delivery_type );
+		$base_group = $shipping_cost_settings->find_group( $data->delivery->delivery_type );
 		// Logger::log( '[CREATE_ORDER] base_group resolved: ' . var_export( $base_group, true ) );
 
 		$option_sub_groups = array();
@@ -706,7 +733,7 @@ class Create extends Base {
 		// Logger::log( '[CREATE_ORDER] deliveryTaxStatuses fetched: ' . var_export( $deliveryTaxStatuses, true ) );
 
 		foreach ( $delivery_codes as $deliveryCode ) {
-			$found = $shipping_cost_settings->findGroup( $data->delivery->delivery_type, $deliveryCode );
+			$found = $shipping_cost_settings->find_group( $data->delivery->delivery_type, $deliveryCode );
 			if ( $found ) {
 				$option_sub_groups[] = $found;
 				// Logger::log( '[CREATE_ORDER] option group added for code=' . $deliveryCode . ' -> ' . var_export( $found, true ) );
@@ -740,7 +767,7 @@ class Create extends Base {
 			);
 			// Logger::log( '[CREATE_ORDER] delivery_cost mapped: ' . var_export( $delivery_cost, true ) );
 
-			$delivery_method = esc_attr( $order_group->getShippingMethodField()->get() );
+			$delivery_method = esc_attr( $order_group->get_shipping_method_field()->get() );
 			// Logger::log( '[CREATE_ORDER] delivery_method = ' . $delivery_method );
 
 			$parcelMachineId = property_exists( $data->delivery, 'delivery_point' )
@@ -782,12 +809,12 @@ class Create extends Base {
 		array $selectedDeliveryCodes,
 		GroupInterface $orderGroup
 	): array {
-		$baseGroupIsOrderGroup = $baseGroup->getGroupId() === $orderGroup->getGroupId();
+		$baseGroupIsOrderGroup = $baseGroup->get_group_id() === $orderGroup->get_group_id();
 		$result                = array();
 		$baseTotal             = array();
 
 		foreach ( $basketDelivery as $basketDeliveryStdClass ) {
-			if ( $basketDeliveryStdClass->delivery_type === $baseGroup->getDeliveryTypeCode() ) {
+			if ( $basketDeliveryStdClass->delivery_type === $baseGroup->get_delivery_type_code() ) {
 				$baseTotal = array(
 					'net'      => $basketDeliveryStdClass->delivery_price->net,
 					'full_net' => $basketDeliveryStdClass->delivery_price->full_net,
@@ -978,8 +1005,8 @@ class Create extends Base {
 	): array {
 		$delivery_options = $delivery_cost['delivery_options'];
 
-		$order_group_id = $order_group->getGroupId();
-		$base_group_id  = $base_group->getGroupId();
+		$order_group_id = $order_group->get_group_id();
+		$base_group_id  = $base_group->get_group_id();
 
 		$has_order_group_tax_info = array_key_exists( $order_group_id, $delivery_tax_statuses );
 		$has_base_group_tax_info  = array_key_exists( $base_group_id, $delivery_tax_statuses );
@@ -1078,9 +1105,10 @@ class Create extends Base {
 	 * @return int|null Matching shipping tax rate ID or null if not found.
 	 */
 	private function get_matching_shipping_tax_rate_id( string $country, string $state = '', float $vat_rate = 23.0 ): ?int {
-		$tax_class = get_option( 'woocommerce_shipping_tax_class' );
+		$tax_class  = get_option( 'woocommerce_shipping_tax_class' );
+		$is_inherit = 'inherit' === $tax_class;
 
-		if ( 'inherit' === $tax_class ) {
+		if ( $is_inherit ) {
 			$tax_class = '';
 		}
 
@@ -1092,23 +1120,20 @@ class Create extends Base {
 		$best_match_id  = null;
 		$smallest_delta = null;
 
-		foreach ( $rates as $rate_id => $rate ) {
-			if ( is_object( $rate ) ) {
-				$rate = (array) $rate;
-			}
+		$match_result = $this->match_best_shipping_tax_rate( $rates, $country, $state, $vat_rate, $tolerance, $best_match_id, $smallest_delta );
+		$best_match_id = $match_result['best_match_id'];
+		$smallest_delta = $match_result['smallest_delta'];
 
-			if (
-				( '' === $rate['tax_rate_country'] || strtoupper( $rate['tax_rate_country'] ) === strtoupper( $country ) ) &&
-				( '' === $state || '' === $rate['tax_rate_state'] || strtoupper( $rate['tax_rate_state'] ) === strtoupper( $state ) ) &&
-				1 === (int) $rate['tax_rate_shipping']
-			) {
-				$rate_value = (float) $rate['tax_rate'];
-				$delta      = abs( $rate_value - $vat_rate );
+		// When shipping tax class is set to "inherit" and no match found in standard class,
+		// search additional tax classes - the applicable rate may be in a non-standard class
+		// (e.g. 5% class for books stores).
+		if ( null === $best_match_id && $is_inherit ) {
+			foreach ( WC_Tax::get_tax_class_slugs() as $extra_class ) {
+				$extra_rates = WC_Tax::get_rates_for_tax_class( $extra_class );
 
-				if ( $delta <= $tolerance && ( null === $smallest_delta || $delta < $smallest_delta ) ) {
-					$best_match_id  = (int) $rate_id;
-					$smallest_delta = $delta;
-				}
+				$match_result   = $this->match_best_shipping_tax_rate( $extra_rates, $country, $state, $vat_rate, $tolerance, $best_match_id, $smallest_delta );
+				$best_match_id  = $match_result['best_match_id'];
+				$smallest_delta = $match_result['smallest_delta'];
 			}
 		}
 
@@ -1117,6 +1142,53 @@ class Create extends Base {
 		return $best_match_id;
 	}
 
+	/**
+	 * Match the closest shipping tax rate against expected VAT value.
+	 *
+	 * @param array      $rates Tax rates to scan.
+	 * @param string     $country Country code.
+	 * @param string     $state State code.
+	 * @param float      $vat_rate Expected VAT value.
+	 * @param float      $tolerance Allowed VAT tolerance.
+	 * @param int|null   $best_match_id Current best matched rate ID.
+	 * @param float|null $smallest_delta Current smallest VAT delta.
+	 *
+	 * @return array{best_match_id:int|null,smallest_delta:float|null}
+	 */
+	private function match_best_shipping_tax_rate(
+		array $rates,
+		string $country,
+		string $state,
+		float $vat_rate,
+		float $tolerance,
+		?int $best_match_id,
+		?float $smallest_delta
+	): array {
+		foreach ( $rates as $rate_id => $rate ) {
+			if ( is_object( $rate ) ) {
+				$rate = (array) $rate;
+			}
+
+			if (
+				1 === (int) $rate['tax_rate_shipping'] &&
+				( '' === $state || '' === $rate['tax_rate_state'] || strtoupper( $rate['tax_rate_state'] ) === strtoupper( $state ) ) &&
+				( '' === $rate['tax_rate_country'] || strtoupper( $rate['tax_rate_country'] ) === strtoupper( $country ) )
+			) {
+				$rate_value = (float) $rate['tax_rate'];
+				$delta      = (float) abs( $rate_value - $vat_rate );
+
+				if ( $delta <= $tolerance && ( null === $smallest_delta || $delta < $smallest_delta ) ) {
+					$best_match_id  = (int) $rate_id;
+					$smallest_delta = $delta;
+				}
+			}
+		}
+
+		return array(
+			'best_match_id'  => $best_match_id,
+			'smallest_delta' => $smallest_delta,
+		);
+	}
 
 	/**
 	 * Save invoice data to order and return updated billing address
@@ -1210,7 +1282,7 @@ class Create extends Base {
 		} else {
 			$order->update_meta_data(
 				'izi_delivery_type_code',
-				$baseGroup->getDeliveryTypeCode()
+				$baseGroup->get_delivery_type_code()
 			);
 			$order->update_meta_data(
 				'_easypack_send_method',
@@ -1246,7 +1318,20 @@ class Create extends Base {
 			$value = esc_attr( get_option( 'izi_event_cod_AUTHORIZED' ) );
 			$order->set_status( $value, 'Zamówienie Inpost Pay' );
 		} else {
-			$order->set_status( 'wc-on-hold', 'Zamówienie Inpost Pay' );
+			$value = esc_attr( get_option( 'izi_initial_order_status' ) );
+			if ( empty( $value ) ) {
+				$available_statuses = wc_get_order_statuses();
+				// Use wc-on-hold if available, otherwise use wc-pending
+				if ( array_key_exists( 'wc-on-hold', $available_statuses ) ) {
+					$value = 'wc-on-hold';
+				} elseif ( array_key_exists( 'wc-pending', $available_statuses ) ) {
+					$value = 'wc-pending';
+				} else {
+					// Fallback to first available status
+					$value = array_key_first( $available_statuses );
+				}
+			}
+			$order->set_status( $value, 'Zamówienie Inpost Pay' );
 		}
 
 		$order->set_customer_note( isset( $data->order_details->order_comments ) ? $data->order_details->order_comments : '' );

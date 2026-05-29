@@ -320,6 +320,7 @@ return array(
     'Ilabs\\Inpost_Pay\\StatusTranslator' => $baseDir . '/src/StatusTranslator.php',
     'Ilabs\\Inpost_Pay\\TokenCache' => $baseDir . '/src/TokenCache.php',
     'Ilabs\\Inpost_Pay\\Type\\ConsentType' => $baseDir . '/src/Type/ConsentType.php',
+    'Ilabs\\Inpost_Pay\\Type\\WooCommerceSessionKeyType' => $baseDir . '/src/Type/WooCommerceSessionKeyType.php',
     'Ilabs\\Inpost_Pay\\UnavailablePage' => $baseDir . '/src/UnavailablePage.php',
     'Ilabs\\Inpost_Pay\\WooCommerce\\Cart\\CartContentManager' => $baseDir . '/src/WooCommerce/Cart/CartContentManager.php',
     'Ilabs\\Inpost_Pay\\WooCommerce\\Cart\\CartValidator' => $baseDir . '/src/WooCommerce/Cart/CartValidator.php',

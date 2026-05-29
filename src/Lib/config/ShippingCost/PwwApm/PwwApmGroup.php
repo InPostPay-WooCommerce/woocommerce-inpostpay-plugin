@@ -1,4 +1,11 @@
 <?php
+/**
+ * PWW APM shipping cost group.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost\PwwApm
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost\PwwApm;
 
@@ -11,98 +18,166 @@ use Ilabs\Inpost_Pay\Lib\config\ShippingCost\GroupInterface;
 use Ilabs\Inpost_Pay\Lib\config\ShippingCost\ShippingMappingFieldInterface;
 use Ilabs\Inpost_Pay\Lib\form\exception\OptionNameRequired;
 
+/**
+ * Class PwwApmGroup
+ *
+ * Shipping cost group for APM delivery with Package on Weekend (PWW) option.
+ */
 class PwwApmGroup extends AbstractGroup implements AvailabilityGroupInterface {
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the available-from day field.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractAvailabilityField
 	 */
-	public function getAvailableFromDayField(): AbstractAvailabilityField {
+	public function get_available_from_day_field(): AbstractAvailabilityField {
 		return PwwApmAvailableFromDay::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the available-from hour field.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractAvailabilityField
 	 */
-	public function getAvailableFromHourField(): AbstractAvailabilityField {
+	public function get_available_from_hour_field(): AbstractAvailabilityField {
 		return PwwApmAvailableFromHour::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the available-to day field.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractAvailabilityField
 	 */
-	public function getAvailableToDayField(): AbstractAvailabilityField {
+	public function get_available_to_day_field(): AbstractAvailabilityField {
 		return PwwApmAvailableToDay::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the available-to hour field.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractAvailabilityField
 	 */
-	public function getAvailableToHourField(): AbstractAvailabilityField {
+	public function get_available_to_hour_field(): AbstractAvailabilityField {
 		return PwwApmAvailableToHour::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the price field for PWW APM.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractPriceField
 	 */
-	public function getPriceField(): AbstractPriceField {
+	public function get_price_field(): AbstractPriceField {
 		return PwwApmPrice::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the shipping method field for PWW APM.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractShippingMethodField
 	 */
-	public function getShippingMethodField(): AbstractShippingMethodField {
+	public function get_shipping_method_field(): AbstractShippingMethodField {
 		return PwwApmShippingMethod::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Registers all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return void
 	 */
-	public function registerGroup(): void {
-		$this->getAvailableFromDayField()->init();
-		$this->getAvailableFromHourField()->init();
-		$this->getAvailableToDayField()->init();
-		$this->getAvailableToHourField()->init();
-		$this->getPriceField()->init();
-		$this->getShippingMethodField()->init();
+	public function register_group(): void {
+		$this->get_available_from_day_field()->init();
+		$this->get_available_from_hour_field()->init();
+		$this->get_available_to_day_field()->init();
+		$this->get_available_to_hour_field()->init();
+		$this->get_price_field()->init();
+		$this->get_shipping_method_field()->init();
 	}
 
 	/**
+	 * Returns all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
 	 * @return ShippingMappingFieldInterface[]
-	 * @throws OptionNameRequired
 	 */
-	public function getFields(): array {
+	public function get_fields(): array {
 		return array(
-			$this->getPriceField(),
-			$this->getShippingMethodField(),
-			$this->getAvailableFromHourField(),
-			$this->getAvailableFromDayField(),
-			$this->getAvailableToHourField(),
-			$this->getAvailableToDayField(),
+			$this->get_price_field(),
+			$this->get_shipping_method_field(),
+			$this->get_available_from_hour_field(),
+			$this->get_available_from_day_field(),
+			$this->get_available_to_hour_field(),
+			$this->get_available_to_day_field(),
 		);
 	}
 
-	public function getDeliveryOptionCode(): string {
+	/**
+	 * Returns the delivery option code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_option_code(): string {
 		return GroupInterface::DELIVERY_OPTION_CODE_PWW;
 	}
 
-	public function getDeliveryTypeCode(): string {
+	/**
+	 * Returns the delivery type code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_type_code(): string {
 		return GroupInterface::DELIVERY_TYPE_CODE_APM;
 	}
 
-	public function getApiDeliveryOptionsMap(): ?array {
+	/**
+	 * Returns null — PWW APM has no API delivery options map.
+	 *
+	 * @return array|null
+	 */
+	public function get_api_delivery_options_map(): ?array {
 		return null;
 	}
 
-	public function getOptionSubGroups( ?int $zone_id = null ): ?array {
+	/**
+	 * Returns null — PWW APM has no option sub-groups.
+	 *
+	 * @param int|null $zone_id Optional zone ID.
+	 *
+	 * @return GroupInterface[]|null
+	 */
+	public function get_option_sub_groups( ?int $zone_id = null ): ?array {
 		return null;
 	}
 
-	protected function getIsActiveFieldLabel(): string {
+	/**
+	 * Returns the label for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_label(): string {
 		return __( 'Package on Weekend (PWW) Parcel Locker:', 'inpost-pay' );
 	}
 
-	public function getIsActiveFieldId(): string {
+	/**
+	 * Returns the option ID for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_id(): string {
 		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_pww_apm_active_' . $this->get_zone_id();
 		}
@@ -110,11 +185,21 @@ class PwwApmGroup extends AbstractGroup implements AvailabilityGroupInterface {
 		return 'izi_group_pww_apm_active';
 	}
 
-	protected function getIsActiveFieldTooltip(): string {
+	/**
+	 * Returns the tooltip for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_tooltip(): string {
 		return __( 'Determines if the Package on Weekend (PWW) is active', 'inpost-pay' );
 	}
 
-	public function getOptionCostMappingApproachId(): ?string {
+	/**
+	 * Returns the option ID for the cost mapping approach field.
+	 *
+	 * @return string|null
+	 */
+	public function get_option_cost_mapping_approach_id(): ?string {
 		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_pww_apm_opt_mapping_approach_' . $this->get_zone_id();
 		}

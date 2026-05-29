@@ -70,14 +70,14 @@ class ShippingMethodMapper {
 	public static function get_mapped_shipping_methods(): array {
 		$mgr = self::$manager;
 
-		$courier_settings_group = $mgr->getCourierSettingsGroup();
-		$apm_settings_group     = $mgr->getApmSettingsGroup();
+		$courier_settings_group = $mgr->get_courier_settings_group();
+		$apm_settings_group     = $mgr->get_apm_settings_group();
 
-		$mapped_courier_methods = $courier_settings_group->getIsActiveField()->get_bool()
+		$mapped_courier_methods = $courier_settings_group->get_is_active_field()->get_bool()
 			? self::get_courier_mapped_shipping_methods( $courier_settings_group )
 			: array();
 
-		$mapped_apm_methods = $apm_settings_group->getIsActiveField()->get_bool()
+		$mapped_apm_methods = $apm_settings_group->get_is_active_field()->get_bool()
 			? self::get_apm_mapped_shipping_methods( $apm_settings_group )
 			: array();
 
@@ -110,8 +110,8 @@ class ShippingMethodMapper {
 		$mgr = self::$manager;
 
 		self::$inpost_methods_cache = array(
-			GroupInterface::DELIVERY_TYPE_CODE_APM     => $mgr->getApmSettingsGroup()->getShippingMethodField()->get(),
-			GroupInterface::DELIVERY_TYPE_CODE_COURIER => $mgr->getCourierSettingsGroup()->getShippingMethodField()->get(),
+			GroupInterface::DELIVERY_TYPE_CODE_APM     => $mgr->get_apm_settings_group()->get_shipping_method_field()->get(),
+			GroupInterface::DELIVERY_TYPE_CODE_COURIER => $mgr->get_courier_settings_group()->get_shipping_method_field()->get(),
 		);
 
 		return self::$inpost_methods_cache;
@@ -130,21 +130,21 @@ class ShippingMethodMapper {
 		$mgr = self::$manager;
 
 		$groups = array(
-			$mgr->getApmSettingsGroup(),
-			$mgr->getCourierSettingsGroup(),
+			$mgr->get_apm_settings_group(),
+			$mgr->get_courier_settings_group(),
 		);
 
 		$base_method = explode( ':', $method_id )[0] ?? $method_id;
 
 		foreach ( $groups as $group ) {
-			if ( empty( $group ) || ! $group->getIsActiveField()->get_bool() ) {
+			if ( empty( $group ) || ! $group->get_is_active_field()->get_bool() ) {
 				continue;
 			}
-			$configured_methods = array_filter( array_map( 'trim', explode( ',', $group->getShippingMethodField()->get() ) ) );
+			$configured_methods = array_filter( array_map( 'trim', explode( ',', $group->get_shipping_method_field()->get() ) ) );
 			foreach ( $configured_methods as $configured_method ) {
 				$configured_base = explode( ':', $configured_method )[0] ?? $configured_method;
 				if ( $base_method === $configured_base ) {
-					return $group->getDeliveryTypeCode();
+					return $group->get_delivery_type_code();
 				}
 			}
 		}
@@ -164,14 +164,14 @@ class ShippingMethodMapper {
 	private static function get_courier_mapped_shipping_methods( CourierGroup $courier_settings_group ): array {
 		$mgr = self::$manager;
 
-		$cod_courier_settings_group = $mgr->getCodCourierSettingsGroup();
-		$mapped_courier_methods     = array_filter( array_map( 'trim', explode( ',', $courier_settings_group->getShippingMethodField()->get() ) ) );
-		$mapped_cod_courier_methods = array_filter( array_map( 'trim', explode( ',', $cod_courier_settings_group->getShippingMethodField()->get() ) ) );
+		$cod_courier_settings_group = $mgr->get_cod_courier_settings_group();
+		$mapped_courier_methods     = array_filter( array_map( 'trim', explode( ',', $courier_settings_group->get_shipping_method_field()->get() ) ) );
+		$mapped_cod_courier_methods = array_filter( array_map( 'trim', explode( ',', $cod_courier_settings_group->get_shipping_method_field()->get() ) ) );
 
-		$option_cost_mapping_approach        = $cod_courier_settings_group->getOptionCostMappingApproach();
+		$option_cost_mapping_approach        = $cod_courier_settings_group->get_option_cost_mapping_approach();
 		$is_option_cost_mapping_approach_fee = ( OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_FEE === $option_cost_mapping_approach );
 
-		if ( ! $is_option_cost_mapping_approach_fee && $cod_courier_settings_group->getIsActiveField()->get_bool() ) {
+		if ( ! $is_option_cost_mapping_approach_fee && $cod_courier_settings_group->get_is_active_field()->get_bool() ) {
 			$mapped_courier_methods = array_unique( array_merge( $mapped_courier_methods, $mapped_cod_courier_methods ) );
 			if ( ! empty( $mapped_courier_methods ) ) {
 				self::$mapped_methods[ GroupInterface::DELIVERY_TYPE_CODE_COURIER ] = end( $mapped_courier_methods );
@@ -193,20 +193,20 @@ class ShippingMethodMapper {
 	private static function get_apm_mapped_shipping_methods( ApmGroup $apm_settings_group ): array {
 		$mgr = self::$manager;
 
-		$cod_apm_settings_group = $mgr->getCodApmSettingsGroup();
-		$pww_apm_settings_group = $mgr->getPwwApmSettingsGroup();
+		$cod_apm_settings_group = $mgr->get_cod_apm_settings_group();
+		$pww_apm_settings_group = $mgr->get_pww_apm_settings_group();
 
 		$mapped_apm_methods     = array_filter(
-			array_map( 'trim', explode( ',', $apm_settings_group->getShippingMethodField()->get() ) )
+			array_map( 'trim', explode( ',', $apm_settings_group->get_shipping_method_field()->get() ) )
 		);
 		$mapped_cod_apm_methods = array_filter(
-			array_map( 'trim', explode( ',', $cod_apm_settings_group->getShippingMethodField()->get() ) )
+			array_map( 'trim', explode( ',', $cod_apm_settings_group->get_shipping_method_field()->get() ) )
 		);
 		$mapped_pww_apm_methods = array_filter(
-			array_map( 'trim', explode( ',', $pww_apm_settings_group->getShippingMethodField()->get() ) )
+			array_map( 'trim', explode( ',', $pww_apm_settings_group->get_shipping_method_field()->get() ) )
 		);
 
-		$option_cost_mapping_approach        = $cod_apm_settings_group->getOptionCostMappingApproach();
+		$option_cost_mapping_approach        = $cod_apm_settings_group->get_option_cost_mapping_approach();
 		$is_option_cost_mapping_approach_fee = (
 			OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD === $option_cost_mapping_approach
 		);
@@ -215,17 +215,17 @@ class ShippingMethodMapper {
 			self::$mapped_methods[ GroupInterface::DELIVERY_TYPE_CODE_APM ] = end( $mapped_apm_methods );
 		}
 
-		if ( ! $is_option_cost_mapping_approach_fee && $cod_apm_settings_group->getIsActiveField()->get_bool() ) {
+		if ( ! $is_option_cost_mapping_approach_fee && $cod_apm_settings_group->get_is_active_field()->get_bool() ) {
 			$mapped_apm_methods = array_merge( $mapped_apm_methods, $mapped_cod_apm_methods );
 			if ( ! empty( $mapped_apm_methods ) ) {
 				self::$mapped_methods[ GroupInterface::DELIVERY_TYPE_CODE_APM ] = end( $mapped_apm_methods );
 			}
 		}
 
-		$option_cost_mapping_approach        = $pww_apm_settings_group->getOptionCostMappingApproach();
+		$option_cost_mapping_approach        = $pww_apm_settings_group->get_option_cost_mapping_approach();
 		$is_option_cost_mapping_approach_fee = ( OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD === $option_cost_mapping_approach );
 
-		if ( ! $is_option_cost_mapping_approach_fee && $pww_apm_settings_group->getIsActiveField()->get_bool() ) {
+		if ( ! $is_option_cost_mapping_approach_fee && $pww_apm_settings_group->get_is_active_field()->get_bool() ) {
 			$mapped_apm_methods = array_merge( $mapped_apm_methods, $mapped_pww_apm_methods );
 			if ( ! empty( $mapped_apm_methods ) ) {
 				self::$mapped_methods[ GroupInterface::DELIVERY_TYPE_CODE_APM ] = end( $mapped_apm_methods );

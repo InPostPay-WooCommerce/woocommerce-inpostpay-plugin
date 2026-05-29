@@ -15,21 +15,21 @@ use function Ilabs\Inpost_Pay\inpost_pay;
 
 $cod_courier_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodCourierSettingsGroup();
+	->get_cod_courier_settings_group();
 
 $courier_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCourierSettingsGroup();
+	->get_courier_settings_group();
 
 $courier_cod_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodCourierSettingsGroup()
-	->getIsActiveField();
+	->get_cod_courier_settings_group()
+	->get_is_active_field();
 
 $courier_cod_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodCourierSettingsGroup()
-	->getOptionCostMappingApproachObj();
+	->get_cod_courier_settings_group()
+	->get_option_cost_mapping_approach_obj();
 
 $courier_cod_option_cost_mapping_approach_checked_val_fee    =
 	$courier_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
@@ -50,12 +50,12 @@ $courier_cod_option_cost_mapping_approach_val                = $courier_cod_opti
 			</label>
 			<div class="input-tooltip">
 				<div>
-					<select name="<?php echo esc_attr( $courier_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $courier_settings_group->get_shipping_method_field()->get_field_name() ); ?>">
 						<option value="0">
 							<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 						</option>
 						<?php
-						$selected_option = (string) $courier_settings_group->getShippingMethodField()->get();
+						$selected_option = (string) $courier_settings_group->get_shipping_method_field()->get();
 
 						foreach ( $available_shipping_methods as $value => $label ) {
 							$selected = ( $value === $selected_option ) ? 'selected' : '';
@@ -122,12 +122,12 @@ $courier_cod_option_cost_mapping_approach_val                = $courier_cod_opti
 							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select name="<?php echo esc_attr( $cod_courier_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+							<select name="<?php echo esc_attr( $cod_courier_settings_group->get_shipping_method_field()->get_field_name() ); ?>">
 								<option value="0">
 									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selected_option = (string) $cod_courier_settings_group->getShippingMethodField()->get();
+								$selected_option = (string) $cod_courier_settings_group->get_shipping_method_field()->get();
 
 								foreach ( $available_shipping_methods as $value => $label ) {
 									$selected = ( $value === $selected_option ) ? 'selected' : '';
@@ -170,8 +170,8 @@ $courier_cod_option_cost_mapping_approach_val                = $courier_cod_opti
 									type="number"
 									step="any"
 									inputmode="decimal"
-									name="<?php echo esc_attr( $cod_courier_settings_group->getPriceField()->get_field_name() ); ?>"
-									value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_courier_settings_group->getPriceField()->get() ) ); ?>"
+									name="<?php echo esc_attr( $cod_courier_settings_group->get_price_field()->get_field_name() ); ?>"
+									value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_courier_settings_group->get_price_field()->get() ) ); ?>"
 								>
 
 								<div class="input-tooltip-wrapper">

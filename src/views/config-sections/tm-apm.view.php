@@ -15,30 +15,30 @@ use function Ilabs\Inpost_Pay\inpost_pay;
 
 $pww_apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getPwwApmSettingsGroup();
+	->get_pww_apm_settings_group();
 
 $cod_apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodApmSettingsGroup();
+	->get_cod_apm_settings_group();
 
 $apm_settings_group = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getApmSettingsGroup();
+	->get_apm_settings_group();
 
 $apm_cod_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodApmSettingsGroup()
-	->getIsActiveField();
+	->get_cod_apm_settings_group()
+	->get_is_active_field();
 
 $apm_pww_group_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getPwwApmSettingsGroup()
-	->getIsActiveField();
+	->get_pww_apm_settings_group()
+	->get_is_active_field();
 
 $apm_cod_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCodApmSettingsGroup()
-	->getOptionCostMappingApproachObj();
+	->get_cod_apm_settings_group()
+	->get_option_cost_mapping_approach_obj();
 
 $apm_cod_option_cost_mapping_approach_checked_val_fee    =
 	$apm_cod_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
@@ -48,8 +48,8 @@ $apm_cod_option_cost_mapping_approach_val                = $apm_cod_option_cost_
 
 $apm_pww_option_cost_mapping_approach_obj = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getPwwApmSettingsGroup()
-	->getOptionCostMappingApproachObj();
+	->get_pww_apm_settings_group()
+	->get_option_cost_mapping_approach_obj();
 
 $apm_pww_option_cost_mapping_approach_checked_val_fee    =
 	$apm_pww_option_cost_mapping_approach_obj::OPTION_COST_MAPPING_APPROACH_FEE;
@@ -70,12 +70,12 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 			</label>
 			<div class="input-tooltip">
 				<div>
-					<select name="<?php echo esc_attr( $apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $apm_settings_group->get_shipping_method_field()->get_field_name() ); ?>">
 						<option value="0">
 							<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 						</option>
 						<?php
-						$selected_option = (string) $apm_settings_group->getShippingMethodField()->get();
+						$selected_option = (string) $apm_settings_group->get_shipping_method_field()->get();
 
 						foreach ( $available_shipping_methods as $value => $label ) {
 							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -143,12 +143,12 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select name="<?php echo esc_attr( $cod_apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+							<select name="<?php echo esc_attr( $cod_apm_settings_group->get_shipping_method_field()->get_field_name() ); ?>">
 								<option value="0">
 									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selected_option = (string) $cod_apm_settings_group->getShippingMethodField()->get();
+								$selected_option = (string) $cod_apm_settings_group->get_shipping_method_field()->get();
 
 								foreach ( $available_shipping_methods as $value => $label ) {
 									$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -188,10 +188,10 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 						<div class="input-tooltip izi-transport-form-group">
 							<input
 								type="number"
-								name="<?php echo esc_attr( $cod_apm_settings_group->getPriceField()->get_field_name() ); ?>"
+								name="<?php echo esc_attr( $cod_apm_settings_group->get_price_field()->get_field_name() ); ?>"
 								step="any"
 								inputmode="decimal"
-								value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_apm_settings_group->getPriceField()->get() ) ); ?>"
+								value="<?php echo esc_attr( str_replace( ',', '.', (string) $cod_apm_settings_group->get_price_field()->get() ) ); ?>"
 							>
 							<div class="input-tooltip-wrapper">
 								<img
@@ -260,12 +260,12 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 							<?php esc_html_e( 'Carrier mapping', 'inpost-pay' ); ?>
 						</label>
 						<div class="input-tooltip izi-transport-form-group">
-							<select name="<?php echo esc_attr( $pww_apm_settings_group->getShippingMethodField()->get_field_name() ); ?>">
+							<select name="<?php echo esc_attr( $pww_apm_settings_group->get_shipping_method_field()->get_field_name() ); ?>">
 								<option value="0">
 									<?php esc_html_e( 'Select', 'inpost-pay' ); ?>
 								</option>
 								<?php
-								$selected_option = (string) $pww_apm_settings_group->getShippingMethodField()->get();
+								$selected_option = (string) $pww_apm_settings_group->get_shipping_method_field()->get();
 
 								foreach ( $available_shipping_methods as $value => $label ) {
 									$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -305,10 +305,10 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 						<div class="input-tooltip izi-transport-form-group">
 							<input
 								type="number"
-								name="<?php echo esc_attr( $pww_apm_settings_group->getPriceField()->get_field_name() ); ?>"
+								name="<?php echo esc_attr( $pww_apm_settings_group->get_price_field()->get_field_name() ); ?>"
 								step="any"
 								inputmode="decimal"
-								value="<?php echo esc_attr( str_replace( ',', '.', (string) $pww_apm_settings_group->getPriceField()->get() ) ); ?>"
+								value="<?php echo esc_attr( str_replace( ',', '.', (string) $pww_apm_settings_group->get_price_field()->get() ) ); ?>"
 							>
 							<div class="input-tooltip-wrapper">
 								<img
@@ -338,9 +338,9 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 					<?php esc_html_e( 'Available from', 'inpost-pay' ); ?>
 				</label>
 				<div class="input-tooltip d-flex-align-center">
-					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableFromDayField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->get_available_from_day_field()->get_field_name() ); ?>">
 						<?php
-						$selected_option = (string) $pww_apm_settings_group->getAvailableFromDayField()->get();
+						$selected_option = (string) $pww_apm_settings_group->get_available_from_day_field()->get();
 
 						foreach ( $days_of_week as $value => $label ) {
 							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -349,9 +349,9 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 						?>
 					</select>
 
-					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableFromHourField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->get_available_from_hour_field()->get_field_name() ); ?>">
 						<?php
-						$selected_option = (string) $pww_apm_settings_group->getAvailableFromHourField()->get();
+						$selected_option = (string) $pww_apm_settings_group->get_available_from_hour_field()->get();
 
 						foreach ( $hours_of_day as $value => $label ) {
 							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -367,9 +367,9 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 					<?php esc_html_e( 'Available to', 'inpost-pay' ); ?>
 				</label>
 				<div class="input-tooltip d-flex-align-center">
-					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableToDayField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->get_available_to_day_field()->get_field_name() ); ?>">
 						<?php
-						$selected_option = (string) $pww_apm_settings_group->getAvailableToDayField()->get();
+						$selected_option = (string) $pww_apm_settings_group->get_available_to_day_field()->get();
 
 						foreach ( $days_of_week as $value => $label ) {
 							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';
@@ -378,9 +378,9 @@ $apm_pww_option_cost_mapping_approach_val                = $apm_pww_option_cost_
 						?>
 					</select>
 
-					<select name="<?php echo esc_attr( $pww_apm_settings_group->getAvailableToHourField()->get_field_name() ); ?>">
+					<select name="<?php echo esc_attr( $pww_apm_settings_group->get_available_to_hour_field()->get_field_name() ); ?>">
 						<?php
-						$selected_option = (string) $pww_apm_settings_group->getAvailableToHourField()->get();
+						$selected_option = (string) $pww_apm_settings_group->get_available_to_hour_field()->get();
 
 						foreach ( $hours_of_day as $value => $label ) {
 							$selected = ( (string) $value === $selected_option ) ? 'selected' : '';

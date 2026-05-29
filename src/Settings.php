@@ -151,6 +151,13 @@ class Settings {
 
 				register_setting( 'inpost-izi', 'izi_event_AUTHORIZED' );
 				register_setting( 'inpost-izi', 'izi_event_cod_AUTHORIZED' );
+				register_setting(
+					'inpost-izi',
+					'izi_initial_order_status',
+					array(
+						'default' => function_exists( 'wc_get_order_statuses' ) && array_key_exists( 'wc-on-hold', wc_get_order_statuses() ) ? 'wc-on-hold' : '',
+					)
+				);
 				register_setting( 'inpost-izi', 'izi_status_map' );
 
 				register_setting( 'inpost-izi', SettingsPage::OPT_KEY_PRODUCT_DESC_MAP );
@@ -246,6 +253,15 @@ class Settings {
 				register_setting(
 					'inpost-izi',
 					'izi_early_update_response_enabled',
+					array(
+						'type'    => 'bool',
+						'default' => false,
+					)
+				);
+
+				register_setting(
+					'inpost-izi',
+					'izi_rogue_output_buffer_enabled',
 					array(
 						'type'    => 'bool',
 						'default' => false,

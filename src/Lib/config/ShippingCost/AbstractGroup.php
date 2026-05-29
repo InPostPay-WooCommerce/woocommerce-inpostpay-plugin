@@ -1,128 +1,225 @@
 <?php
+/**
+ * Abstract shipping cost group.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost;
 
+/**
+ * Class AbstractGroup
+ *
+ * Base implementation of GroupInterface providing common shipping cost group behaviour.
+ */
 abstract class AbstractGroup implements GroupInterface {
 
-	private ?BoolField $isActiveField                             = null;
-	private ?OptionCostMappingApproach $optionCostMappingApproach = null;
+	private ?BoolField $is_active_field                              = null;
+	private ?OptionCostMappingApproach $option_cost_mapping_approach = null;
 	private ?int $zone_id = null;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param int|null $zone_id Optional shipping zone ID.
+	 */
 	public function __construct( ?int $zone_id = null ) {
 		$this->zone_id = $zone_id;
 	}
 
-	public function getGroupId(): string {
-		$id = $this->getDeliveryTypeCode();
+	/**
+	 * Returns the unique group identifier.
+	 *
+	 * @return string
+	 */
+	public function get_group_id(): string {
+		$id = $this->get_delivery_type_code();
 
-		if ( $this->getDeliveryOptionCode() !== GroupInterface::DELIVERY_OPTION_CODE_NONE ) {
-			$id .= '_' . $this->getDeliveryOptionCode();
+		if ( $this->get_delivery_option_code() !== GroupInterface::DELIVERY_OPTION_CODE_NONE ) {
+			$id .= '_' . $this->get_delivery_option_code();
 		}
 
 		return $id;
 	}
 
-	public function getDeliveryOptionName(): ?string {
-		if ( GroupInterface::DELIVERY_OPTION_CODE_COD === $this->getDeliveryOptionCode() ) {
+	/**
+	 * Returns the human-readable delivery option name.
+	 *
+	 * @return string|null
+	 */
+	public function get_delivery_option_name(): ?string {
+		if ( GroupInterface::DELIVERY_OPTION_CODE_COD === $this->get_delivery_option_code() ) {
 			return 'Pobranie';
 		}
 
-		if ( GroupInterface::DELIVERY_OPTION_CODE_PWW === $this->getDeliveryOptionCode() ) {
+		if ( GroupInterface::DELIVERY_OPTION_CODE_PWW === $this->get_delivery_option_code() ) {
 			return 'Paczka w Weekend';
 		}
 
 		return null;
 	}
 
-	abstract protected function getIsActiveFieldId(): string;
+	/**
+	 * Returns the option ID for the is-active field.
+	 *
+	 * @return string
+	 */
+	abstract protected function get_is_active_field_id(): string;
 
-	protected function getIsActiveFieldLabel(): string {
+	/**
+	 * Returns the label for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_label(): string {
 		return __( 'Enabled', 'inpost-pay' );
 	}
 
-	protected function getIsActiveFieldTooltip(): string {
+	/**
+	 * Returns the tooltip for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_tooltip(): string {
 		return '';
 	}
 
-	protected function getIsActiveFieldDefault(): bool {
+	/**
+	 * Returns the default value for the is-active field.
+	 *
+	 * @return bool
+	 */
+	protected function get_is_active_field_default(): bool {
 		return true;
 	}
 
-	public function getIsActiveField(): BoolField {
-		if ( false === $this->isActiveField instanceof BoolField ) {
-			$this->initIsActiveField();
+	/**
+	 * Returns the is-active boolean field.
+	 *
+	 * @return BoolField
+	 */
+	public function get_is_active_field(): BoolField {
+		if ( false === $this->is_active_field instanceof BoolField ) {
+			$this->init_is_active_field();
 		}
 
-		return $this->isActiveField;
+		return $this->is_active_field;
 	}
 
-	public function initIsActiveField(): void {
+	/**
+	 * Initialises and registers the is-active field.
+	 *
+	 * @return void
+	 */
+	public function init_is_active_field(): void {
 
-		$this->isActiveField = new BoolField(
-			$this->getIsActiveFieldId(),
-			$this->getIsActiveFieldLabel(),
-			$this->getIsActiveFieldTooltip(),
-			$this->getIsActiveFieldDefault()
+		$this->is_active_field = new BoolField(
+			$this->get_is_active_field_id(),
+			$this->get_is_active_field_label(),
+			$this->get_is_active_field_tooltip(),
+			$this->get_is_active_field_default()
 		);
-		$this->isActiveField->init();
+		$this->is_active_field->init();
 	}
 
 
-	public function getOptionCostMappingApproach(): string {
-		$this->initOptionCostMappingApproach();
-		if ( $this->optionCostMappingApproach ) {
-			return $this->optionCostMappingApproach->get( OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD );
+	/**
+	 * Returns the selected option cost mapping approach value.
+	 *
+	 * @return string
+	 */
+	public function get_option_cost_mapping_approach(): string {
+		$this->init_option_cost_mapping_approach();
+		if ( $this->option_cost_mapping_approach ) {
+			return $this->option_cost_mapping_approach->get( OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD );
 		}
 
-		return $this->getOptionCostMappingApproachDefault();
+		return $this->get_option_cost_mapping_approach_default();
 	}
 
-	public function getOptionCostMappingApproachId(): ?string {
+	/**
+	 * Returns the option ID for the cost mapping approach field.
+	 *
+	 * @return string|null
+	 */
+	public function get_option_cost_mapping_approach_id(): ?string {
 		return null;
 	}
 
-	protected function getOptionCostMappingApproachLabel(): string {
+	/**
+	 * Returns the label for the cost mapping approach field.
+	 *
+	 * @return string
+	 */
+	protected function get_option_cost_mapping_approach_label(): string {
 		return '';
 	}
 
-	protected function getOptionCostMappingApproachTooltip(): string {
+	/**
+	 * Returns the tooltip for the cost mapping approach field.
+	 *
+	 * @return string
+	 */
+	protected function get_option_cost_mapping_approach_tooltip(): string {
 		return '';
 	}
 
-	protected function getOptionCostMappingApproachDefault(): string {
+	/**
+	 * Returns the default value for the cost mapping approach field.
+	 *
+	 * @return string
+	 */
+	protected function get_option_cost_mapping_approach_default(): string {
 		return OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD;
 	}
 
-	public function getOptionCostMappingApproachObj(): ?OptionCostMappingApproach {
-		if ( false === $this->optionCostMappingApproach instanceof OptionCostMappingApproach ) {
-			$this->initOptionCostMappingApproach();
+	/**
+	 * Returns the OptionCostMappingApproach object.
+	 *
+	 * @return OptionCostMappingApproach|null
+	 */
+	public function get_option_cost_mapping_approach_obj(): ?OptionCostMappingApproach {
+		if ( false === $this->option_cost_mapping_approach instanceof OptionCostMappingApproach ) {
+			$this->init_option_cost_mapping_approach();
 		}
 
-		return $this->optionCostMappingApproach;
+		return $this->option_cost_mapping_approach;
 	}
 
-	public function initOptionCostMappingApproach(): void {
-		if ( $this->optionCostMappingApproach ) {
+	/**
+	 * Initialises and registers the option cost mapping approach field.
+	 *
+	 * @return void
+	 */
+	public function init_option_cost_mapping_approach(): void {
+		if ( $this->option_cost_mapping_approach ) {
 			return;
 		}
 
-		$id      = $this->getOptionCostMappingApproachId();
-		$label   = $this->getOptionCostMappingApproachLabel();
-		$default = $this->getOptionCostMappingApproachDefault();
-		$tooltip = $this->getOptionCostMappingApproachTooltip();
+		$id      = $this->get_option_cost_mapping_approach_id();
+		$label   = $this->get_option_cost_mapping_approach_label();
+		$default = $this->get_option_cost_mapping_approach_default();
+		$tooltip = $this->get_option_cost_mapping_approach_tooltip();
 
 		if ( $id ) {
-			$this->optionCostMappingApproach = new OptionCostMappingApproach(
-				$this->getOptionCostMappingApproachId(),
-				$this->getOptionCostMappingApproachLabel(),
-				$this->getOptionCostMappingApproachTooltip(),
-				$this->getOptionCostMappingApproachDefault()
+			$this->option_cost_mapping_approach = new OptionCostMappingApproach(
+				$this->get_option_cost_mapping_approach_id(),
+				$this->get_option_cost_mapping_approach_label(),
+				$this->get_option_cost_mapping_approach_tooltip(),
+				$this->get_option_cost_mapping_approach_default()
 			);
 
-			$this->optionCostMappingApproach->init();
+			$this->option_cost_mapping_approach->init();
 		}
 	}
 
+	/**
+	 * Returns the shipping zone ID.
+	 *
+	 * @return int|null
+	 */
 	public function get_zone_id(): ?int {
 		return $this->zone_id;
 	}

@@ -1,7 +1,19 @@
 <?php
+/**
+ * Attribution configuration interface.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\attribution
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\attribution;
 
+/**
+ * Interface AttributionConfigInterface
+ *
+ * Defines constants for the order attribution configuration option.
+ */
 interface AttributionConfigInterface {
 
 	public const IZI_ATTRIBUTION = 'izi_attribution';

@@ -56,6 +56,31 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="col-6">
+		<label>
+			<?php esc_html_e( 'Initial order status (unpaid)', 'inpost-pay' ); ?>
+		</label>
+		<div class="input-tooltip">
+			<?php \Ilabs\Inpost_Pay\SettingsPage::initialOrderStatusDropdown(); ?>
+			<div class="input-tooltip-wrapper">
+				<img
+					src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+					alt=""
+				>
+				<div class="input-tooltip-box">
+					<p>
+						<?php
+						esc_html_e(
+							'Determines what order status should be set for new unpaid orders',
+							'inpost-pay'
+						);
+						?>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <hr>

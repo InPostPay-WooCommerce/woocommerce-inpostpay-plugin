@@ -66,18 +66,13 @@ class OrderAliasHelper {
 	}
 
 	public static function resolve( $id ) {
-		$order = wc_get_order( $id );
-
-		if ( $order ) {
-			return $order;
-		}
-
-		$realId = self::getRealId( $id );
+		$realId = self::getRealId( (string) $id );
 
 		if ( null !== $realId ) {
 			return wc_get_order( $realId );
 		}
 
-		return null;
+		$order = wc_get_order( $id );
+		return $order !== false ? $order : null;
 	}
 }

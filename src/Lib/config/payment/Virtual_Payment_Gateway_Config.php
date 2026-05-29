@@ -10,6 +10,8 @@
  * @since      2.0.6
  */
 
+declare( strict_types=1 );
+
 namespace Ilabs\Inpost_Pay\Lib\config\payment;
 
 use Ilabs\Inpost_Pay\Lib\form\AbstractOption;
@@ -79,11 +81,11 @@ final class Virtual_Payment_Gateway_Config extends AbstractOption implements Vir
 	 *
 	 * Returns 'yes' if the value is 'on' or 'yes', otherwise returns 'no'.
 	 *
-	 * @param bool $default Default value to return if the value is not set.
+	 * @param bool $default_value Default value to return if the value is not set.
 	 * @return string 'yes' or 'no' based on the configuration setting.
 	 * @since 1.0.0
 	 */
-	public function get( $default = false ): string {
+	public function get( $default_value = false ): string {
 		if ( parent::get( self::IZI_VIRTUAL_PAYMENT_METHOD_CONFIG_DEFAULT ) === 'on' || parent::get( self::IZI_VIRTUAL_PAYMENT_METHOD_CONFIG_DEFAULT ) === 'yes' ) {
 			return 'yes';
 		}

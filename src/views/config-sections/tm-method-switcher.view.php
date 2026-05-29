@@ -15,13 +15,13 @@ use function Ilabs\Inpost_Pay\inpost_pay;
 
 $courier_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getCourierSettingsGroup()
-	->getIsActiveField();
+	->get_courier_settings_group()
+	->get_is_active_field();
 
 $apm_is_active_field = inpost_pay()
 	->shipping_cost_settings( $zone_id )
-	->getApmSettingsGroup()
-	->getIsActiveField();
+	->get_apm_settings_group()
+	->get_is_active_field();
 
 $visible_class = ! $apm_is_active_field->get_bool() && ! $courier_is_active_field->get_bool()
 	? 'izi-section-active'

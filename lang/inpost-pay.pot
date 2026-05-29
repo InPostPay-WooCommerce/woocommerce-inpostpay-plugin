@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the InPost Pay plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: InPost Pay 2.0.8\n"
+"Project-Id-Version: InPost Pay 2.0.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/inpost-pay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-24T08:48:41+00:00\n"
+"POT-Creation-Date: 2026-05-28T14:08:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: inpost-pay\n"
@@ -99,6 +99,10 @@ msgstr ""
 
 #: lang/strings.php:31
 msgid "Enable the collection of analytics identifiers. For more information about this integration, refer to the documentation: "
+msgstr ""
+
+#: src/DashboardMenu.php:23
+msgid "InPost Pay - Configuration"
 msgstr ""
 
 #: src/DashboardMenu.php:24
@@ -192,6 +196,7 @@ msgstr ""
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:22
 #: src/SettingsPage.php:106
 #: src/SettingsPage.php:117
+#: src/SettingsPage.php:128
 #: src/views/config-sections/agreements-template.view.php:32
 #: src/views/config-sections/agreements-template.view.php:136
 #: src/views/config-sections/agreements.view.php:204
@@ -297,6 +302,7 @@ msgid "Black"
 msgstr ""
 
 #: src/Integration/Elementor/WidgetControlsConfigurator.php:67
+#: src/Lib/config/widget_v2/WidgetV2SizeConfig.php:33
 msgid "Widget size"
 msgstr ""
 
@@ -332,57 +338,57 @@ msgstr ""
 msgid "Small round"
 msgstr ""
 
-#: src/Lib/Api/v1/Products.php:83
+#: src/Lib/Api/v1/Products.php:82
 msgid "Product not found"
 msgstr ""
 
-#: src/Lib/Api/v1/Products.php:108
+#: src/Lib/Api/v1/Products.php:107
 msgid "You have reached the maximum number of hot products allowed by InPost Pay."
 msgstr ""
 
-#: src/Lib/Api/v1/Products.php:112
+#: src/Lib/Api/v1/Products.php:111
 msgid "No products added"
 msgstr ""
 
-#: src/Lib/Api/v1/Products.php:136
+#: src/Lib/Api/v1/Products.php:135
 msgid "Product not added"
 msgstr ""
 
-#: src/Lib/config/payment/Virtual_Payment_Gateway_Config.php:41
+#: src/Lib/config/payment/Virtual_Payment_Gateway_Config.php:43
 msgid "Virtual Payment Gateway"
 msgstr ""
 
-#: src/Lib/config/payment/Virtual_Payment_Gateway_Config.php:42
+#: src/Lib/config/payment/Virtual_Payment_Gateway_Config.php:44
 msgid "Enable virtual payment method gateway. For more information about this integration, refer to the documentation."
 msgstr ""
 
-#: src/Lib/config/ShippingCost/AbstractGroup.php:40
+#: src/Lib/config/ShippingCost/AbstractGroup.php:77
 msgid "Enabled"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/Apm/ApmGroup.php:93
+#: src/Lib/config/ShippingCost/Apm/ApmGroup.php:173
 msgid "Parcel locker"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:34
-#: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:35
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:34
+#: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:72
+#: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:73
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:72
 msgid "Pricing and shipping availability from Parcel Machine Map with:"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:41
-#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:47
-#: src/Lib/config/ShippingCost/CodApm/CodApmPrice.php:41
-#: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:42
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:41
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierShippingMethod.php:42
-#: src/Lib/config/ShippingCost/Courier/CourierShippingMethod.php:41
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromDay.php:42
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromHour.php:42
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToDay.php:43
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToHour.php:42
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmPrice.php:41
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:41
+#: src/Lib/config/ShippingCost/Apm/ApmShippingMethod.php:84
+#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:92
+#: src/Lib/config/ShippingCost/CodApm/CodApmPrice.php:81
+#: src/Lib/config/ShippingCost/CodApm/CodApmShippingMethod.php:85
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:84
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierShippingMethod.php:85
+#: src/Lib/config/ShippingCost/Courier/CourierShippingMethod.php:84
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromDay.php:85
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromHour.php:85
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToDay.php:86
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToHour.php:85
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmPrice.php:84
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmShippingMethod.php:84
 #: src/views/config-sections/tm-apm.view.php:94
 #: src/views/config-sections/tm-apm.view.php:166
 #: src/views/config-sections/tm-apm.view.php:283
@@ -391,41 +397,45 @@ msgstr ""
 msgid "Determines which shipping method is to be associated"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:32
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:34
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierShippingMethod.php:35
-#: src/Lib/config/ShippingCost/Courier/CourierShippingMethod.php:34
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromDay.php:35
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromHour.php:35
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToDay.php:36
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToHour.php:35
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmPrice.php:34
+#: src/Lib/config/ShippingCost/CheckShippingAvailability.php:62
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierPrice.php:72
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierShippingMethod.php:73
+#: src/Lib/config/ShippingCost/Courier/CourierShippingMethod.php:72
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromDay.php:73
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableFromHour.php:73
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToDay.php:74
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmAvailableToHour.php:73
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmPrice.php:72
 msgid "Prices and courier shipping availability map with:"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/CodApm/CodApmGroup.php:81
+#: src/Lib/config/ShippingCost/CodApm/CodApmGroup.php:155
 msgid "Cash on Delivery (COD) Parcel Machine"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/CodApm/CodApmGroup.php:85
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierGroup.php:93
+#: src/Lib/config/ShippingCost/CodApm/CodApmGroup.php:164
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierGroup.php:177
 msgid "Determines if the Cash on Delivery (COD) is active"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/CodCourier/CodCourierGroup.php:89
+#: src/Lib/config/ShippingCost/CodCourier/CodCourierGroup.php:168
 msgid "Cash on Delivery (COD) Courier:"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/Courier/CourierGroup.php:90
+#: src/Lib/config/ShippingCost/Courier/CourierGroup.php:170
 msgid "Courier"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmGroup.php:102
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmGroup.php:172
 msgid "Package on Weekend (PWW) Parcel Locker:"
 msgstr ""
 
-#: src/Lib/config/ShippingCost/PwwApm/PwwApmGroup.php:114
+#: src/Lib/config/ShippingCost/PwwApm/PwwApmGroup.php:194
 msgid "Determines if the Package on Weekend (PWW) is active"
+msgstr ""
+
+#: src/Lib/config/widget_v2/WidgetV2SizeConfig.php:34
+msgid "Defines the size of the widget"
 msgstr ""
 
 #: src/Lib/Coupons/Coupon.php:100
@@ -657,7 +667,7 @@ msgstr ""
 msgid "Basket already has an order."
 msgstr ""
 
-#: src/rest/order/Create.php:1174
+#: src/rest/order/Create.php:1246
 msgid "Tax id"
 msgstr ""
 
@@ -705,23 +715,23 @@ msgstr ""
 msgid "To the right"
 msgstr ""
 
-#: src/SettingsPage.php:137
+#: src/SettingsPage.php:148
 msgid "Full description"
 msgstr ""
 
-#: src/SettingsPage.php:141
+#: src/SettingsPage.php:152
 msgid "Short description"
 msgstr ""
 
-#: src/Type/ConsentType.php:45
+#: src/Type/ConsentType.php:47
 msgid "Optional"
 msgstr ""
 
-#: src/Type/ConsentType.php:46
+#: src/Type/ConsentType.php:48
 msgid "Required once"
 msgstr ""
 
-#: src/Type/ConsentType.php:47
+#: src/Type/ConsentType.php:49
 msgid "Required always"
 msgstr ""
 
@@ -1301,62 +1311,70 @@ msgstr ""
 msgid "Login Form End"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:27
+#: src/views/config-sections/mapper-option.view.php:28
 msgid "Custom thank you page (optional)"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:36
+#: src/views/config-sections/mapper-option.view.php:37
 msgid "– Use default virtual page –"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:46
+#: src/views/config-sections/mapper-option.view.php:47
 msgid "Select a WordPress page containing the [inpost_thank_you] shortcode. If not selected, the default virtual page will be used. Use this option if your theme does not support virtual pages (e.g. Sage/Blade themes)."
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:61
+#: src/views/config-sections/mapper-option.view.php:62
 msgid "Refresh page after adding product to cart"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:69
+#: src/views/config-sections/mapper-option.view.php:70
 msgid "Enable this option to refresh the page after cart changes. This may be required depending on how your theme handles cart messages (e.g. if the \"product added to cart\" notice only appears after a refresh)."
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:92
+#: src/views/config-sections/mapper-option.view.php:93
 msgid "Show only main Hot Product image in the InPost Pay app"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:101
+#: src/views/config-sections/mapper-option.view.php:102
 msgid "Enable this option if you want customers using the InPost Pay app to see only the main product image. If disabled, the full product gallery will be shown (recommended default)."
 msgstr ""
 
 #. translators: %d - number of configured Hot Products
-#: src/views/config-sections/mapper-option.view.php:124
+#: src/views/config-sections/mapper-option.view.php:125
 #, php-format
 msgid "Number of configured Hot Products: %d. Remove all Hot Products to change this setting."
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:149
+#: src/views/config-sections/mapper-option.view.php:150
 msgid "Enable custom basket response (for troubleshooting only)"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:157
+#: src/views/config-sections/mapper-option.view.php:158
 msgid "This option enables an alternative basket response structure required by some versions of the InPost Pay. Activate only if instructed by InPost technical support. Do not enable unless necessary – using this option may cause inconsistencies in basket calculations, shipping costs, or discount handling."
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:180
+#: src/views/config-sections/mapper-option.view.php:181
 msgid "Use modern response format (recommended)"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:188
+#: src/views/config-sections/mapper-option.view.php:189
 msgid "This option enables a modern and more compatible response format for integrations and WooCommerce behavior. It is currently being tested and will soon become the default across all environments. We recommend keeping it enabled to ensure the best experience and future compatibility."
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:211
+#: src/views/config-sections/mapper-option.view.php:212
 msgid "Early basket update response (bypass shutdown hook)"
 msgstr ""
 
-#: src/views/config-sections/mapper-option.view.php:219
+#: src/views/config-sections/mapper-option.view.php:220
 msgid "Enable this option if the mobile app experiences issues with basket updates returning empty responses. This mode bypasses the shutdown hook mechanism for basket update requests from the app, returning responses immediately. This helps with caching plugins or server configurations that flush responses early. Only affects basket updates from the mobile app."
+msgstr ""
+
+#: src/views/config-sections/mapper-option.view.php:243
+msgid "Output buffer for order creation (emergency mode)"
+msgstr ""
+
+#: src/views/config-sections/mapper-option.view.php:251
+msgid "Enable this option if another plugin (e.g. an analytics plugin) is injecting unexpected output during order creation, causing errors in InPost Pay communication. When enabled, any unexpected output during /v1/izi/order is captured and discarded. This is an emergency workaround — the proper fix should be applied in the conflicting plugin."
 msgstr ""
 
 #: src/views/config-sections/minicart-gui.view.php:12
@@ -1551,11 +1569,19 @@ msgstr ""
 msgid "Determines what order status should be set in cod order"
 msgstr ""
 
-#: src/views/config-sections/statuses.view.php:67
+#: src/views/config-sections/statuses.view.php:62
+msgid "Initial order status (unpaid)"
+msgstr ""
+
+#: src/views/config-sections/statuses.view.php:74
+msgid "Determines what order status should be set for new unpaid orders"
+msgstr ""
+
+#: src/views/config-sections/statuses.view.php:92
 msgid "Statuses for orders"
 msgstr ""
 
-#: src/views/config-sections/statuses.view.php:77
+#: src/views/config-sections/statuses.view.php:102
 msgid "Please verify if the order status dictionary matches what is actually presented to customers. At any time, you can change the names of the displayed statuses"
 msgstr ""
 

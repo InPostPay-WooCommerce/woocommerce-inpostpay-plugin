@@ -20,7 +20,7 @@ class DashboardMenu {
 
 			add_submenu_page(
 				inpost_pay()->get_plugin_basename(),
-				'InPost Pay - Hot Products',
+				__( 'InPost Pay - Configuration', 'inpost-pay' ),
 				__( 'Settings', 'inpost-pay' ),
 				'manage_options',
 				inpost_pay()->get_plugin_basename(),

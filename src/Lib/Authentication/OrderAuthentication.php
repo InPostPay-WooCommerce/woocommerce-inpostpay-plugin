@@ -77,8 +77,8 @@ class OrderAuthentication implements AuthenticationInterface {
 				"
                 SELECT DISTINCT om.meta_value AS customer_id
                 FROM {$wpdb->prefix}wc_orders o
-                JOIN {$wpdb->prefix}wc_order_meta om ON o.id = om.order_id
-                JOIN {$wpdb->prefix}wc_order_meta bm ON o.id = bm.order_id
+                JOIN {$wpdb->prefix}wc_orders_meta om ON o.id = om.order_id
+                JOIN {$wpdb->prefix}wc_orders_meta bm ON o.id = bm.order_id
                 WHERE o.status IN ('wc-completed', 'wc-processing', 'wc-on-hold')
                 AND om.meta_key = '_customer_user'
                 AND bm.meta_key = '_billing_phone'

@@ -12,6 +12,7 @@ use Ilabs\Inpost_Pay\models\Destination;
 use Ilabs\Inpost_Pay\objects\CartProductId;
 use Ilabs\Inpost_Pay\rest\Base;
 use Ilabs\Inpost_Pay\Lib\helpers\WooProductHelper;
+use Ilabs\Inpost_Pay\Type\WooCommerceSessionKeyType;
 use Ilabs\Inpost_Pay\WooCommerce\Mappers\Basket\RelatedProductMapper;
 use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasket;
 use Ilabs\Inpost_Pay\WooCommerce\WooCommerceBasketCache;
@@ -163,10 +164,23 @@ class Update extends Base {
 			}
 			$cart->calculate_totals();
 
+			// Sync inpost_cart_hash to the post-PUT cart state so FrontBasketChange
+			// can detect subsequent shop-side changes even when reverting to a
+			// previously seen quantity (e.g. app: 2→3, shop: 3→2 back again).
+			if ( \WC()->session ) {
+				\WC()->session->set(
+					WooCommerceSessionKeyType::INPOST_CART_HASH,
+					md5( wp_json_encode( $cart->get_cart() ) )
+				);
+			}
+
 			// When InPost empties the cart, reset the hash so the next shop-side
 			// add-to-cart always triggers a PUT (handles qty=1 re-add edge case).
 			if ( \WC()->session && \WC()->cart->is_empty() ) {
-				\WC()->session->set( 'inpost_cart_hash', null );
+				\WC()->session->set(
+					WooCommerceSessionKeyType::INPOST_CART_HASH,
+					null
+				);
 			}
 
 			$early_response_enabled = get_option( 'izi_early_update_response_enabled', false );

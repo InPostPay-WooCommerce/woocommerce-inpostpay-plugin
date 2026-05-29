@@ -1,6 +1,6 @@
 <?php
 /**
- * Trait: JsonSerializationHelper
+ * Trait: JsonSerializationHelper.
  *
  * Provides automatic JSON serialization of object properties,
  * including UTF-8 encoding fixes and null-value filtering based on default values.
@@ -14,7 +14,7 @@ use JsonSerializable;
 use ReflectionObject;
 
 /**
- * Trait JsonSerializationHelper
+ * Trait JsonSerializationHelper.
  *
  * @since 2.0.3
  */
@@ -22,12 +22,13 @@ trait JsonSerializationHelper {
 
 	/**
 	 * Automatically serializes object properties to an array.
-	 * - Fields starting with underscore are skipped.
-	 * - Null fields are only included if their default value is explicitly set to null.
+	 *
+	 * Fields starting with underscore are skipped.
+	 * Null fields are only included if their default value is explicitly set to null.
 	 *
 	 * @return array
 	 */
-	public function autoSerialize(): array {
+	public function auto_serialize(): array {
 		$data     = array();
 		$reflect  = new ReflectionObject( $this );
 		$defaults = $reflect->getDefaultProperties();
@@ -41,7 +42,7 @@ trait JsonSerializationHelper {
 				continue;
 			}
 
-			$data[ $key ] = $this->serializeItem( $value );
+			$data[ $key ] = $this->serialize_item( $value );
 		}
 
 		return $data;
@@ -50,17 +51,17 @@ trait JsonSerializationHelper {
 	/**
 	 * Serializes a single value based on its type.
 	 *
-	 * - Strings are UTF-8 encoded.
-	 * - JsonSerializable objects are serialized using jsonSerialize().
-	 * - Arrays are recursively serialized.
-	 * - Objects with __toString are cast to string and encoded.
-	 * - Other values are returned as-is.
+	 * Strings are UTF-8 encoded.
+	 * JsonSerializable objects are serialized using jsonSerialize().
+	 * Arrays are recursively serialized.
+	 * Objects with __toString are cast to string and encoded.
+	 * Other values are returned as-is.
 	 *
 	 * @param mixed $item Value to serialize.
 	 *
 	 * @return mixed
 	 */
-	protected function serializeItem( $item ) {
+	protected function serialize_item( $item ) {
 		if ( is_string( $item ) ) {
 			return mb_convert_encoding( $item, 'UTF-8', 'UTF-8' );
 		}
@@ -70,7 +71,7 @@ trait JsonSerializationHelper {
 		}
 
 		if ( is_array( $item ) ) {
-			return $this->serializeArray( $item );
+			return $this->serialize_array( $item );
 		}
 
 		if ( is_object( $item ) ) {
@@ -89,14 +90,14 @@ trait JsonSerializationHelper {
 	 *
 	 * @return array
 	 */
-	protected function serializeArray( ?array $items ): array {
+	protected function serialize_array( ?array $items ): array {
 		if ( ! is_array( $items ) ) {
 			return array();
 		}
 
 		return array_map(
 			function ( $i ) {
-				return $this->serializeItem( $i );
+				return $this->serialize_item( $i );
 			},
 			$items
 		);

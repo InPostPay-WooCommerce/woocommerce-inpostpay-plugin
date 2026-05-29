@@ -10,7 +10,7 @@ use function Ilabs\Inpost_Pay\inpost_pay;
 // Without zone_id because it is a global parameter.
 $shipping_method_availability = inpost_pay()
 	->shipping_cost_settings()
-	->getCheckShippingAvailabilityField();
+	->get_check_shipping_availability_field();
 ?>
 
 <div class="consent-item">

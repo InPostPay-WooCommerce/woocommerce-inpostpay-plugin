@@ -1,4 +1,11 @@
 <?php
+/**
+ * COD APM shipping cost group.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost\CodApm
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost\CodApm;
 
@@ -10,82 +17,159 @@ use Ilabs\Inpost_Pay\Lib\config\ShippingCost\ShippingMappingFieldInterface;
 use Ilabs\Inpost_Pay\Lib\form\AbstractOption;
 use Ilabs\Inpost_Pay\Lib\form\exception\OptionNameRequired;
 
+/**
+ * Class CodApmGroup
+ *
+ * Shipping cost group for APM delivery with Cash on Delivery (COD) option.
+ */
 class CodApmGroup extends AbstractGroup {
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the price field for COD APM.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractPriceField
 	 */
-	public function getPriceField(): AbstractPriceField {
+	public function get_price_field(): AbstractPriceField {
 		return CodApmPrice::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the shipping method field for COD APM.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractShippingMethodField
 	 */
-	public function getShippingMethodField(): AbstractShippingMethodField {
+	public function get_shipping_method_field(): AbstractShippingMethodField {
 		return CodApmShippingMethod::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Registers all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return void
 	 */
-	public function registerGroup(): void {
-		$this->getPriceField()->init();
-		$this->getShippingMethodField()->init();
+	public function register_group(): void {
+		$this->get_price_field()->init();
+		$this->get_shipping_method_field()->init();
 	}
 
 	/**
+	 * Returns all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
 	 * @return ShippingMappingFieldInterface[]
-	 * @throws OptionNameRequired
 	 */
-	public function getFields(): array {
+	public function get_fields(): array {
 		return array(
-			$this->getPriceField(),
-			$this->getShippingMethodField(),
+			$this->get_price_field(),
+			$this->get_shipping_method_field(),
 		);
 	}
 
-	public function getDeliveryOptionCode(): string {
+	/**
+	 * Returns the delivery option code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_option_code(): string {
 		return GroupInterface::DELIVERY_OPTION_CODE_COD;
 	}
 
-	public function getDeliveryTypeCode(): string {
+	/**
+	 * Returns the delivery type code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_type_code(): string {
 		return GroupInterface::DELIVERY_TYPE_CODE_APM;
 	}
 
-	public function getApiDeliveryOptionsMap(): ?array {
+	/**
+	 * Returns null — COD APM has no API delivery options map.
+	 *
+	 * @return array|null
+	 */
+	public function get_api_delivery_options_map(): ?array {
 		return null;
 	}
 
-	public function getAvailableFromDayField(): ?AbstractOption {
+	/**
+	 * Returns null — COD APM group has no availability-from-day field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_from_day_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableFromHourField(): ?AbstractOption {
+	/**
+	 * Returns null — COD APM group has no availability-from-hour field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_from_hour_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableToDayField(): ?AbstractOption {
+	/**
+	 * Returns null — COD APM group has no availability-to-day field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_to_day_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableToHourField(): ?AbstractOption {
+	/**
+	 * Returns null — COD APM group has no availability-to-hour field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_to_hour_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getOptionSubGroups( ?int $zone_id = null ): ?array {
+	/**
+	 * Returns null — COD APM has no option sub-groups.
+	 *
+	 * @param int|null $zone_id Optional zone ID.
+	 *
+	 * @return GroupInterface[]|null
+	 */
+	public function get_option_sub_groups( ?int $zone_id = null ): ?array {
 		return null;
 	}
 
-	protected function getIsActiveFieldLabel(): string {
+	/**
+	 * Returns the label for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_label(): string {
 		return __( 'Cash on Delivery (COD) Parcel Machine', 'inpost-pay' );
 	}
 
-	protected function getIsActiveFieldTooltip(): string {
+	/**
+	 * Returns the tooltip for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_tooltip(): string {
 		return __( 'Determines if the Cash on Delivery (COD) is active', 'inpost-pay' );
 	}
 
-	public function getIsActiveFieldId(): string {
+	/**
+	 * Returns the option ID for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_id(): string {
 		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_apm_active_' . $this->get_zone_id();
 		}
@@ -93,7 +177,12 @@ class CodApmGroup extends AbstractGroup {
 		return 'izi_group_cod_apm_active';
 	}
 
-	public function getOptionCostMappingApproachId(): ?string {
+	/**
+	 * Returns the option ID for the cost mapping approach field.
+	 *
+	 * @return string|null
+	 */
+	public function get_option_cost_mapping_approach_id(): ?string {
 		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_cod_apm_opt_mapping_approach_' . $this->get_zone_id();
 		}

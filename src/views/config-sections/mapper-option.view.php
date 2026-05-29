@@ -16,6 +16,7 @@ $hp_count                   = HotProductUtils::count_hot_products();
 $is_custom_mapper_enabled   = (bool) get_option( 'izi_custom_basket_response_enabled', false );
 $is_custom_response_enabled = (bool) get_option( 'izi_custom_response_enabled', true );
 $is_early_response_enabled  = filter_var( get_option( 'izi_early_update_response_enabled', false ), FILTER_VALIDATE_BOOLEAN );
+$is_rogue_buffer_enabled    = filter_var( get_option( 'izi_rogue_output_buffer_enabled', false ), FILTER_VALIDATE_BOOLEAN );
 ?>
 
 <div
@@ -230,6 +231,37 @@ $is_early_response_enabled  = filter_var( get_option( 'izi_early_update_response
 			<?php checked( $is_early_response_enabled ); ?>
 			type="checkbox"
 			name="izi_early_update_response_enabled"
+			value="1"
+		>
+	</div>
+</div>
+
+<div class="input-wrapper mt-2 mb-2">
+	<div class="form-group form-group--row start-container">
+		<div class="input-tooltip">
+			<label class="label-gray">
+				<?php esc_html_e( 'Output buffer for order creation (emergency mode)', 'inpost-pay' ); ?>
+			</label>
+			<div class="input-tooltip-wrapper">
+				<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . '../../../assets/img/tooltip.svg' ); ?>"
+					alt="">
+				<div class="input-tooltip-box">
+					<p>
+						<?php
+						esc_html_e(
+							'Enable this option if another plugin (e.g. an analytics plugin) is injecting unexpected output during order creation, causing errors in InPost Pay communication. When enabled, any unexpected output during /v1/izi/order is captured and discarded. This is an emergency workaround — the proper fix should be applied in the conflicting plugin.',
+							'inpost-pay'
+						);
+						?>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<input
+			<?php checked( $is_rogue_buffer_enabled ); ?>
+			type="checkbox"
+			name="izi_rogue_output_buffer_enabled"
 			value="1"
 		>
 	</div>

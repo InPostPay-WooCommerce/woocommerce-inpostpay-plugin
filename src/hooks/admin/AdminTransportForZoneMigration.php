@@ -74,14 +74,14 @@ class AdminTransportForZoneMigration extends Base {
 			( new PwwApmAvailableToHour() )->get_field_name(),
 			( new PwwApmPrice() )->get_field_name(),
 			( new PwwApmShippingMethod() )->get_field_name(),
-			( new ApmGroup() )->getIsActiveFieldId(),
-			( new CourierGroup() )->getIsActiveFieldId(),
-			( new CodCourierGroup() )->getIsActiveFieldId(),
-			( new CodApmGroup() )->getIsActiveFieldId(),
-			( new PwwApmGroup() )->getIsActiveFieldId(),
-			( new CodCourierGroup() )->getOptionCostMappingApproachId(),
-			( new CodApmGroup() )->getOptionCostMappingApproachId(),
-			( new PwwApmGroup() )->getOptionCostMappingApproachId(),
+			( new ApmGroup() )->get_is_active_field()->get_field_name(),
+			( new CourierGroup() )->get_is_active_field()->get_field_name(),
+			( new CodCourierGroup() )->get_is_active_field()->get_field_name(),
+			( new CodApmGroup() )->get_is_active_field()->get_field_name(),
+			( new PwwApmGroup() )->get_is_active_field()->get_field_name(),
+			( new CodCourierGroup() )->get_option_cost_mapping_approach_id(),
+			( new CodApmGroup() )->get_option_cost_mapping_approach_id(),
+			( new PwwApmGroup() )->get_option_cost_mapping_approach_id(),
 		);
 
 		$zones = ShippingZoneHelper::get_all_shipping_zones();

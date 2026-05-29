@@ -13,6 +13,9 @@ use Ilabs\Inpost_Pay\Lib\helpers\JsonSerializationHelper;
 use Ilabs\Inpost_Pay\Lib\Item;
 use JsonSerializable;
 
+/**
+ * Represents a single product attribute with name and value.
+ */
 class ProductAttribute extends Item implements JsonSerializable {
 	use JsonSerializationHelper;
 
@@ -27,7 +30,8 @@ class ProductAttribute extends Item implements JsonSerializable {
 	 * @param mixed $attribute_value Attribute value.
 	 */
 	public function __construct( $attribute_name, $attribute_value ) {
-		$this->attribute_name  = (string) ( wc_attribute_label( $attribute_name ) ?: $attribute_name );
+		$label                 = wc_attribute_label( $attribute_name );
+		$this->attribute_name  = (string) ( $label ? $label : $attribute_name );
 		$this->attribute_value = is_scalar( $attribute_value ) ? wp_strip_all_tags( (string) $attribute_value ) : '';
 
 		if ( '' === $this->attribute_name && '' !== $this->attribute_value ) {
@@ -41,6 +45,6 @@ class ProductAttribute extends Item implements JsonSerializable {
 	 * @return array<string, mixed>
 	 */
 	public function jsonSerialize(): array {
-		return $this->autoSerialize();
+		return $this->auto_serialize();
 	}
 }

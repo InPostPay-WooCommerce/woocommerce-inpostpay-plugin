@@ -1,4 +1,11 @@
 <?php
+/**
+ * Shipping mapping settings manager.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost;
 
@@ -10,49 +17,74 @@ use Ilabs\Inpost_Pay\Lib\config\ShippingCost\PwwApm\PwwApmGroup;
 use Ilabs\Inpost_Pay\Lib\helpers\ShippingZoneHelper;
 
 
+/**
+ * Class ShippingMappingSettingsManager
+ *
+ * Manages all shipping cost configuration groups for a given shipping zone.
+ */
 class ShippingMappingSettingsManager {
 
-	private ShippingMethodsHelper $shippingMethodsHelper;
+	private ShippingMethodsHelper $shipping_methods_helper;
 	private ?int $zone_id = null;
 
 	/**
+	 * Registered shipping cost groups.
+	 *
 	 * @var GroupInterface[]
 	 */
 	private array $groups;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param int|null $zone_id Optional shipping zone ID.
+	 */
 	public function __construct( ?int $zone_id = null ) {
-		$this->shippingMethodsHelper = new ShippingMethodsHelper( $this );
+		$this->shipping_methods_helper = new ShippingMethodsHelper( $this );
 
 		$this->zone_id = $zone_id;
 
 		$this->groups = array(
-			$this->getApmSettingsGroup(),
-			$this->getCodApmSettingsGroup(),
-			$this->getCourierSettingsGroup(),
-			$this->getCodCourierSettingsGroup(),
-			$this->getPwwApmSettingsGroup(),
+			$this->get_apm_settings_group(),
+			$this->get_cod_apm_settings_group(),
+			$this->get_courier_settings_group(),
+			$this->get_cod_courier_settings_group(),
+			$this->get_pww_apm_settings_group(),
 		);
 	}
 
+	/**
+	 * Registers all groups and initialises their fields.
+	 *
+	 * @return void
+	 */
 	public function register() {
 		foreach ( $this->groups as $group ) {
-			$group->registerGroup();
-			$group->initIsActiveField();
-			$group->initOptionCostMappingApproach();
+			$group->register_group();
+			$group->init_is_active_field();
+			$group->init_option_cost_mapping_approach();
 
 		}
-		// $this->getShippingAddTaxField()->init();
-		$this->getCheckShippingAvailabilityField()->init();
+		// $this->get_shipping_add_tax_field()->init();
+		$this->get_check_shipping_availability_field()->init();
 	}
 
-	public function findGroup(
-		string $deliveryTypeCode,
-		string $optionCode = GroupInterface::DELIVERY_OPTION_CODE_NONE
+	/**
+	 * Finds a group matching the given delivery type and option codes.
+	 *
+	 * @param string $delivery_type_code Delivery type code.
+	 * @param string $option_code        Delivery option code.
+	 *
+	 * @return GroupInterface|null
+	 */
+	public function find_group(
+		string $delivery_type_code,
+		string $option_code = GroupInterface::DELIVERY_OPTION_CODE_NONE
 	): ?GroupInterface {
 
 		foreach ( $this->groups as $group ) {
-			if ( $optionCode !== $group->getDeliveryOptionCode()
-				|| $deliveryTypeCode !== $group->getDeliveryTypeCode() ) {
+			if ( $option_code !== $group->get_delivery_option_code()
+				|| $delivery_type_code !== $group->get_delivery_type_code() ) {
 				continue;
 			}
 
@@ -64,73 +96,134 @@ class ShippingMappingSettingsManager {
 	}
 
 	/**
+	 * Returns courier groups that have additional options.
+	 *
 	 * @return GroupInterface[]
 	 */
-	public function findCourierGroupsWithOptions(): array {
+	public function find_courier_groups_with_options(): array {
 		return array(
-			$this->getCodCourierSettingsGroup(),
+			$this->get_cod_courier_settings_group(),
 		);
 	}
 
 	/**
+	 * Returns APM groups that have additional options.
+	 *
 	 * @return GroupInterface[]
 	 */
-	public function findApmGroupsWithOptions(): array {
+	public function find_apm_groups_with_options(): array {
 		return array(
-			$this->getPwwApmSettingsGroup(),
-			$this->getCodApmSettingsGroup(),
+			$this->get_pww_apm_settings_group(),
+			$this->get_cod_apm_settings_group(),
 		);
 	}
 
-	public function getApmFields() {
+	/**
+	 * Returns all fields from APM groups.
+	 *
+	 * @return ShippingMappingFieldInterface[]
+	 */
+	public function get_apm_fields() {
 		return array_merge(
-			$this->getApmSettingsGroup()->getFields(),
-			$this->getPwwApmSettingsGroup()->getFields(),
-			$this->getCodApmSettingsGroup()->getFields()
+			$this->get_apm_settings_group()->get_fields(),
+			$this->get_pww_apm_settings_group()->get_fields(),
+			$this->get_cod_apm_settings_group()->get_fields()
 		);
 	}
 
-	public function getCourierFields() {
+	/**
+	 * Returns all fields from courier groups.
+	 *
+	 * @return ShippingMappingFieldInterface[]
+	 */
+	public function get_courier_fields() {
 		return array_merge(
-			$this->getCourierSettingsGroup()->getFields(),
-			$this->getCodCourierSettingsGroup()->getFields()
+			$this->get_courier_settings_group()->get_fields(),
+			$this->get_cod_courier_settings_group()->get_fields()
 		);
 	}
 
-	public function getCodApmSettingsGroup(): CodApmGroup {
+	/**
+	 * Returns the COD APM settings group.
+	 *
+	 * @return CodApmGroup
+	 */
+	public function get_cod_apm_settings_group(): CodApmGroup {
 		return new CodApmGroup( $this->zone_id );
 	}
 
-	public function getCodCourierSettingsGroup(): CodCourierGroup {
+	/**
+	 * Returns the COD courier settings group.
+	 *
+	 * @return CodCourierGroup
+	 */
+	public function get_cod_courier_settings_group(): CodCourierGroup {
 		return new CodCourierGroup( $this->zone_id );
 	}
 
-	public function getCourierSettingsGroup(): CourierGroup {
+	/**
+	 * Returns the standard courier settings group.
+	 *
+	 * @return CourierGroup
+	 */
+	public function get_courier_settings_group(): CourierGroup {
 		return new CourierGroup( $this->zone_id );
 	}
 
-	public function getPwwApmSettingsGroup(): PwwApmGroup {
+	/**
+	 * Returns the PWW APM settings group.
+	 *
+	 * @return PwwApmGroup
+	 */
+	public function get_pww_apm_settings_group(): PwwApmGroup {
 		return new PwwApmGroup( $this->zone_id );
 	}
 
-	public function getApmSettingsGroup(): ApmGroup {
+	/**
+	 * Returns the standard APM settings group.
+	 *
+	 * @return ApmGroup
+	 */
+	public function get_apm_settings_group(): ApmGroup {
 		return new ApmGroup( $this->zone_id );
 	}
 
-	public function getCheckShippingAvailabilityField(): CheckShippingAvailability {
+	/**
+	 * Returns the check shipping availability field.
+	 *
+	 * @return CheckShippingAvailability
+	 */
+	public function get_check_shipping_availability_field(): CheckShippingAvailability {
 		return CheckShippingAvailability::instance();
 	}
 
+	/**
+	 * Returns the shipping methods helper.
+	 *
+	 * @return ShippingMethodsHelper
+	 */
 	public function get_shipping_methods_helper(): ShippingMethodsHelper {
-		return $this->shippingMethodsHelper;
+		return $this->shipping_methods_helper;
 	}
 
-	public function isGroupWithOptions(
-		GroupInterface $settingsGroupInterface
+	/**
+	 * Checks whether the given group has delivery options.
+	 *
+	 * @param GroupInterface $settings_group_interface The group to check.
+	 *
+	 * @return bool
+	 */
+	public function is_group_with_options(
+		GroupInterface $settings_group_interface
 	): bool {
-		return $settingsGroupInterface->getDeliveryOptionCode() !== GroupInterface::DELIVERY_OPTION_CODE_NONE;
+		return $settings_group_interface->get_delivery_option_code() !== GroupInterface::DELIVERY_OPTION_CODE_NONE;
 	}
 
+	/**
+	 * Placeholder static getter.
+	 *
+	 * @return void
+	 */
 	public static function get() {
 	}
 }

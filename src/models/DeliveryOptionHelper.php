@@ -43,13 +43,13 @@ class DeliveryOptionHelper {
 		$this->optionPrice['gross'] = 0.0;
 		$this->optionPrice['tax']   = 0.0;
 
-		$optionCostMappingApproach = $this->optionGroup->getOptionCostMappingApproach();
+		$optionCostMappingApproach = $this->optionGroup->get_option_cost_mapping_approach();
 
 		$isOptionCostMappingApproachFee = $optionCostMappingApproach === OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_FEE;
 		// todo rename
 
 		if ( $isOptionCostMappingApproachFee ) {
-			$priceField = $this->optionGroup->getPriceField();
+			$priceField = $this->optionGroup->get_price_field();
 			if ( $priceField && ! $this->available ) {
 				$priceFieldVal = floatval( $priceField->get() );
 				if ( $priceFieldVal > 0 ) {
@@ -59,7 +59,7 @@ class DeliveryOptionHelper {
 				}
 			}
 		} else {
-			$transportMethodField = $this->optionGroup->getShippingMethodField();
+			$transportMethodField = $this->optionGroup->get_shipping_method_field();
 			if ( $transportMethodField ) {
 				$method = $transportMethodField->get();
 
@@ -99,7 +99,7 @@ class DeliveryOptionHelper {
 			);
 			$tax   = array_sum( $taxes );
 
-			$shippingMethod = $this->wooDeliveryPrice->getCachedShippingMethods()[ $this->baseGroup->getDeliveryTypeCode() ];
+			$shippingMethod = $this->wooDeliveryPrice->getCachedShippingMethods()[ $this->baseGroup->get_delivery_type_code() ];
 
 			if ( $shippingMethod === null || $this->wooDeliveryPrice->isFreeDeliveryFound() ) {
 				$this->optionPrice['gross'] = 0;
@@ -125,7 +125,7 @@ class DeliveryOptionHelper {
 		bool $checkShippingAvailability
 	) {
 		$deliveryParameters = $this->wooDeliveryPrice->getDeliveryParameters(
-			$this->baseGroup->getDeliveryTypeCode(),
+			$this->baseGroup->get_delivery_type_code(),
 			$this->mappedShippingMethodField,
 			$this->optionGroup,
 			$checkShippingAvailability,
@@ -249,12 +249,12 @@ class DeliveryOptionHelper {
 
 		// one option
 		if ( count( $optionsGroups ) === 1 ) {
-			if ( $optionsGroups[0]->getOptionCostMappingApproach()
+			if ( $optionsGroups[0]->get_option_cost_mapping_approach()
 				!== OptionCostMappingApproach::OPTION_COST_MAPPING_APPROACH_SHIPPING_METHOD ) {
 				return $baseGroup;// $transportMethodField not used
 			}
 
-			$transportMethodField = $optionsGroups[0]->getShippingMethodField();
+			$transportMethodField = $optionsGroups[0]->get_shipping_method_field();
 			if ( $transportMethodField ) {
 				$method = $transportMethodField->get();// update WcOrder with this shipping method if option has mapped method not price fee
 				if ( is_string( $method ) && $method !== '0' ) {

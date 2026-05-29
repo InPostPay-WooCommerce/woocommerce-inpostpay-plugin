@@ -5,6 +5,8 @@
  * @package Inpost_Pay
  */
 
+declare( strict_types=1 );
+
 namespace Ilabs\Inpost_Pay\Type;
 
 /**

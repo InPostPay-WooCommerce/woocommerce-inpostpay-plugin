@@ -122,6 +122,17 @@ class SettingsPage {
 		echo '</select>';
 	}
 
+	public static function initialOrderStatusDropdown() {
+		$value = esc_attr( get_option( 'izi_initial_order_status' ) );
+		echo "<select name='izi_initial_order_status'>";
+		echo "<option value=''>" . __( 'Select', 'inpost-pay' ) . '</option>';
+		foreach ( StatusTranslator::ayastmAvailableStatusses() as $system => $availableLabel ) {
+			$selected = $value == $system ? 'selected' : '';
+			echo "<option {$selected} value='{$system}'>{$availableLabel}</option>";
+		}
+		echo '</select>';
+	}
+
 	public static function productDescMapDropdown() {
 		$optId = self::OPT_KEY_PRODUCT_DESC_MAP;
 		$value = esc_attr(

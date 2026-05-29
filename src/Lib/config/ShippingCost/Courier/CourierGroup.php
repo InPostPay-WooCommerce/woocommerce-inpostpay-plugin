@@ -1,4 +1,11 @@
 <?php
+/**
+ * Courier shipping cost group.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost\Courier
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost\Courier;
 
@@ -11,74 +18,142 @@ use Ilabs\Inpost_Pay\Lib\form\AbstractOption;
 use Ilabs\Inpost_Pay\Lib\form\exception\OptionNameRequired;
 use function Ilabs\Inpost_Pay\inpost_pay;
 
+/**
+ * Class CourierGroup
+ *
+ * Shipping cost group for standard courier delivery.
+ */
 class CourierGroup extends AbstractGroup {
 
 	/**
-	 * @throws OptionNameRequired
+	 * Returns the shipping method field for courier.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return AbstractShippingMethodField
 	 */
-	public function getShippingMethodField(): AbstractShippingMethodField {
+	public function get_shipping_method_field(): AbstractShippingMethodField {
 		return CourierShippingMethod::instance( $this->get_zone_id() );
 	}
 
 	/**
-	 * @throws OptionNameRequired
+	 * Registers all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
+	 * @return void
 	 */
-	public function registerGroup(): void {
-		$this->getShippingMethodField()->init();
+	public function register_group(): void {
+		$this->get_shipping_method_field()->init();
 	}
 
 	/**
+	 * Returns all fields for this group.
+	 *
+	 * @throws OptionNameRequired When the option name is not set.
+	 *
 	 * @return ShippingMappingFieldInterface[]
-	 * @throws OptionNameRequired
 	 */
-	public function getFields(): array {
+	public function get_fields(): array {
 		return array(
-			$this->getShippingMethodField(),
+			$this->get_shipping_method_field(),
 		);
 	}
 
-	public function getDeliveryOptionCode(): string {
+	/**
+	 * Returns the delivery option code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_option_code(): string {
 		return GroupInterface::DELIVERY_OPTION_CODE_NONE;
 	}
 
-	public function getDeliveryTypeCode(): string {
+	/**
+	 * Returns the delivery type code.
+	 *
+	 * @return string
+	 */
+	public function get_delivery_type_code(): string {
 		return GroupInterface::DELIVERY_TYPE_CODE_COURIER;
 	}
 
-	public function getApiDeliveryOptionsMap(): ?array {
+	/**
+	 * Returns the API delivery options map.
+	 *
+	 * @return array|null
+	 */
+	public function get_api_delivery_options_map(): ?array {
 		return array(
 			GroupInterface::DELIVERY_OPTION_CODE_COD
-			=> $this->getDeliveryOptionName( GroupInterface::DELIVERY_OPTION_CODE_COD ),
+			=> $this->get_delivery_option_name(),
 		);
 	}
 
-	public function getOptionSubGroups( ?int $zone_id = null ): ?array {
+	/**
+	 * Returns option sub-groups for this group.
+	 *
+	 * @param int|null $zone_id Optional zone ID.
+	 *
+	 * @return GroupInterface[]|null
+	 */
+	public function get_option_sub_groups( ?int $zone_id = null ): ?array {
 		return array(
-			inpost_pay()->shipping_cost_settings( $zone_id )->getCodCourierSettingsGroup(),
+			inpost_pay()->shipping_cost_settings( $zone_id )->get_cod_courier_settings_group(),
 		);
 	}
 
-	public function getAvailableFromDayField(): ?AbstractOption {
+	/**
+	 * Returns null — courier group has no availability-from-day field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_from_day_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableFromHourField(): ?AbstractOption {
+	/**
+	 * Returns null — courier group has no availability-from-hour field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_from_hour_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableToDayField(): ?AbstractOption {
+	/**
+	 * Returns null — courier group has no availability-to-day field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_to_day_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getAvailableToHourField(): ?AbstractOption {
+	/**
+	 * Returns null — courier group has no availability-to-hour field.
+	 *
+	 * @return AbstractOption|null
+	 */
+	public function get_available_to_hour_field(): ?AbstractOption {
 		return null;
 	}
 
-	public function getPriceField(): ?AbstractPriceField {
+	/**
+	 * Returns null — courier group has no price field.
+	 *
+	 * @return AbstractPriceField|null
+	 */
+	public function get_price_field(): ?AbstractPriceField {
 		return null;
 	}
 
-	public function getIsActiveFieldId(): string {
+	/**
+	 * Returns the option ID for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_id(): string {
 		if ( $this->get_zone_id() !== null ) {
 			return 'izi_group_courier_active_' . $this->get_zone_id();
 		}
@@ -86,7 +161,12 @@ class CourierGroup extends AbstractGroup {
 		return 'izi_group_courier_active';
 	}
 
-	protected function getIsActiveFieldLabel(): string {
+	/**
+	 * Returns the label for the is-active field.
+	 *
+	 * @return string
+	 */
+	protected function get_is_active_field_label(): string {
 		return __( 'Courier', 'inpost-pay' );
 	}
 }

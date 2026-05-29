@@ -41,7 +41,7 @@ class WooDeliveryPrice {
 	 */
 	private array $cachedShippingMethods = array();
 	private bool $checkShippingAvailability;
-	private ShippingMappingSettingsManager $shippingCostSettingsManager;
+	private ShippingMappingSettingsManager $shipping_cost_settings_manager;
 	private bool $freeDeliveryFound = false;
 
 	private int $zone_id;
@@ -49,7 +49,7 @@ class WooDeliveryPrice {
 	public function __construct() {
 		$user_zone                         = ProductDeliveryChecker::prepare_user_zone_context();
 		$this->zone_id                     = $user_zone->get_id();
-		$this->shippingCostSettingsManager = inpost_pay()->shipping_cost_settings( $user_zone->get_id() );
+		$this->shipping_cost_settings_manager = inpost_pay()->shipping_cost_settings( $user_zone->get_id() );
 	}
 
 	public function mapDelivery( $order = null ) {
@@ -59,11 +59,11 @@ class WooDeliveryPrice {
 		$options                      = array();
 
 		$baseGroups   = array();
-		$baseGroups[] = $this->shippingCostSettingsManager->getApmSettingsGroup();
-		$baseGroups[] = $this->shippingCostSettingsManager->getCourierSettingsGroup();
+		$baseGroups[] = $this->shipping_cost_settings_manager->get_apm_settings_group();
+		$baseGroups[] = $this->shipping_cost_settings_manager->get_courier_settings_group();
 
-		$this->checkShippingAvailability = $this->shippingCostSettingsManager
-			->getCheckShippingAvailabilityField()
+		$this->checkShippingAvailability = $this->shipping_cost_settings_manager
+			->get_check_shipping_availability_field()
 			->get_bool();
 
 		foreach ( $baseGroups as $baseGroup ) {
@@ -71,17 +71,17 @@ class WooDeliveryPrice {
 				continue;
 			}
 
-			if ( false === $baseGroup->getIsActiveField()->get_bool() ) {
+			if ( false === $baseGroup->get_is_active_field()->get_bool() ) {
 				continue;
 			}
 
-			$deliveryType = $baseGroup->getDeliveryTypeCode();
+			$deliveryType = $baseGroup->get_delivery_type_code();
 
 			$parameters = null;
 			$price      = null;
 
 			if ( ! $order ) {
-				$transportMethodField = $baseGroup->getShippingMethodField();
+				$transportMethodField = $baseGroup->get_shipping_method_field();
 
 				if ( ! $transportMethodField ) {
 					continue;
@@ -118,7 +118,7 @@ class WooDeliveryPrice {
 			$deliveryDate = date( 'Y-m-d\T12:00:00.000\Z', strtotime( ' + 2 day' ) );
 			$delivery->set_delivery_date( $deliveryDate );
 
-			$groupsWithOptions = $baseGroup->getOptionSubGroups( $this->zone_id );
+			$groupsWithOptions = $baseGroup->get_option_sub_groups( $this->zone_id );
 
 			$deliveryOptions = array();
 
@@ -128,11 +128,11 @@ class WooDeliveryPrice {
 						continue;
 					}
 
-					if ( $optionGroup->getDeliveryOptionCode() === GroupInterface::DELIVERY_OPTION_CODE_PWW_COD ) {
+					if ( $optionGroup->get_delivery_option_code() === GroupInterface::DELIVERY_OPTION_CODE_PWW_COD ) {
 						continue;
 					}
 
-					if ( ! $optionGroup->getIsActiveField()->get_bool() ) {
+					if ( ! $optionGroup->get_is_active_field()->get_bool() ) {
 						continue;
 					}
 
@@ -452,7 +452,7 @@ class WooDeliveryPrice {
 		GroupInterface $group,
 		bool $isTaxable
 	) {
-		$this->isTaxable[ $group->getGroupId() ] = $isTaxable;
+		$this->isTaxable[ $group->get_group_id() ] = $isTaxable;
 	}
 
 
@@ -483,10 +483,10 @@ class WooDeliveryPrice {
 		$dayOfWeek = date( 'N' );
 		$hour      = date( 'H' );
 
-		$dayFrom  = $availabilityGroupInterface->getAvailableFromDayField()->get();
-		$dayTo    = $availabilityGroupInterface->getAvailableToDayField()->get();
-		$hourFrom = $availabilityGroupInterface->getAvailableFromHourField()->get();
-		$hourTo   = $availabilityGroupInterface->getAvailableToHourField()->get();
+		$dayFrom  = $availabilityGroupInterface->get_available_from_day_field()->get();
+		$dayTo    = $availabilityGroupInterface->get_available_to_day_field()->get();
+		$hourFrom = $availabilityGroupInterface->get_available_from_hour_field()->get();
+		$hourTo   = $availabilityGroupInterface->get_available_to_hour_field()->get();
 
 		if ( $dayOfWeek < $dayFrom ) {
 			return false;
@@ -535,8 +535,8 @@ class WooDeliveryPrice {
 		$option = new DeliveryOption();
 
 		$price = new Price();
-		$option->set_delivery_name( $optionSubGroup->getDeliveryOptionName() );
-		$option->set_delivery_code_value( $optionSubGroup->getDeliveryOptionCode() );
+		$option->set_delivery_name( $optionSubGroup->get_delivery_option_name() );
+		$option->set_delivery_code_value( $optionSubGroup->get_delivery_option_code() );
 
 		$price->set_gross( wc_format_decimal( $deliveryOptionHelper->getOptionPrice()['gross'], 2 ) );
 		$price->set_net( $deliveryOptionHelper->getOptionPrice()['net'] );

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Order hooks executor.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\Hooks\Executor
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\Hooks\Executor;
 
@@ -15,17 +22,21 @@ use WC_Order;
  */
 final class OrderHooksExecutor {
 	/**
+	 * Order hooks configuration instance.
+	 *
 	 * @var OrderHooksConfig
 	 */
 	private OrderHooksConfig $config;
 
 	/**
-	 * @var array Enabled hook keys from the configuration (e.g. 'checkout_order_created')
+	 * Enabled hook keys loaded from the configuration option.
+	 *
+	 * @var array
 	 */
 	private array $enabled_hooks;
 
 	/**
-	 * OrderHooksExecutor constructor.
+	 * Constructor.
 	 *
 	 * Loads the enabled hooks from the settings.
 	 */
@@ -53,7 +64,7 @@ final class OrderHooksExecutor {
 
 			switch ( $key ) {
 				case 'checkout_order_processed':
-					do_action( 'woocommerce_checkout_order_processed', $order_id, $_POST, $order );
+					do_action( 'woocommerce_checkout_order_processed', $order_id, $_POST, $order ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 					break;
 
 				case 'checkout_create_order':

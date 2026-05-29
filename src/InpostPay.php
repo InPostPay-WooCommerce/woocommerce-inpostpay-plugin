@@ -333,7 +333,7 @@ class InpostPay {
 			( new FrontSessionCleanup() )->attach_frontend_hook();
 		}
 
-		if ( is_admin() ) {
+		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || is_admin() ) {
 			( new AdminBillingFields() )->attach_hook();
 			( new AdminOrderUpdate() )->attach_hook();
 			( new AdminHotProductUpdate() )->attach_hook();

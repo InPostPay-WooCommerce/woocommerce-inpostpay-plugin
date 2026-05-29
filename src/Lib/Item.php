@@ -16,7 +16,7 @@ class Item implements JsonSerializable {
 	 *
 	 * @throws ErrorException If property does not exist.
 	 */
-	public function __set( $property, $value ) {
+	public function __set( string $property, $value ) {
 		if ( property_exists( $this, $property ) ) {
 			switch ( $property ) {
 				case 'quantity':
@@ -40,7 +40,7 @@ class Item implements JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	public function __isset( $property ): bool {
+	public function __isset( string $property ): bool {
 		return property_exists( $this, $property );
 	}
 
@@ -52,7 +52,7 @@ class Item implements JsonSerializable {
 	 * @return mixed
 	 * @throws ErrorException If property does not exist.
 	 */
-	public function __get( $property ) {
+	public function __get( string $property ) {
 		if ( property_exists( $this, $property ) ) {
 			return $this->$property;
 		}
@@ -61,13 +61,13 @@ class Item implements JsonSerializable {
 	}
 
 	/**
-	 * Converts the object to array using autoSerialize if available.
+	 * Converts the object to array using auto_serialize if available.
 	 *
 	 * @return array
 	 */
 	public function toArray(): array {
-		return method_exists( $this, 'autoSerialize' )
-			? $this->autoSerialize()
+		return method_exists( $this, 'auto_serialize' )
+			? $this->auto_serialize()
 			: get_object_vars( $this );
 	}
 

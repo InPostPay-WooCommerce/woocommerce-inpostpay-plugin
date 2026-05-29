@@ -340,6 +340,7 @@ class ComposerStaticInit10f463c79c91b0cbacf42a322648715e
         'Ilabs\\Inpost_Pay\\StatusTranslator' => __DIR__ . '/../..' . '/src/StatusTranslator.php',
         'Ilabs\\Inpost_Pay\\TokenCache' => __DIR__ . '/../..' . '/src/TokenCache.php',
         'Ilabs\\Inpost_Pay\\Type\\ConsentType' => __DIR__ . '/../..' . '/src/Type/ConsentType.php',
+        'Ilabs\\Inpost_Pay\\Type\\WooCommerceSessionKeyType' => __DIR__ . '/../..' . '/src/Type/WooCommerceSessionKeyType.php',
         'Ilabs\\Inpost_Pay\\UnavailablePage' => __DIR__ . '/../..' . '/src/UnavailablePage.php',
         'Ilabs\\Inpost_Pay\\WooCommerce\\Cart\\CartContentManager' => __DIR__ . '/../..' . '/src/WooCommerce/Cart/CartContentManager.php',
         'Ilabs\\Inpost_Pay\\WooCommerce\\Cart\\CartValidator' => __DIR__ . '/../..' . '/src/WooCommerce/Cart/CartValidator.php',

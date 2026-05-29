@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract shipping method field.
+ *
+ * @package Ilabs\Inpost_Pay\Lib\config\ShippingCost
+ */
+
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\ShippingCost;
 
@@ -9,6 +16,11 @@ use Ilabs\Inpost_Pay\Lib\form\exception\RequiredConfigOptionException;
 use Ilabs\Inpost_Pay\Lib\form\FormFieldInterface;
 use Ilabs\Inpost_Pay\Lib\form\Select;
 
+/**
+ * Class AbstractShippingMethodField
+ *
+ * Base class for WooCommerce shipping method selector fields.
+ */
 abstract class AbstractShippingMethodField extends AbstractZoneOption implements ShippingMappingFieldInterface {
 
 	/**
@@ -25,7 +37,6 @@ abstract class AbstractShippingMethodField extends AbstractZoneOption implements
 	 *
 	 * @return void
 	 */
-
 	public function register( array $args = array() ): void {
 		parent::register( $args );
 	}
@@ -37,12 +48,12 @@ abstract class AbstractShippingMethodField extends AbstractZoneOption implements
 	 * guarantees a string return type even when the option has never been saved
 	 * to the database.
 	 *
-	 * @param mixed $default Default value returned when the option is absent from the database.
+	 * @param mixed $default_value Default value returned when the option is absent from the database.
 	 *
 	 * @return string Shipping method identifier, '0' for unselected placeholders, or '' when absent.
 	 */
-	public function get( $default = '' ): string {
-		$val = parent::get( $default );
+	public function get( $default_value = '' ): string {
+		$val = parent::get( $default_value );
 
 		if ( ! is_string( $val ) ) {
 			return '';

@@ -125,10 +125,10 @@ use Ilabs\Inpost_Pay\Lib\helpers\ShippingZoneHelper;
 								<?php
 								$courierIsActiveField = inpost_pay()
 									->shipping_cost_settings( $zone_id )
-									->getCourierSettingsGroup()->getIsActiveField();
+									->get_courier_settings_group()->get_is_active_field();
 								$apmIsActiveField     = inpost_pay()
 									->shipping_cost_settings( $zone_id )
-									->getApmSettingsGroup()->getIsActiveField();
+									->get_apm_settings_group()->get_is_active_field();
 
 								$courierSectionIsActive  = $courierIsActiveField->get_bool( true );
 								$apmSectionIsActive      = $apmIsActiveField->get_bool( true );

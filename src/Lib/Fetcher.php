@@ -169,7 +169,7 @@ class Fetcher {
 	public function build_params_from_array( string $name, array $url_params ): string {
 		$params = array();
 		foreach ( $url_params as $key => $value ) {
-			$params[] = $name . '[' . rawurlencode( $key ) . ']=' . rawurlencode( $value );
+			$params[] = $name . '[' . rawurlencode( (string) $key ) . ']=' . rawurlencode( (string) $value );
 		}
 
 		return implode( '&', $params );

@@ -8,6 +8,7 @@
  * @author      ILabs
  */
 
+declare( strict_types=1 );
 
 namespace Ilabs\Inpost_Pay\Lib\config\payment;
 

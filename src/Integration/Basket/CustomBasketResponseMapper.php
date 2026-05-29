@@ -28,19 +28,19 @@ class CustomBasketResponseMapper {
 	}
 
 	protected function mapSummary( Basket $basket ): array {
-		return $this->serializeItem( $basket->get_summary() );
+		return $this->serialize_item( $basket->get_summary() );
 	}
 
 	protected function mapDelivery( Basket $basket ): array {
-		return $this->serializeArray( $basket->get_delivery() );
+		return $this->serialize_array( $basket->get_delivery() );
 	}
 
 	protected function mapPromoCodes( Basket $basket ): array {
-		return $this->serializeArray( $basket->get_promo_codes() );
+		return $this->serialize_array( $basket->get_promo_codes() );
 	}
 
 	protected function mapConsents( Basket $basket ): array {
-		return $this->serializeArray( $basket->get_consents() );
+		return $this->serialize_array( $basket->get_consents() );
 	}
 
 	protected function mapProducts( Basket $basket ): array {
@@ -48,7 +48,7 @@ class CustomBasketResponseMapper {
 
 		return array_map(
 			function ( $product ) use ( $lowest_price_required ) {
-				$productArray = $this->serializeItem( $product );
+				$productArray = $this->serialize_item( $product );
 
 				return $this->prepareProductResponse( $productArray, $lowest_price_required, true );
 			},
@@ -59,7 +59,7 @@ class CustomBasketResponseMapper {
 	protected function mapRelatedProducts( Basket $basket ): array {
 		return array_map(
 			function ( $relatedProduct ) {
-				$productArray = $this->serializeItem( $relatedProduct );
+				$productArray = $this->serialize_item( $relatedProduct );
 
 				return $this->prepareProductResponse( $productArray, false, false );
 			},
@@ -68,7 +68,7 @@ class CustomBasketResponseMapper {
 	}
 
 	protected function mapPromotionsAvailable( Basket $basket ): array {
-		return $this->serializeArray( $basket->get_promotions_available() );
+		return $this->serialize_array( $basket->get_promotions_available() );
 	}
 
 	private function prepareProductResponse( array $product, bool $lowest_price_required = false, bool $is_main_product = true ): array {

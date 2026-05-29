@@ -5,6 +5,8 @@
  * @package InPost\Lib\config\payment
  */
 
+declare( strict_types=1 );
+
 namespace Ilabs\Inpost_Pay\Lib\config\payment;
 
 use Ilabs\Inpost_Pay\Lib\Authorization;
@@ -69,10 +71,10 @@ final class PaymentMethodsOptions extends AbstractOption implements PaymentMetho
 	 * If the option has no value, it will return an empty array.
 	 * Otherwise, it will return the value stored in the option.
 	 *
-	 * @param bool $default Whether to return an empty array if the option has no value.
+	 * @param bool $default_value Whether to return an empty array if the option has no value.
 	 * @return array The payment methods stored in the option.
 	 */
-	public function get( $default = false ) {
+	public function get( $default_value = false ) {
 		$payment_methods = parent::get();
 		if ( is_string( $payment_methods ) ) {
 			return array();

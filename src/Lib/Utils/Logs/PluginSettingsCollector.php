@@ -73,6 +73,7 @@ class PluginSettingsCollector {
 			'izi_refresh_after_add_to_cart'      => get_option( 'izi_refresh_after_add_to_cart' ),
 			'izi_main_image_only'                => get_option( 'izi_main_image_only' ),
 			'izi_custom_basket_response_enabled' => get_option( 'izi_custom_basket_response_enabled' ),
+			'izi_rogue_output_buffer_enabled'    => get_option( 'izi_rogue_output_buffer_enabled' ),
 			'izi_custom_response_enabled'        => get_option( 'izi_custom_response_enabled' ),
 			'izi_order_hooks_config'             => get_option( 'izi_order_hooks_config' ),
 			'izi_cart_hooks_config'              => get_option( 'izi_cart_hooks_config' ),
@@ -125,12 +126,12 @@ class PluginSettingsCollector {
 			$settings = inpost_pay()->shipping_cost_settings( (int) $zone_id );
 
 			try {
-				$courier         = $settings->getCourierSettingsGroup();
-				$courier_enabled = $courier->getIsActiveField()->get_bool();
+				$courier         = $settings->get_courier_settings_group();
+				$courier_enabled = $courier->get_is_active_field()->get_bool();
 				$courier_data    = array( 'enabled' => $courier_enabled );
 
 				if ( $courier_enabled ) {
-					$courier_cod = $settings->getCodCourierSettingsGroup();
+					$courier_cod = $settings->get_cod_courier_settings_group();
 
 					$courier_data['shipping_method'] = $this->extract_shipping_group_data( $courier, array( 'shipping_method' ) )['shipping_method'];
 					$courier_data['cod']             = $this->extract_shipping_group_data( $courier_cod );
@@ -141,13 +142,13 @@ class PluginSettingsCollector {
 			}
 
 			try {
-				$apm         = $settings->getApmSettingsGroup();
-				$apm_enabled = $apm->getIsActiveField()->get_bool();
+				$apm         = $settings->get_apm_settings_group();
+				$apm_enabled = $apm->get_is_active_field()->get_bool();
 				$apm_data    = array( 'enabled' => $apm_enabled );
 
 				if ( $apm_enabled ) {
-					$apm_cod = $settings->getCodApmSettingsGroup();
-					$apm_pww = $settings->getPwwApmSettingsGroup();
+					$apm_cod = $settings->get_cod_apm_settings_group();
+					$apm_pww = $settings->get_pww_apm_settings_group();
 
 					$apm_data['shipping_method'] = $this->extract_shipping_group_data( $apm, array( 'shipping_method' ) )['shipping_method'];
 					$apm_data['cod']             = $this->extract_shipping_group_data( $apm_cod );
@@ -155,12 +156,12 @@ class PluginSettingsCollector {
 
 					try {
 						$apm_data['pww']['available_from'] = array(
-							'day'  => $apm_pww->getAvailableFromDayField() ? $apm_pww->getAvailableFromDayField()->get() : null,
-							'hour' => $apm_pww->getAvailableFromHourField() ? $apm_pww->getAvailableFromHourField()->get() : null,
+							'day'  => $apm_pww->get_available_from_day_field() ? $apm_pww->get_available_from_day_field()->get() : null,
+							'hour' => $apm_pww->get_available_from_hour_field() ? $apm_pww->get_available_from_hour_field()->get() : null,
 						);
 						$apm_data['pww']['available_to']   = array(
-							'day'  => $apm_pww->getAvailableToDayField() ? $apm_pww->getAvailableToDayField()->get() : null,
-							'hour' => $apm_pww->getAvailableToHourField() ? $apm_pww->getAvailableToHourField()->get() : null,
+							'day'  => $apm_pww->get_available_to_day_field() ? $apm_pww->get_available_to_day_field()->get() : null,
+							'hour' => $apm_pww->get_available_to_hour_field() ? $apm_pww->get_available_to_hour_field()->get() : null,
 						);
 					} catch ( \Throwable $e ) {
 						Logger::log( '[InPost Pay Collector] PWW availability extraction error in zone ' . $zone_id . ': ' . $e->getMessage() );
@@ -180,7 +181,7 @@ class PluginSettingsCollector {
 
 		try {
 			$global_settings             = inpost_pay()->shipping_cost_settings();
-			$global_availability_field   = $global_settings->getCheckShippingAvailabilityField();
+			$global_availability_field   = $global_settings->get_check_shipping_availability_field();
 			$check_shipping_availability = $global_availability_field->get_bool();
 		} catch ( \Throwable $e ) {
 			$check_shipping_availability = false;
@@ -220,22 +221,22 @@ class PluginSettingsCollector {
 
 		try {
 			if ( in_array( 'enabled', $include_fields, true ) ) {
-				$field           = $group->getIsActiveField();
+				$field           = $group->get_is_active_field();
 				$data['enabled'] = $field && $field->get_bool();
 			}
 
 			if ( in_array( 'mapping_type', $include_fields, true ) ) {
-				$obj                  = $group->getOptionCostMappingApproachObj();
+				$obj                  = $group->get_option_cost_mapping_approach_obj();
 				$data['mapping_type'] = $obj ? $obj->get() : null;
 			}
 
 			if ( in_array( 'shipping_method', $include_fields, true ) ) {
-				$field                   = $group->getShippingMethodField();
+				$field                   = $group->get_shipping_method_field();
 				$data['shipping_method'] = $field ? $field->get() : null;
 			}
 
 			if ( in_array( 'additional_fee', $include_fields, true ) ) {
-				$field                  = $group->getPriceField();
+				$field                  = $group->get_price_field();
 				$data['additional_fee'] = $field ? $field->get() : null;
 			}
 		} catch ( \Throwable $e ) {

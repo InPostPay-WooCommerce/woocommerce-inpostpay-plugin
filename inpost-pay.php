@@ -3,7 +3,7 @@
  * Plugin Name: InPost Pay
  * Plugin URI:
  * Description:
- * Version: 2.0.8
+ * Version: 2.0.9
  * Tested up to: 6.9
  * Requires PHP: 7.4
  * Author: iLabs LTD

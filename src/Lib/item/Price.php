@@ -1,5 +1,7 @@
 <?php
 /**
+ * Price item.
+ *
  * @package Ilabs\Inpost_Pay\Lib\item
  */
 
@@ -36,7 +38,7 @@ class Price extends Item implements JsonSerializable {
 	 * @return array The array containing all the properties of the object.
 	 */
 	public function jsonSerialize(): array {
-		return $this->autoSerialize();
+		return $this->auto_serialize();
 	}
 
 	/**

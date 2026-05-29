@@ -1,4 +1,4 @@
-#inpostpayadmin input {
+#inpostpayadmin input:not([type="checkbox"]):not([type="radio"]) {
 	color: #23282d;
 	font-family: Arial;
 	font-size: 13px;
@@ -14,6 +14,7 @@
 #inpostpayadmin input[type="checkbox"] {
 	width: 17px;
 	height: 16px;
+	accent-color: #0073aa;
 }
 
 #inpostpayadmin input[type="checkbox"]:checked::before {
@@ -149,8 +150,6 @@
 	padding: unset;
 	color: #fff;
 	text-align: center;
-	text-shadow: 0px -1px 1px #006799, 1px 0px 1px #006799, 0px 1px 1px #006799,
-		-1px 0px 1px #006799;
 	font-family: Arial;
 	font-size: 13px;
 	font-style: normal;
@@ -162,6 +161,7 @@
 	background-color: #0073aa;
 	border: 1px solid #005f8c;
 	box-shadow: 0px 2px 0px 0px #005f8c;
+	color: #fff;
 }
 
 @media screen and (min-width: 768px) {
